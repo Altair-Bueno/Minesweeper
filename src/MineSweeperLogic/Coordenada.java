@@ -20,6 +20,10 @@ public class Coordenada {
         return y;
     }
 
+    public static Coordenada getOriginInstance(){
+        return new Coordenada();
+    }
+
     @Override
     public String toString() {
         return x+":"+y;

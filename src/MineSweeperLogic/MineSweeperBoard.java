@@ -1,36 +1,40 @@
 package MineSweeperLogic;
 
-import java.util.Arrays;
 import java.util.Random;
 
-public abstract class MineSweeperBoard {
+public class MineSweeperBoard {
 
     /*
     Contenido del cablero vacío, minas o número de minas cercanas
     -1,0,1,2,3...
      */
+
     public static final int MINA=-1;
     public static final int EMPTY=0;
 
 
     private int [][] tablero;
-    private boolean [][] visibilidadTablero;
+    private boolean [][] visibility;
     private final int numMinas;
-    private int contadorBanderas;
+    private int flagNumber;
+    private int leftOver;
 
-    protected MineSweeperBoard(int x,int y,int numMinas){
+    //Constructors
+    public MineSweeperBoard(int x,int y,int numMinas){
         tablero=new int[x][y];
-        visibilidadTablero=new boolean[x][y];
+        visibility =new boolean[x][y];
         this.numMinas=numMinas;
-        contadorBanderas=0;
+        flagNumber =0;
+        leftOver = x*y;
         plantMines();
         calculateNearbyMines();
     }
-    protected MineSweeperBoard(int size,int numMinas){
+    public MineSweeperBoard(int size,int numMinas){
         this(size,size,numMinas);
     }
 
-    protected void plantMines(){
+    //Private method for constructors
+    private void plantMines(){
         Random random=new Random();
         int i=0;
 
@@ -43,34 +47,21 @@ public abstract class MineSweeperBoard {
             }
         }
     }
-    protected void calculateNearbyMines(){
+    private void calculateNearbyMines(){
         for (int x=0; x<tablero.length;x++){
             for (int y=0; y<tablero[0].length;y++){
+
                 if (tablero[x][y]==MINA){
-                    try{
-                        if(tablero[x-1][y-1]!=MINA) tablero[x-1][y-1]++;
-                    } catch (ArrayIndexOutOfBoundsException ignored){}
-                    try{
-                        if(tablero[x-1][y]!=MINA) tablero[x-1][y]++;
-                    } catch (ArrayIndexOutOfBoundsException ignored){}
-                    try{
-                        if(tablero[x-1][y+1]!=MINA) tablero[x-1][y+1]++;
-                    } catch (ArrayIndexOutOfBoundsException ignored){}
-                    try{
-                        if(tablero[x][y-1]!=MINA) tablero[x][y-1]++;
-                    } catch (ArrayIndexOutOfBoundsException ignored){}
-                    try{
-                        if(tablero[x][y+1]!=MINA) tablero[x][y+1]++;
-                    } catch (ArrayIndexOutOfBoundsException ignored){}
-                    try{
-                        if (tablero[x+1][y-1]!=MINA) tablero[x+1][y-1]++;
-                    } catch (ArrayIndexOutOfBoundsException ignored){}
-                    try{
-                        if(tablero[x+1][y]!=MINA)tablero[x+1][y]++;
-                    } catch (ArrayIndexOutOfBoundsException ignored){}
-                    try{
-                        if (tablero[x+1][y+1]!=MINA)tablero[x+1][y+1]++;
-                    } catch (ArrayIndexOutOfBoundsException ignored){}
+
+                    for (int i=x-1; i<=x+1;i++) {
+                        for (int u=y-1; u<=y+1;u++){
+
+                            try {
+                                if (tablero[i][u] != MINA) tablero[i][u]++;
+                            }catch (ArrayIndexOutOfBoundsException ignored){}
+
+                        }
+                    }
                 }
             }
         }
@@ -90,6 +81,7 @@ public abstract class MineSweeperBoard {
         return stringBuilder.toString();
     }
 
+    //Game Dig
     public void dig(Coordenada coordenada){
         dig(coordenada.getColumna(),coordenada.getFila());
     }
@@ -97,11 +89,52 @@ public abstract class MineSweeperBoard {
         switch (tablero[x][y]){
             case MINA:
                 throw new GameOver("Explosión de mina",GameOver.MINEFOUND);
-            case EMPTY:
-                //TODO stuff
-                break;
             default:
-                //TODO stuff
+                showZone(x,y);
         }
+        if (leftOver==numMinas && numMinas==flagNumber) throw new GameOver("Has ganado",GameOver.GAMEWON);
+    }
+
+    //Method for cleaning 0 zones
+    private void showZone(int x,int y) {
+        if (tablero[x][y] == EMPTY) {
+            visibility[x][y]=true;
+            leftOver--;
+                for (int i=x-1; i<=x+1;i++) {
+                    for (int u=y-1; u<=y+1;u++){
+
+                        try {
+                            if (!visibility[i][u]) showZone(i,u);
+                        }catch (ArrayIndexOutOfBoundsException ignored){}
+
+                    }
+                }
+
+        } else if (tablero[x][y] != MINA) {
+            visibility[x][y]=true;
+            leftOver--;
+        }
+    }
+
+    //getter
+    public boolean[][] getVisibility(){
+        return visibility;
+    }
+    public void addFlag(){
+        flagNumber++;
+    }
+    public void removeFlag() {
+        flagNumber--;
+    }
+    public int getFlagNumber() {
+        return flagNumber;
+    }
+
+    public int getLeftOver() {
+        return leftOver;
+    }
+
+    public int getNumMinas() {
+        return numMinas;
     }
 }
