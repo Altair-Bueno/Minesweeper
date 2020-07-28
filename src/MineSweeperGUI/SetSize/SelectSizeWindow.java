@@ -1,9 +1,13 @@
-package MineSweeperGUI;
+package MineSweeperGUI.SetSize;
 
+import MineSweeperLogic.MineSweeperBoard;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class SelectSizeWindow extends JFrame implements ISetSizeWindow{
+public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
     private JPanel rootPanel;
     private JTabbedPane tabbedPane;
@@ -21,6 +25,21 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow{
 
     public SelectSizeWindow() {
         add(rootPanel);
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle(MineSweeperBoard.APPNAME);
+        setName(MineSweeperBoard.APPNAME);
+
+        if (!System.getProperty("os.name").contains("Mac")) {
+            try {
+                setIconImage(ImageIO.read(SelectSizeWindow.class.getResourceAsStream("/" + MineSweeperBoard.ICON)));
+            } catch (Exception e) {
+                setIconImage(new ImageIcon(MineSweeperBoard.ICON).getImage());
+            }
+        }
+
+        pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -40,6 +59,8 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow{
         play16x16.addActionListener(actionListener);
         playCustom.addActionListener(actionListener);
 
-
+        play8x8.setActionCommand(SetSizeControlador.EIGHT);
+        play16x16.setActionCommand(SetSizeControlador.SIXTEEN);
+        playCustom.setActionCommand(SetSizeControlador.CUSTOM);
     }
 }

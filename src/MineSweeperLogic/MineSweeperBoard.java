@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class MineSweeperBoard {
 
+    public static final String ICON="res/icon.png";
+    public static final String APPNAME="Mine Sweeper";
+
     /*
     Contenido del cablero vacío, minas o número de minas cercanas
     -1,0,1,2,3...

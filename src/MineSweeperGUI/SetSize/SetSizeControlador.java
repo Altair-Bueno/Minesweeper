@@ -1,4 +1,6 @@
-package MineSweeperGUI;
+package MineSweeperGUI.SetSize;
+
+import MineSweeperGUI.SetSize.ISetSizeWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
