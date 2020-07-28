@@ -86,7 +86,7 @@ public class MineSweeperBoard {
 
     //Game Dig
     public void dig(Coordenada coordenada){
-        dig(coordenada.getColumna(),coordenada.getFila());
+        dig(coordenada.getFila(),coordenada.getColumna());
     }
     public void dig(int x,int y){
         switch (tablero[x][y]){
@@ -123,6 +123,11 @@ public class MineSweeperBoard {
     public boolean[][] getVisibility(){
         return visibility;
     }
+
+    public int[][] getTablero() {
+        return tablero;
+    }
+
     public void addFlag(){
         flagNumber++;
     }
@@ -131,6 +136,12 @@ public class MineSweeperBoard {
     }
     public int getFlagNumber() {
         return flagNumber;
+    }
+    public int getNumRow() {
+        return visibility.length;
+    }
+    public int getNumColum(){
+        return visibility[0].length;
     }
 
     public int getLeftOver() {

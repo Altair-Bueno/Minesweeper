@@ -1,3 +1,7 @@
+import MineSweeperGUI.GameGUI.FlagControlador;
+import MineSweeperGUI.GameGUI.GameControlador;
+import MineSweeperGUI.GameGUI.GameWindow;
+import MineSweeperGUI.GameGUI.IGameWindow;
 import MineSweeperGUI.SetSize.ISetSizeWindow;
 import MineSweeperGUI.SetSize.SelectSizeWindow;
 import MineSweeperGUI.SetSize.SetSizeControlador;
@@ -26,7 +30,11 @@ public class MineSweeperGame {
         int ySize= setSizeControlador.getySize();
         int numMines= setSizeControlador.getMines();
 
-
+        IGameWindow gameWindow=new GameWindow(xSize,ySize);
+        MineSweeperBoard mineSweeperBoard = new MineSweeperBoard(xSize,ySize,numMines);
+        GameControlador buttonControlador = new GameControlador(gameWindow,mineSweeperBoard);
+        FlagControlador mouseControlador = new FlagControlador(mineSweeperBoard);
+        gameWindow.setControlador(buttonControlador,mouseControlador);
     }
 
 }
