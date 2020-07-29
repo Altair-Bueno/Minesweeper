@@ -88,14 +88,6 @@ public class MineSweeperBoard {
         showZone(x,y);
         if (tablero[x][y]==MINA)
             throw new GameOver("Explosión de mina",GameOver.MINEFOUND);
-        /*switch (tablero[x][y]){
-            case MINA:
-                throw new GameOver("Explosión de mina",GameOver.MINEFOUND);
-            default:
-                showZone(x,y);
-        }
-
-         */
     }
     public void checkWin(){
         if (leftOver==numMinas && flagNumber==0)

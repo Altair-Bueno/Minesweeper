@@ -1,5 +1,6 @@
 package MineSweeperGUI.GameGUI;
 
+import MineSweeperGUI.ThemeManager;
 import MineSweeperLogic.Coordenada;
 import MineSweeperLogic.GameOver;
 import MineSweeperLogic.MineSweeperBoard;
@@ -18,32 +19,38 @@ public class GameControlador implements ActionListener, MouseListener {
     public GameControlador(IGameWindow window, MineSweeperBoard board) {
         this.window = window;
         this.board = board;
-        window.setStatusPanel("Banderas:" + board.getFlagNumber());
+        window.setStatusPanel("Banderas: " + board.getFlagNumber());
         board.checkWin();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try {
-            int column = Integer.parseInt(e.getActionCommand());
-            int row = 0;
+        String comand=e.getActionCommand();
+        if (comand.toLowerCase().contains(ThemeManager.THEME_MANAGER_PACKAGE_NAME)){
+            ThemeManager.changeTheme(comand);
+            window.updateJFrameTheme();
+        }else {
+            try {
+                int column = Integer.parseInt(comand);
+                int row = 0;
 
-            while (column >= board.getNumColum()) {
-                column = column - board.getNumColum();
-                row++;
-            }
+                while (column >= board.getNumColum()) {
+                    column = column - board.getNumColum();
+                    row++;
+                }
 
-            Coordenada coordenada = new Coordenada(row, column);
-            board.dig(coordenada);
-            window.setVisibility(board.getVisibility(), board.getTablero());
-            board.checkWin();
-        }catch (GameOver over){
-            if (over.getGameOverCode()==GameOver.GAMEWON){
-                //TODO ganado
-                JOptionPane.showMessageDialog((JFrame)window,over.getMessage());
-            } else if(over.getGameOverCode()==GameOver.MINEFOUND) {
+                Coordenada coordenada = new Coordenada(row, column);
+                board.dig(coordenada);
                 window.setVisibility(board.getVisibility(), board.getTablero());
-                JOptionPane.showMessageDialog((JFrame)window,over.getMessage());
+                board.checkWin();
+            }catch (GameOver over) {
+                if (over.getGameOverCode() == GameOver.GAMEWON) {
+                    //TODO ganado
+                    JOptionPane.showMessageDialog((JFrame) window, over.getMessage());
+                } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
+                    window.setVisibility(board.getVisibility(), board.getTablero());
+                    JOptionPane.showMessageDialog((JFrame) window, over.getMessage());
+                }
             }
         }
     }

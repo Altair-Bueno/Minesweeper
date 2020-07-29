@@ -1,5 +1,7 @@
 package MineSweeperGUI.GameGUI;
 
+import MineSweeperGUI.ThemeManager;
+import MineSweeperGUI.ThemeManagerJMenu;
 import MineSweeperLogic.MineSweeperBoard;
 
 import javax.swing.*;
@@ -17,11 +19,18 @@ public class GameWindow extends JFrame implements IGameWindow{
 
     private List<BoxJButton> gameButtonslist;
     private GameControlador controlador;
-    private static final String[] COLORS=
-            {"#0000FF","#00FF00","#FF0000","#f000ec","#00f050","#f0ec00","#eb9e10","#ed0cc4","#0cedd6"};
+
+    private JMenuBar jMenuBar;
+    private ThemeManagerJMenu themeManagerJMenu;
 
     public GameWindow(int xSize, int ySize){
         add(rootPane);
+
+        //TODO jmenubar
+        jMenuBar=new JMenuBar();
+        themeManagerJMenu =new ThemeManagerJMenu();
+        jMenuBar.add(themeManagerJMenu);
+        setJMenuBar(jMenuBar);
 
         gameButtonslist=new ArrayList<>(16);
         gameButtons.setLayout(new GridLayout(xSize,ySize));
@@ -35,7 +44,7 @@ public class GameWindow extends JFrame implements IGameWindow{
             tempButton.setActionCommand(i+"");
             tempButton.setMinimumSize(dimension);
             tempButton.setPreferredSize(dimension);
-            tempButton.setBackground(Color.GRAY);
+            tempButton.setBackground(ThemeManager.getUndiggedBackground());
             gameButtonslist.add(tempButton);
             gameButtons.add(tempButton);
         }
@@ -53,6 +62,7 @@ public class GameWindow extends JFrame implements IGameWindow{
             button.addActionListener(controlador);
             button.addMouseListener(controlador);
         }
+        themeManagerJMenu.setActionListener(controlador);
     }
 
     @Override
@@ -74,18 +84,31 @@ public class GameWindow extends JFrame implements IGameWindow{
                 BoxJButton button = iterator.next();
 
                 if (visibility[i][u] && !button.isDigged()&& !button.isFlagged()){
-                    //TODO arreglar bugs con el enable/disable. Colores paleta camniar tema
                     button.removeActionListener(controlador);
                     button.setDigged(true);
-                    button.setBackground(Color.WHITE);
+                    button.setBackground(ThemeManager.getDiggedBackground());
 
                     if (values[i][u]==MineSweeperBoard.MINA){
                         button.setIcon(new ImageIcon("res/mineButton.png"));
                     } else if (values[i][u]>0) {
-                        button.setText("<html><font color="+COLORS[values[i][u]] +">" +values[i][u]+"</font> </html>");
+                        button.setText("<html><font color="+ ThemeManager.getFontColors()[values[i][u]] +">" +values[i][u]+"</font> </html>");
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public void updateJFrameTheme() {
+        SwingUtilities.updateComponentTreeUI(this);
+        for (BoxJButton button: gameButtonslist) {
+            Color temp;
+            if (button.isDigged()) {
+                temp=ThemeManager.getDiggedBackground();
+            } else {
+                temp=ThemeManager.getUndiggedBackground();
+            }
+            button.setBackground(temp);
         }
     }
 
