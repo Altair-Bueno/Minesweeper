@@ -9,7 +9,7 @@ public class MineSweeperBoard {
 
     /*
     Contenido del cablero vacío, minas o número de minas cercanas
-    -1,0,1,2,3...
+    -1,0,1,2,3...9
      */
 
     public static final int MINA=-1;
@@ -26,11 +26,12 @@ public class MineSweeperBoard {
     public MineSweeperBoard(int x,int y,int numMinas){
         tablero=new int[x][y];
         visibility =new boolean[x][y];
+
         this.numMinas=numMinas;
-        flagNumber =0;
-        leftOver = x*y;
+        flagNumber =numMinas;
+        leftOver=x*y;
+
         plantMines();
-        calculateNearbyMines();
     }
     public MineSweeperBoard(int size,int numMinas){
         this(size,size,numMinas);
@@ -39,36 +40,31 @@ public class MineSweeperBoard {
     //Private method for constructors
     private void plantMines(){
         Random random=new Random();
-        int i=0;
+        int minasPlantadas = 0;
 
-        while (i<numMinas){
+        while (minasPlantadas <numMinas){
             int x=random.nextInt(tablero.length);
             int y=random.nextInt(tablero[0].length);
-            if (tablero[x][y]!=MINA){
+
+            if (tablero[x][y]==EMPTY){
+
                 tablero[x][y]=MINA;
-                i++;
-            }
-        }
-    }
-    private void calculateNearbyMines(){
-        for (int x=0; x<tablero.length;x++){
-            for (int y=0; y<tablero[0].length;y++){
+                minasPlantadas++;
 
-                if (tablero[x][y]==MINA){
+                for (int i=x-1; i<=x+1;i++) {
+                    for (int u=y-1; u<=y+1;u++){
 
-                    for (int i=x-1; i<=x+1;i++) {
-                        for (int u=y-1; u<=y+1;u++){
+                        try {
+                            if (tablero[i][u] != MINA) tablero[i][u]++;
+                        }catch (ArrayIndexOutOfBoundsException ignored){}
 
-                            try {
-                                if (tablero[i][u] != MINA) tablero[i][u]++;
-                            }catch (ArrayIndexOutOfBoundsException ignored){}
-
-                        }
                     }
                 }
             }
         }
     }
+
+
 
     @Override
     public String toString() {
@@ -95,7 +91,12 @@ public class MineSweeperBoard {
             default:
                 showZone(x,y);
         }
-        if (leftOver==numMinas && numMinas==flagNumber) throw new GameOver("Has ganado",GameOver.GAMEWON);
+    }
+    public void checkWin(){
+        System.out.println(leftOver);
+        if (leftOver==numMinas && flagNumber==0)
+            throw new GameOver("Has ganado",GameOver.GAMEWON);
+
     }
 
     //Method for cleaning 0 zones
@@ -142,10 +143,6 @@ public class MineSweeperBoard {
     }
     public int getNumColum(){
         return visibility[0].length;
-    }
-
-    public int getLeftOver() {
-        return leftOver;
     }
 
     public int getNumMinas() {

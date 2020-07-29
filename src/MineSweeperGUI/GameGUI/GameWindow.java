@@ -18,8 +18,9 @@ public class GameWindow extends JFrame implements IGameWindow{
     private JPanel gameButtons;
 
     private List<JButton> gameButtonslist;
-    private static final int[] COLORS=
-            {0x0000FF,0x00FF00,0xFF0000,0xf000ec,0x00f050,0xf0ec00,0xeb9e10,0xed0cc4,0x0cedd6};
+    private GameControlador controlador;
+    private static final String[] COLORS=
+            {"#0000FF","#00FF00","#FF0000","#f000ec","#00f050","#f0ec00","#eb9e10","#ed0cc4","#0cedd6"};
 
     public GameWindow(int xSize, int ySize){
         add(rootPane);
@@ -36,6 +37,7 @@ public class GameWindow extends JFrame implements IGameWindow{
             tempButton.setActionCommand(i+"");
             tempButton.setMinimumSize(dimension);
             tempButton.setPreferredSize(dimension);
+            tempButton.setBackground(Color.GRAY);
             gameButtonslist.add(tempButton);
             gameButtons.add(tempButton);
         }
@@ -47,10 +49,11 @@ public class GameWindow extends JFrame implements IGameWindow{
     }
 
     @Override
-    public void setControlador(ActionListener controlador, MouseListener mouseListener) {
+    public void setControlador(GameControlador controlador) {
+        this.controlador=controlador;
         for (JButton button : gameButtonslist) {
             button.addActionListener(controlador);
-            button.addMouseListener(mouseListener);
+            button.addMouseListener(controlador);
         }
     }
 
@@ -73,14 +76,15 @@ public class GameWindow extends JFrame implements IGameWindow{
                 JButton button = iterator.next();
 
                 if (visibility[i][u] && button.isEnabled()){
-                    button.setEnabled(false);
+                    //TODO arreglar bugs con el enable/disable
+                    button.removeActionListener(controlador);
+                    button.setBackground(Color.WHITE);
 
                     if (values[i][u]==MineSweeperBoard.MINA){
                         button.setIcon(new ImageIcon("res/mineButton.png"));
                     } else if (values[i][u]>0) {
                         button.setText("<html><font color="+COLORS[values[i][u]] +">" +values[i][u]+"</font> </html>");
                     }
-
                 }
             }
         }

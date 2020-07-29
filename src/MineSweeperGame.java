@@ -1,4 +1,3 @@
-import MineSweeperGUI.GameGUI.FlagControlador;
 import MineSweeperGUI.GameGUI.GameControlador;
 import MineSweeperGUI.GameGUI.GameWindow;
 import MineSweeperGUI.GameGUI.IGameWindow;
@@ -33,8 +32,7 @@ public class MineSweeperGame {
         IGameWindow gameWindow=new GameWindow(xSize,ySize);
         MineSweeperBoard mineSweeperBoard = new MineSweeperBoard(xSize,ySize,numMines);
         GameControlador buttonControlador = new GameControlador(gameWindow,mineSweeperBoard);
-        FlagControlador mouseControlador = new FlagControlador(mineSweeperBoard);
-        gameWindow.setControlador(buttonControlador,mouseControlador);
+        gameWindow.setControlador(buttonControlador);
     }
 
 }
