@@ -27,6 +27,7 @@ public class GameControlador implements ActionListener, MouseListener {
         try {
             int column = Integer.parseInt(e.getActionCommand());
             int row = 0;
+
             while (column >= board.getNumColum()) {
                 column = column - board.getNumColum();
                 row++;
@@ -41,6 +42,7 @@ public class GameControlador implements ActionListener, MouseListener {
                 //TODO ganado
                 JOptionPane.showMessageDialog((JFrame)window,over.getMessage());
             } else if(over.getGameOverCode()==GameOver.MINEFOUND) {
+                window.setVisibility(board.getVisibility(), board.getTablero());
                 JOptionPane.showMessageDialog((JFrame)window,over.getMessage());
             }
         }
@@ -49,17 +51,19 @@ public class GameControlador implements ActionListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getButton()==MouseEvent.BUTTON3) {
-            JButton button= (JButton) e.getComponent();
-            if (button.getIcon()!=null) {
-                button.setIcon(null);
-                button.setEnabled(true);
-                board.addFlag();
-            } else {
-                button.setIcon(new ImageIcon("res/flag.png"));
-                button.setEnabled(false);
-                board.removeFlag();
+            BoxJButton button= (BoxJButton) e.getComponent();
+            if (!button.isDigged()) {
+                if (button.getIcon() != null) {
+                    button.setIcon(null);
+                    button.setFlagged(false);
+                    board.addFlag();
+                } else {
+                    button.setIcon(new ImageIcon("res/flag.png"));
+                    button.setFlagged(true);
+                    board.removeFlag();
+                }
+                window.setStatusPanel("Banderas" + board.getFlagNumber());
             }
-            window.setStatusPanel("Banderas" + board.getFlagNumber());
         }
     }
 

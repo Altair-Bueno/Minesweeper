@@ -4,8 +4,6 @@ import MineSweeperLogic.MineSweeperBoard;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +15,7 @@ public class GameWindow extends JFrame implements IGameWindow{
     private JLabel flagNumberJLabel;
     private JPanel gameButtons;
 
-    private List<JButton> gameButtonslist;
+    private List<BoxJButton> gameButtonslist;
     private GameControlador controlador;
     private static final String[] COLORS=
             {"#0000FF","#00FF00","#FF0000","#f000ec","#00f050","#f0ec00","#eb9e10","#ed0cc4","#0cedd6"};
@@ -33,7 +31,7 @@ public class GameWindow extends JFrame implements IGameWindow{
         Dimension dimension=new Dimension((int) Math.round(resolution*0.25),(int) Math.round(resolution*0.25));
 
         for (int i=0;i<xSize*ySize;i++) {
-            JButton tempButton=new JButton();
+            BoxJButton tempButton=new BoxJButton();
             tempButton.setActionCommand(i+"");
             tempButton.setMinimumSize(dimension);
             tempButton.setPreferredSize(dimension);
@@ -69,15 +67,16 @@ public class GameWindow extends JFrame implements IGameWindow{
 
     @Override
     public void setVisibility(boolean[][] visibility,int [][] values) {
-        Iterator<JButton> iterator= gameButtonslist.iterator();
+        Iterator<BoxJButton> iterator= gameButtonslist.iterator();
         for (int i=0; i<visibility.length;i++){
             for (int u=0;u<visibility[0].length;u++) {
 
-                JButton button = iterator.next();
+                BoxJButton button = iterator.next();
 
-                if (visibility[i][u] && button.isEnabled()){
-                    //TODO arreglar bugs con el enable/disable
+                if (visibility[i][u] && !button.isDigged()&& !button.isFlagged()){
+                    //TODO arreglar bugs con el enable/disable. Colores paleta camniar tema
                     button.removeActionListener(controlador);
+                    button.setDigged(true);
                     button.setBackground(Color.WHITE);
 
                     if (values[i][u]==MineSweeperBoard.MINA){

@@ -85,18 +85,21 @@ public class MineSweeperBoard {
         dig(coordenada.getFila(),coordenada.getColumna());
     }
     public void dig(int x,int y){
-        switch (tablero[x][y]){
+        showZone(x,y);
+        if (tablero[x][y]==MINA)
+            throw new GameOver("Explosión de mina",GameOver.MINEFOUND);
+        /*switch (tablero[x][y]){
             case MINA:
                 throw new GameOver("Explosión de mina",GameOver.MINEFOUND);
             default:
                 showZone(x,y);
         }
+
+         */
     }
     public void checkWin(){
-        System.out.println(leftOver);
         if (leftOver==numMinas && flagNumber==0)
             throw new GameOver("Has ganado",GameOver.GAMEWON);
-
     }
 
     //Method for cleaning 0 zones
@@ -114,7 +117,7 @@ public class MineSweeperBoard {
                     }
                 }
 
-        } else if (tablero[x][y] != MINA) {
+        } else {
             visibility[x][y]=true;
             leftOver--;
         }
@@ -145,7 +148,4 @@ public class MineSweeperBoard {
         return visibility[0].length;
     }
 
-    public int getNumMinas() {
-        return numMinas;
-    }
 }
