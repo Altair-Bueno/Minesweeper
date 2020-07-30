@@ -4,25 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ThemeManager {
-    //Temas disponibles
-
     public static final String THEME_MANAGER_PACKAGE_NAME ="flatlaf";
 
+    //Temas disponibles
     public static final String CLARO="com.formdev.flatlaf.FlatLightLaf";
-    private static final String[] CLARO_COLORS={"#0000FF","#00FF00","#FF0000","#f000ec","#00f050","#f0ec00","#eb9e10","#ed0cc4","#0cedd6"};
-    private static final Color CLARO_BACKGROUND_UNDIGGED=Color.GRAY;
-    private static final Color CLARO_BACKGROUND_DIGGED=Color.WHITE;
+        private static final String[] CLARO_COLORS={null,"#0000FF","##C21F40","#FF0000","#f000ec","#004A2F","#916C80","#eb9e10","#ed0cc4","#30BCED"};
+        private static final Color CLARO_BACKGROUND_UNDIGGED=Color.GRAY;
+        private static final Color CLARO_BACKGROUND_DIGGED=Color.WHITE;
 
-    //TODO colores
     public static final String DRACULA="com.formdev.flatlaf.FlatDarculaLaf";
-    private static final String[] DRACULA_COLORS = CLARO_COLORS;
-    private static final Color DRACULA_BACKGROUND_UNDIGGED = Color.blue;
-    private static final Color DRACULA_BACKGROUND_DIGGED = Color.red;
+        private static final String[] DRACULA_COLORS = {null,"#0000FF","##C21F40","#FF0000","#f000ec","#004A2F","#916C80","#eb9e10","#ed0cc4","#B47EB3"};
+        private static final Color DRACULA_BACKGROUND_UNDIGGED = new Color(0x7D7D7D);
+        private static final Color DRACULA_BACKGROUND_DIGGED = new Color(0xC5C5C5);
 
     public static final String MORADO="com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme";
-    private static final String[] MORADO_COLORS = null;
-    private static final Color MORADO_BACKGROUND_UNDIGGED = null;
-    private static final Color MORADO_BACKGROUND_DIGGED = null;
+        private static final String[] MORADO_COLORS = CLARO_COLORS;
+        private static final Color MORADO_BACKGROUND_UNDIGGED = new Color(0xB47EB3);
+        private static final Color MORADO_BACKGROUND_DIGGED = new Color(0xFFD5FF);
 
     private static String temaActual=CLARO;
     private static String [] fontColors =CLARO_COLORS;
@@ -36,7 +34,7 @@ public class ThemeManager {
     public static Color getUndiggedBackground(){return undiggedBackground;}
     public static Color getDiggedBackground(){return diggedBackground;}
     public static String getDefaultTheme(){return CLARO;}
-    public static void changeTheme(String s){
+    public static void setTheme(String s){
         try {
             switch (s){
                 case CLARO:

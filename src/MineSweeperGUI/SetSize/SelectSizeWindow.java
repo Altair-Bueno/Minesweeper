@@ -1,10 +1,10 @@
 package MineSweeperGUI.SetSize;
 
+import MineSweeperGUI.ThemeManagerJMenu;
 import MineSweeperLogic.MineSweeperBoard;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
@@ -20,17 +20,26 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     private JButton playCustom;
     private JPanel valuesJPanel;
     private JPanel playCustomPanel;
-    private JComboBox xSize;
-    private JComboBox ySize;
+    private JTextField xSize;
+    private JTextField ySize;
+    private JLabel X;
+
+    private JMenuBar jMenuBar;
+    private ThemeManagerJMenu themeManagerJMenu;
 
     public SelectSizeWindow() {
         add(rootPanel);
+
+        jMenuBar=new JMenuBar();
+        themeManagerJMenu=new ThemeManagerJMenu();
+        jMenuBar.add(themeManagerJMenu);
+        setJMenuBar(jMenuBar);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle(MineSweeperBoard.APPNAME);
         setName(MineSweeperBoard.APPNAME);
 
-        if (!System.getProperty("os.name").contains("Mac")) {
+        if (!System.getProperty("os.name").toLowerCase().contains("mac")) {
             try {
                 setIconImage(ImageIO.read(SelectSizeWindow.class.getResourceAsStream("/" + MineSweeperBoard.ICON)));
             } catch (Exception e) {
@@ -40,17 +49,22 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
         pack();
         setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
     }
 
     @Override
     public int getxSize() {
-        return xSize.getSelectedIndex()+1;
+        int size=Integer.parseInt(xSize.getText());
+        if (size<=0) throw new RuntimeException("Valor negativo");
+        return size;
     }
 
     @Override
     public int getySize() {
-        return ySize.getSelectedIndex()+1;
+        int size=Integer.parseInt(ySize.getText());
+        if (size<=0) throw new RuntimeException("Valor negativo");
+        return size;
     }
 
     @Override
@@ -62,5 +76,13 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
         play8x8.setActionCommand(SetSizeControlador.EIGHT);
         play16x16.setActionCommand(SetSizeControlador.SIXTEEN);
         playCustom.setActionCommand(SetSizeControlador.CUSTOM);
+
+        themeManagerJMenu.setActionListener(actionListener);
+    }
+
+    @Override
+    public void updateComponentTree() {
+        SwingUtilities.updateComponentTreeUI(this);
+        pack();
     }
 }

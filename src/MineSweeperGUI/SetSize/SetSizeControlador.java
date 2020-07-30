@@ -1,12 +1,13 @@
 package MineSweeperGUI.SetSize;
 
-import MineSweeperGUI.SetSize.ISetSizeWindow;
+import MineSweeperGUI.ThemeManager;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.Semaphore;
 
-public class SetSizeControlador implements ActionListener {
+public class SetSizeControlador implements ActionListener{
 
     public static final String CUSTOM="CUSTOM";
     public static final String EIGHT="EIGHT";
@@ -27,24 +28,37 @@ public class SetSizeControlador implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command=e.getActionCommand();
-        if (command.equals(SIXTEEN)) {
-            xSize=16;
-            ySize=16;
-            mines=40;
-            window.dispose();
-            semaphore.release();
-        }else if (command.equals(EIGHT)) {
-            xSize=8;
-            ySize=8;
-            mines=10;
-            window.dispose();
-            semaphore.release();
-        } else if (command.equals(CUSTOM)) {
-            xSize=window.getxSize();
-            ySize=window.getySize();
-            mines= (int) Math.round (xSize*ySize/6.4);
-            window.dispose();
-            semaphore.release();
+        try {
+            switch (command) {
+                case SIXTEEN:
+                    xSize = 16;
+                    ySize = 16;
+                    mines = 40;
+                    window.dispose();
+                    semaphore.release();
+                    break;
+                case EIGHT:
+                    xSize = 8;
+                    ySize = 8;
+                    mines = 10;
+                    window.dispose();
+                    semaphore.release();
+                    break;
+                case CUSTOM:
+                    xSize = window.getxSize();
+                    ySize = window.getySize();
+                    mines = (int) Math.round(xSize * ySize / 6.4);
+                    window.dispose();
+                    semaphore.release();
+                    break;
+                default:
+                    if (command.contains(ThemeManager.THEME_MANAGER_PACKAGE_NAME)) {
+                        ThemeManager.setTheme(command);
+                        window.updateComponentTree();
+                    }
+            }
+        }catch (Exception o) {
+            JOptionPane.showMessageDialog(null,o.getMessage());
         }
     }
 
@@ -60,3 +74,4 @@ public class SetSizeControlador implements ActionListener {
         return mines;
     }
 }
+

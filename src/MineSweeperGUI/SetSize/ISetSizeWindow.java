@@ -7,4 +7,5 @@ public interface ISetSizeWindow {
     int getySize();
     void dispose();
     void setControlador(ActionListener actionListener);
+    void updateComponentTree();
 }

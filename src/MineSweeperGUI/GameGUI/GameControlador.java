@@ -19,7 +19,7 @@ public class GameControlador implements ActionListener, MouseListener {
     public GameControlador(IGameWindow window, MineSweeperBoard board) {
         this.window = window;
         this.board = board;
-        window.setStatusPanel("Banderas: " + board.getFlagNumber());
+        window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber()+"</b></font></html>");
         board.checkWin();
     }
 
@@ -27,7 +27,7 @@ public class GameControlador implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         String comand=e.getActionCommand();
         if (comand.toLowerCase().contains(ThemeManager.THEME_MANAGER_PACKAGE_NAME)){
-            ThemeManager.changeTheme(comand);
+            ThemeManager.setTheme(comand);
             window.updateJFrameTheme();
         }else {
             try {
@@ -69,7 +69,7 @@ public class GameControlador implements ActionListener, MouseListener {
                     button.setFlagged(true);
                     board.removeFlag();
                 }
-                window.setStatusPanel("Banderas" + board.getFlagNumber());
+                window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber()+"</b></font></html>");
             }
         }
     }
