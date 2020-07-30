@@ -44,13 +44,15 @@ public class GameControlador implements ActionListener, MouseListener {
                 window.setVisibility(board.getVisibility(), board.getTablero());
                 board.checkWin();
             }catch (GameOver over) {
+                window.stopClock();
                 if (over.getGameOverCode() == GameOver.GAMEWON) {
                     //TODO ganado
-                    JOptionPane.showMessageDialog((JFrame) window, over.getMessage());
+                    JOptionPane.showMessageDialog((JFrame) window, over.getMessage() + window.getPuntuation());
                 } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
                     window.setVisibility(board.getVisibility(), board.getTablero());
                     JOptionPane.showMessageDialog((JFrame) window, over.getMessage());
                 }
+                System.exit(0);
             }
         }
     }

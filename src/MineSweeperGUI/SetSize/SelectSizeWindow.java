@@ -23,12 +23,19 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     private JTextField xSize;
     private JTextField ySize;
     private JLabel X;
+    private JPanel playJPanel8;
+    private JPanel playJPanel16;
+
+    private JLabel gameIcon;
+    private JPanel iconJpanel;
 
     private JMenuBar jMenuBar;
     private ThemeManagerJMenu themeManagerJMenu;
 
     public SelectSizeWindow() {
         add(rootPanel);
+
+        gameIcon.setIcon(new ImageIcon("res/smallIcon.png"));
 
         jMenuBar=new JMenuBar();
         themeManagerJMenu=new ThemeManagerJMenu();

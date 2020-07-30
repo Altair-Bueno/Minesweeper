@@ -1,20 +1,28 @@
 package MineSweeperGUI.GameGUI;
 
+import MineSweeperGUI.SetSize.SelectSizeWindow;
 import MineSweeperGUI.ThemeManager;
 import MineSweeperGUI.ThemeManagerJMenu;
 import MineSweeperLogic.MineSweeperBoard;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class GameWindow extends JFrame implements IGameWindow{
+public class GameWindow extends JFrame implements IGameWindow,Runnable{
+
     private JPanel rootPane;
     private JPanel statusPanel;
     private JLabel flagNumberJLabel;
     private JPanel gameButtons;
+    private JLabel time;
+
+    private long startTime;
+    private Thread clock;
+    private boolean clockIsStopped;
 
     private List<BoxJButton> gameButtonslist;
     private GameControlador controlador;
@@ -25,8 +33,9 @@ public class GameWindow extends JFrame implements IGameWindow{
     public GameWindow(int xSize, int ySize){
         add(rootPane);
         flagNumberJLabel.setIcon(new ImageIcon("res/flag.png"));
+        time.setIcon(new ImageIcon("res/time.png"));
 
-        //TODO jmenubar
+        //TODO jmenubar. Añadir nuevo
         jMenuBar=new JMenuBar();
         themeManagerJMenu =new ThemeManagerJMenu();
         jMenuBar.add(themeManagerJMenu);
@@ -49,7 +58,7 @@ public class GameWindow extends JFrame implements IGameWindow{
             gameButtons.add(tempButton);
         }
 
-        /*TODO extras
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle(MineSweeperBoard.APPNAME);
         setName(MineSweeperBoard.APPNAME);
@@ -61,7 +70,12 @@ public class GameWindow extends JFrame implements IGameWindow{
                 setIconImage(new ImageIcon(MineSweeperBoard.ICON).getImage());
             }
         }
-         */
+
+        clockIsStopped=false;
+        clock=new Thread(this);
+        startTime=0;
+        clock.start();
+
         pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -119,4 +133,26 @@ public class GameWindow extends JFrame implements IGameWindow{
         }
     }
 
+    @Override
+    public void stopClock() {
+        clockIsStopped=true;
+    }
+
+    @Override
+    public String  getPuntuation() {
+        return time.getText();
+    }
+
+
+    @Override
+    public void run() {
+        while (!clockIsStopped){
+            time.setText("<html><b><font size=5>"+startTime+
+            "</b></font></html>");
+            startTime++;
+            try {
+                Thread.sleep(1000);
+            }catch (Exception ignored){}
+        }
+    }
 }
