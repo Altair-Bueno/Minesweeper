@@ -4,10 +4,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class BoxJButton extends JButton {
-
-    //TODO organizar constantes en una misma clase
-    public static final String FLAGICON="res/flag.png";
-
     private boolean flagged;
     private boolean digged;
 

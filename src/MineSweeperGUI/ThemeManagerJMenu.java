@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import static MineSweeperGUI.ThemeManager.*;
+import static MineSweeperJavaResources.ThemeManager.*;
 
 
 public class ThemeManagerJMenu extends JMenu {
@@ -25,7 +25,7 @@ public class ThemeManagerJMenu extends JMenu {
         morado=new JMenuItem("Morado");
         morado.setActionCommand(MORADO);
 
-        if(System.getProperty("os.name").contains("mac")) {
+        if(System.getProperty("os.name").toLowerCase().contains("mac")) {
             light.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.CTRL_MASK));
             dracula.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.CTRL_MASK));
             morado.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.CTRL_MASK));

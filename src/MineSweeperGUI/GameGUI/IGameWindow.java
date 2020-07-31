@@ -6,6 +6,6 @@ public interface IGameWindow {
     void setVisibility(boolean [][] visibility,int [][] values);
     void updateJFrameTheme();
     void stopClock();
-    String getPuntuation();
+    int getPuntuation();
     void dispose();
 }

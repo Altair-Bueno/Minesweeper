@@ -3,9 +3,7 @@ package MineSweeperLogic;
 import java.util.Random;
 
 public class MineSweeperBoard {
-
-    public static final String ICON="res/icon.png";
-    public static final String APPNAME="Mine Sweeper";
+    //TODO change board generation
 
     /*
     Contenido del cablero vacío, minas o número de minas cercanas

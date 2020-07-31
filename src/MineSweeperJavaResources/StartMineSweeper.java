@@ -1,4 +1,4 @@
-package MineSweeperLogic;
+package MineSweeperJavaResources;
 
 import MineSweeperGUI.GameGUI.GameControlador;
 import MineSweeperGUI.GameGUI.GameWindow;
@@ -6,6 +6,7 @@ import MineSweeperGUI.GameGUI.IGameWindow;
 import MineSweeperGUI.SetSize.ISetSizeWindow;
 import MineSweeperGUI.SetSize.SelectSizeWindow;
 import MineSweeperGUI.SetSize.SetSizeControlador;
+import MineSweeperLogic.MineSweeperBoard;
 
 import java.util.concurrent.Semaphore;
 

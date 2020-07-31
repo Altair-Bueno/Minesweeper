@@ -1,4 +1,4 @@
-package MineSweeperGUI;
+package MineSweeperJavaResources;
 
 import javax.swing.*;
 import java.awt.*;

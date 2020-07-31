@@ -5,9 +5,6 @@
       <element id="module-output" name="Minesweeper" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../flatlaf-0.38.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../flatlaf-intellij-themes-0.38.jar" path-in-jar="/" />
-      <element id="directory" name="res">
-        <element id="dir-copy" path="$PROJECT_DIR$/res" />
-      </element>
     </root>
   </artifact>
 </component>

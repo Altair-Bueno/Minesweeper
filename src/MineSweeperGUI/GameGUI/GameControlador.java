@@ -1,10 +1,11 @@
 package MineSweeperGUI.GameGUI;
 
-import MineSweeperGUI.ThemeManager;
+import MineSweeperJavaResources.MineSweeperResourceManager;
+import MineSweeperJavaResources.ThemeManager;
 import MineSweeperLogic.Coordenada;
 import MineSweeperLogic.GameOver;
 import MineSweeperLogic.MineSweeperBoard;
-import MineSweeperLogic.StartMineSweeper;
+import MineSweeperJavaResources.StartMineSweeper;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,8 @@ import java.awt.event.MouseListener;
 
 public class GameControlador implements ActionListener, MouseListener {
 
+    public static final String NEW="NEW";
+
     private IGameWindow window;
     private MineSweeperBoard board;
 
@@ -21,7 +24,6 @@ public class GameControlador implements ActionListener, MouseListener {
         this.window = window;
         this.board = board;
         window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber()+"</b></font></html>");
-        board.checkWin();
     }
 
     @Override
@@ -30,6 +32,10 @@ public class GameControlador implements ActionListener, MouseListener {
         if (comand.toLowerCase().contains(ThemeManager.THEME_MANAGER_PACKAGE_NAME)){
             ThemeManager.setTheme(comand);
             window.updateJFrameTheme();
+        }else if(comand.equals(NEW)){
+            Thread game =new Thread(new StartMineSweeper());
+            game.start();
+            window.dispose();
         }else {
             try {
                 int column = Integer.parseInt(comand);
@@ -45,17 +51,7 @@ public class GameControlador implements ActionListener, MouseListener {
                 window.setVisibility(board.getVisibility(), board.getTablero());
                 board.checkWin();
             }catch (GameOver over) {
-                window.stopClock();
-                if (over.getGameOverCode() == GameOver.GAMEWON) {
-                    //TODO ganado y play again
-                    JOptionPane.showMessageDialog((JFrame) window, over.getMessage() + window.getPuntuation());
-                } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
-                    window.setVisibility(board.getVisibility(), board.getTablero());
-                    JOptionPane.showMessageDialog((JFrame) window, over.getMessage());
-                }
-                Thread game =new Thread(new StartMineSweeper());
-                game.start();
-                window.dispose();
+                gameOver(over);
             }
         }
     }
@@ -70,18 +66,32 @@ public class GameControlador implements ActionListener, MouseListener {
                     button.setFlagged(false);
                     board.addFlag();
                 } else {
-                    try {
-                        button.setIcon(new ImageIcon(ClassLoader.getSystemResource("/"+BoxJButton.FLAGICON)));
-                    } catch (Exception o){
-                        button.setIcon(new ImageIcon(BoxJButton.FLAGICON));
-                    }
-
+                    button.setIcon(MineSweeperResourceManager.getFlagIcon());
                     button.setFlagged(true);
                     board.removeFlag();
                 }
                 window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber()+"</b></font></html>");
             }
+            try {
+                board.checkWin();
+            }catch (GameOver over){
+                gameOver(over);
+            }
         }
+    }
+
+    private void gameOver(GameOver over){
+        window.stopClock();
+        if (over.getGameOverCode() == GameOver.GAMEWON) {
+            //TODO ganado y play again
+            JOptionPane.showMessageDialog((JFrame) window, over.getMessage() + window.getPuntuation());
+        } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
+            window.setVisibility(board.getVisibility(), board.getTablero());
+            JOptionPane.showMessageDialog((JFrame) window, over.getMessage());
+        }
+        Thread game =new Thread(new StartMineSweeper());
+        game.start();
+        window.dispose();
     }
 
     @Override

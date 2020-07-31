@@ -1,21 +1,17 @@
 package MineSweeperGUI.GameGUI;
 
-import MineSweeperGUI.SetSize.SelectSizeWindow;
-import MineSweeperGUI.ThemeManager;
+import MineSweeperJavaResources.MineSweeperResourceManager;
+import MineSweeperJavaResources.ThemeManager;
 import MineSweeperGUI.ThemeManagerJMenu;
 import MineSweeperLogic.MineSweeperBoard;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static MineSweeperGUI.GameGUI.BoxJButton.FLAGICON;
-
 public class GameWindow extends JFrame implements IGameWindow,Runnable{
-    private static final String CLOCKICON="res/time.png";
 
     private JPanel rootPane;
     private JPanel statusPanel;
@@ -23,8 +19,8 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
     private JPanel gameButtons;
     private JLabel time;
 
-    private long startTime;
-    private Thread clock;
+    private int clockTime;
+    private Thread clockThread;
     private boolean clockIsStopped;
 
     private List<BoxJButton> gameButtonslist;
@@ -32,20 +28,22 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
 
     private JMenuBar jMenuBar;
     private ThemeManagerJMenu themeManagerJMenu;
+    private JMenu archivo;
+    private JMenuItem nuevo;
 
     public GameWindow(int xSize, int ySize){
         add(rootPane);
-        try {
-            flagNumberJLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("/"+ FLAGICON)));
-            time.setIcon(new ImageIcon(ClassLoader.getSystemResource("/"+CLOCKICON)));
-        }catch (Exception e){
-            flagNumberJLabel.setIcon(new ImageIcon(FLAGICON));
-            time.setIcon(new ImageIcon(CLOCKICON));
-        }
-        //TODO jmenubar. Añadir nuevo
+        flagNumberJLabel.setIcon(MineSweeperResourceManager.getFlagIcon());
+        time.setIcon(MineSweeperResourceManager.getClockIcon());
+        //TODO jmenubar. Añadir nuevo. Añadir guardar
         jMenuBar=new JMenuBar();
         themeManagerJMenu =new ThemeManagerJMenu();
+        archivo=new JMenu("Partida");
+        nuevo=new JMenuItem("Nuevo");
         jMenuBar.add(themeManagerJMenu);
+        jMenuBar.add(archivo);
+        archivo.add(nuevo);
+
         setJMenuBar(jMenuBar);
 
         gameButtonslist=new ArrayList<>(16);
@@ -67,21 +65,16 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
 
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle(MineSweeperBoard.APPNAME);
-        setName(MineSweeperBoard.APPNAME);
+        setTitle(MineSweeperResourceManager.getAPPNAME());
+        setName(MineSweeperResourceManager.getAPPNAME());
 
-        if (!System.getProperty("os.name").contains("Mac")) {
-            try {
-                setIconImage(ImageIO.read(SelectSizeWindow.class.getResourceAsStream("/" + MineSweeperBoard.ICON)));
-            } catch (Exception e) {
-                setIconImage(new ImageIcon(MineSweeperBoard.ICON).getImage());
-            }
+        if (!System.getProperty("os.name").toLowerCase().contains("mac")) {
+            setIconImage(MineSweeperResourceManager.getAppIcon().getImage());
         }
 
-        clockIsStopped=false;
-        clock=new Thread(this);
-        startTime=0;
-        clock.start();
+        clockIsStopped = false;
+        clockThread = new Thread(this);
+        clockThread.start();
 
         pack();
         setLocationRelativeTo(null);
@@ -97,6 +90,9 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
             button.addMouseListener(controlador);
         }
         themeManagerJMenu.setActionListener(controlador);
+
+        nuevo.addActionListener(controlador);
+        nuevo.setActionCommand(GameControlador.NEW);
     }
     @Override
     public void setStatusPanel(String status) {
@@ -117,7 +113,7 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
                     button.setBackground(ThemeManager.getDiggedBackground());
 
                     if (values[i][u]==MineSweeperBoard.MINA){
-                        button.setIcon(new ImageIcon("res/mineButton.png"));
+                        button.setIcon(MineSweeperResourceManager.getMinaIcon());
                     } else if (values[i][u]>0) {
                         button.setText("<html><b><font size=5 color="+ ThemeManager.getFontColors()[values[i][u]] +">" +values[i][u]+"</font></b></html>");
                     }
@@ -146,19 +142,20 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
     }
 
     @Override
-    public String  getPuntuation() {
-        return time.getText();
+    public int getPuntuation() {
+        return clockTime;
     }
 
 
     @Override
     public void run() {
+        clockTime = 0;
         while (!clockIsStopped){
-            time.setText("<html><b><font size=5>"+startTime+
+            time.setText("<html><b><font size=5>"+ clockTime +
             "</b></font></html>");
-            startTime++;
+            clockTime++;
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1000); //Wait 1 second
             }catch (Exception ignored){}
         }
     }

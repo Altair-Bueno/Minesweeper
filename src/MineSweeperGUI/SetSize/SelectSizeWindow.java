@@ -1,9 +1,8 @@
 package MineSweeperGUI.SetSize;
 
 import MineSweeperGUI.ThemeManagerJMenu;
-import MineSweeperLogic.MineSweeperBoard;
+import MineSweeperJavaResources.MineSweeperResourceManager;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
@@ -20,8 +19,8 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     private JButton playCustom;
     private JPanel valuesJPanel;
     private JPanel playCustomPanel;
-    private JTextField xSize;
-    private JTextField ySize;
+    private JSpinner xSize;
+    private JSpinner ySize;
     private JLabel X;
     private JPanel playJPanel8;
     private JPanel playJPanel16;
@@ -35,11 +34,10 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     public SelectSizeWindow() {
         add(rootPanel);
 
-        try{
-            gameIcon.setIcon(new ImageIcon(ClassLoader.getSystemResource("/res/smallIcon.png")));
-        }catch (Exception e){
-            gameIcon.setIcon(new ImageIcon("res/smallIcon.png"));
-        }
+        xSize.setModel(new SpinnerNumberModel(1,1,128,1));
+        ySize.setModel(new SpinnerNumberModel(1,1,128,1));
+
+        gameIcon.setIcon(MineSweeperResourceManager.getSmallAppIcon());
 
         jMenuBar=new JMenuBar();
         themeManagerJMenu=new ThemeManagerJMenu();
@@ -47,15 +45,11 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
         setJMenuBar(jMenuBar);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle(MineSweeperBoard.APPNAME);
-        setName(MineSweeperBoard.APPNAME);
+        setTitle(MineSweeperResourceManager.getAPPNAME());
+        setName(MineSweeperResourceManager.getAPPNAME());
 
         if (!System.getProperty("os.name").toLowerCase().contains("mac")) {
-            try {
-                setIconImage(ImageIO.read(SelectSizeWindow.class.getResourceAsStream("/" + MineSweeperBoard.ICON)));
-            } catch (Exception e) {
-                setIconImage(new ImageIcon(MineSweeperBoard.ICON).getImage());
-            }
+            setIconImage(MineSweeperResourceManager.getAppIcon().getImage());
         }
 
         pack();
@@ -66,16 +60,12 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
     @Override
     public int getxSize() {
-        int size=Integer.parseInt(xSize.getText());
-        if (size<=0) throw new RuntimeException("Valor negativo");
-        return size;
+        return (Integer)xSize.getValue();
     }
 
     @Override
     public int getySize() {
-        int size=Integer.parseInt(ySize.getText());
-        if (size<=0) throw new RuntimeException("Valor negativo");
-        return size;
+        return (Integer)ySize.getValue();
     }
 
     @Override
