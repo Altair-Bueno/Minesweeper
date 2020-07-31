@@ -84,14 +84,24 @@ public class GameControlador implements ActionListener, MouseListener {
         window.stopClock();
         if (over.getGameOverCode() == GameOver.GAMEWON) {
             //TODO ganado y play again
-            JOptionPane.showMessageDialog((JFrame) window, over.getMessage() + window.getPuntuation());
+            int i=JOptionPane.showConfirmDialog((JFrame) window,over.getMessage(),"Play again?",JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                Thread game = new Thread(new StartMineSweeper());
+                game.start();
+                window.dispose();
+            } else {
+                System.exit(0);
+            }
         } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
-            window.setVisibility(board.getVisibility(), board.getTablero());
-            JOptionPane.showMessageDialog((JFrame) window, over.getMessage());
+            int i=JOptionPane.showConfirmDialog((JFrame) window,over.getMessage(),"Play again?",JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                Thread game = new Thread(new StartMineSweeper());
+                game.start();
+                window.dispose();
+            } else {
+                System.exit(0);
+            }
         }
-        Thread game =new Thread(new StartMineSweeper());
-        game.start();
-        window.dispose();
     }
 
     @Override
