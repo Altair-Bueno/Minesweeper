@@ -7,4 +7,5 @@ public interface IGameWindow {
     void updateJFrameTheme();
     void stopClock();
     String getPuntuation();
+    void dispose();
 }

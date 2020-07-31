@@ -1,17 +1,11 @@
-import MineSweeperGUI.GameGUI.GameControlador;
-import MineSweeperGUI.GameGUI.GameWindow;
-import MineSweeperGUI.GameGUI.IGameWindow;
-import MineSweeperGUI.SetSize.ISetSizeWindow;
-import MineSweeperGUI.SetSize.SelectSizeWindow;
-import MineSweeperGUI.SetSize.SetSizeControlador;
 import MineSweeperGUI.ThemeManager;
 import MineSweeperLogic.MineSweeperBoard;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import com.apple.eawt.*;
 
-import java.util.concurrent.Semaphore;
+import MineSweeperLogic.StartMineSweeper;
+import com.apple.eawt.*;
 
 public class MineSweeper {
     public static void main(String[] args) throws InterruptedException, ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
@@ -46,21 +40,7 @@ public class MineSweeper {
         jFrame.setVisible(true);
 
          */
-
-        Semaphore semaphore=new Semaphore(0);
-        ISetSizeWindow setSizeWindow= new SelectSizeWindow();
-        SetSizeControlador setSizeControlador=new SetSizeControlador(setSizeWindow,semaphore);
-        setSizeWindow.setControlador(setSizeControlador);
-
-        semaphore.acquire();
-
-        int xSize= setSizeControlador.getxSize();
-        int ySize= setSizeControlador.getySize();
-        int numMines= setSizeControlador.getMines();
-
-        IGameWindow gameWindow=new GameWindow(xSize,ySize);
-        MineSweeperBoard mineSweeperBoard = new MineSweeperBoard(xSize,ySize,numMines);
-        GameControlador buttonControlador = new GameControlador(gameWindow,mineSweeperBoard);
-        gameWindow.setControlador(buttonControlador);
+        Thread game =new Thread(new StartMineSweeper());
+        game.start();
     }
 }

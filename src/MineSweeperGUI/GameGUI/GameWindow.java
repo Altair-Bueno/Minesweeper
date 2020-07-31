@@ -12,7 +12,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static MineSweeperGUI.GameGUI.BoxJButton.FLAGICON;
+
 public class GameWindow extends JFrame implements IGameWindow,Runnable{
+    private static final String CLOCKICON="res/time.png";
 
     private JPanel rootPane;
     private JPanel statusPanel;
@@ -32,9 +35,13 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
 
     public GameWindow(int xSize, int ySize){
         add(rootPane);
-        flagNumberJLabel.setIcon(new ImageIcon("res/flag.png"));
-        time.setIcon(new ImageIcon("res/time.png"));
-
+        try {
+            flagNumberJLabel.setIcon(new ImageIcon(ClassLoader.getSystemResource("/"+ FLAGICON)));
+            time.setIcon(new ImageIcon(ClassLoader.getSystemResource("/"+CLOCKICON)));
+        }catch (Exception e){
+            flagNumberJLabel.setIcon(new ImageIcon(FLAGICON));
+            time.setIcon(new ImageIcon(CLOCKICON));
+        }
         //TODO jmenubar. Añadir nuevo
         jMenuBar=new JMenuBar();
         themeManagerJMenu =new ThemeManagerJMenu();

@@ -4,6 +4,7 @@ import MineSweeperGUI.ThemeManager;
 import MineSweeperLogic.Coordenada;
 import MineSweeperLogic.GameOver;
 import MineSweeperLogic.MineSweeperBoard;
+import MineSweeperLogic.StartMineSweeper;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -46,13 +47,15 @@ public class GameControlador implements ActionListener, MouseListener {
             }catch (GameOver over) {
                 window.stopClock();
                 if (over.getGameOverCode() == GameOver.GAMEWON) {
-                    //TODO ganado
+                    //TODO ganado y play again
                     JOptionPane.showMessageDialog((JFrame) window, over.getMessage() + window.getPuntuation());
                 } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
                     window.setVisibility(board.getVisibility(), board.getTablero());
                     JOptionPane.showMessageDialog((JFrame) window, over.getMessage());
                 }
-                System.exit(0);
+                Thread game =new Thread(new StartMineSweeper());
+                game.start();
+                window.dispose();
             }
         }
     }
@@ -67,7 +70,12 @@ public class GameControlador implements ActionListener, MouseListener {
                     button.setFlagged(false);
                     board.addFlag();
                 } else {
-                    button.setIcon(new ImageIcon("res/flag.png"));
+                    try {
+                        button.setIcon(new ImageIcon(ClassLoader.getSystemResource("/"+BoxJButton.FLAGICON)));
+                    } catch (Exception o){
+                        button.setIcon(new ImageIcon(BoxJButton.FLAGICON));
+                    }
+
                     button.setFlagged(true);
                     board.removeFlag();
                 }

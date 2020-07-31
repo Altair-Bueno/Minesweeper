@@ -35,7 +35,11 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     public SelectSizeWindow() {
         add(rootPanel);
 
-        gameIcon.setIcon(new ImageIcon("res/smallIcon.png"));
+        try{
+            gameIcon.setIcon(new ImageIcon(ClassLoader.getSystemResource("/res/smallIcon.png")));
+        }catch (Exception e){
+            gameIcon.setIcon(new ImageIcon("res/smallIcon.png"));
+        }
 
         jMenuBar=new JMenuBar();
         themeManagerJMenu=new ThemeManagerJMenu();

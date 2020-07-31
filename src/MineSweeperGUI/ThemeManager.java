@@ -57,8 +57,7 @@ public class ThemeManager {
                     break;
             }
             UIManager.setLookAndFeel(temaActual);
-        }catch (Exception e) {
-            throw new RuntimeException("Error al cambiar el tema, usando LaF por defecto");
+        }catch (Exception ignored) {
         }
 
     }
