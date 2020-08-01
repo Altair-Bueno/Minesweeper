@@ -10,7 +10,11 @@ public class GameOver extends RuntimeException{
 
     public GameOver(){
         super();
-        errorCode =NOCODE;
+        errorCode = NOCODE;
+    }
+    public GameOver(int errorCode){
+        super();
+        this.errorCode=errorCode;
     }
     public GameOver(String s){
         this(s,NOCODE);

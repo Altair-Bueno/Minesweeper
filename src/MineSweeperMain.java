@@ -6,6 +6,9 @@ import javax.swing.*;
 import MineSweeperJavaResources.StartMineSweeper;
 import com.apple.eawt.*;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class MineSweeperMain {
     public static void main(String[] args){
         //Codigo para apps ejecutandose en macOS
@@ -35,6 +38,8 @@ public class MineSweeperMain {
         jFrame.setVisible(true);
 
          */
+
+        // todo ResourceBundle resourceBundle= ResourceBundle.getBundle("MineSweeperJavaResources.Properties.MineSweeper");
         Thread game =new Thread(new StartMineSweeper());
         game.start();
     }

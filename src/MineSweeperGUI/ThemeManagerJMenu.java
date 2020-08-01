@@ -1,16 +1,18 @@
 package MineSweeperGUI;
 
+import MineSweeperJavaResources.MineSweeperLanguageManager;
+import MineSweeperJavaResources.MineSweeperResourceManager;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ResourceBundle;
 
 import static MineSweeperJavaResources.ThemeManager.*;
 
 
 public class ThemeManagerJMenu extends JMenu {
-
-
     //Elementos del menu
     private JMenuItem light;
     private JMenuItem dracula;
@@ -18,11 +20,11 @@ public class ThemeManagerJMenu extends JMenu {
 
     public ThemeManagerJMenu(){
         super("Tema");
-        light=new JMenuItem("Claro");
+        light=new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Claro"));
         light.setActionCommand(CLARO);
-        dracula=new JMenuItem("Oscuro");
+        dracula=new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Oscuro"));
         dracula.setActionCommand(DRACULA);
-        morado=new JMenuItem("Morado");
+        morado=new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Morado"));
         morado.setActionCommand(MORADO);
 
         if(System.getProperty("os.name").toLowerCase().contains("mac")) {

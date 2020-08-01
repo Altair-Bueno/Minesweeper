@@ -57,8 +57,6 @@ public class ThemeManager {
                     break;
             }
             UIManager.setLookAndFeel(temaActual);
-        }catch (Exception ignored) {
-        }
-
+        }catch (Exception ignored) {}
     }
 }

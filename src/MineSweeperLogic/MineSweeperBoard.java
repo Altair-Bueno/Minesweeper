@@ -85,11 +85,11 @@ public class MineSweeperBoard {
     public void dig(int x,int y){
         showZone(x,y);
         if (tablero[x][y]==MINA)
-            throw new GameOver("Explosión de mina",GameOver.MINEFOUND);
+            throw new GameOver(GameOver.MINEFOUND);
     }
     public void checkWin(){
         if (leftOver==numMinas && flagNumber==0)
-            throw new GameOver("Has ganado",GameOver.GAMEWON);
+            throw new GameOver(GameOver.GAMEWON);
     }
 
     //Method for cleaning 0 zones

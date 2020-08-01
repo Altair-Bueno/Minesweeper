@@ -1,5 +1,6 @@
 package MineSweeperGUI.GameGUI;
 
+import MineSweeperJavaResources.MineSweeperLanguageManager;
 import MineSweeperJavaResources.MineSweeperResourceManager;
 import MineSweeperJavaResources.ThemeManager;
 import MineSweeperLogic.Coordenada;
@@ -84,7 +85,7 @@ public class GameControlador implements ActionListener, MouseListener {
         window.stopClock();
         if (over.getGameOverCode() == GameOver.GAMEWON) {
             //TODO ganado y play again
-            int i=JOptionPane.showConfirmDialog((JFrame) window,over.getMessage(),"Play again?",JOptionPane.YES_NO_OPTION);
+            int i=JOptionPane.showConfirmDialog((JFrame) window,MineSweeperLanguageManager.getResourceBundle().getString("Win_message"), MineSweeperLanguageManager.getResourceBundle().getString("Play_again"),JOptionPane.YES_NO_OPTION);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();
@@ -93,7 +94,7 @@ public class GameControlador implements ActionListener, MouseListener {
                 System.exit(0);
             }
         } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
-            int i=JOptionPane.showConfirmDialog((JFrame) window,over.getMessage(),"Play again?",JOptionPane.YES_NO_OPTION);
+            int i=JOptionPane.showConfirmDialog((JFrame) window,MineSweeperLanguageManager.getResourceBundle().getString("Mine_message"),MineSweeperLanguageManager.getResourceBundle().getString("Play_again"),JOptionPane.YES_NO_OPTION);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();
