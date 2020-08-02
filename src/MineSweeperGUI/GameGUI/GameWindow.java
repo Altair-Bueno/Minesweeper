@@ -1,5 +1,7 @@
 package MineSweeperGUI.GameGUI;
 
+import MineSweeperJavaResources.MineSweeperLanguageManager;
+import MineSweeperJavaResources.MineSweeperPlatformManager;
 import MineSweeperJavaResources.MineSweeperResourceManager;
 import MineSweeperJavaResources.ThemeManager;
 import MineSweeperGUI.ThemeManagerJMenu;
@@ -7,6 +9,8 @@ import MineSweeperLogic.MineSweeperBoard;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,17 +40,19 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
         flagNumberJLabel.setIcon(MineSweeperResourceManager.getFlagIcon());
         time.setIcon(MineSweeperResourceManager.getClockIcon());
         //TODO jmenubar. Añadir nuevo. Añadir guardar
+
         jMenuBar=new JMenuBar();
         themeManagerJMenu =new ThemeManagerJMenu();
-        archivo=new JMenu("Partida");
-        nuevo=new JMenuItem("Nuevo");
+        archivo=new JMenu(MineSweeperLanguageManager.getResourceBundle().getString("Game"));
+        nuevo=new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("New_Game"));
+        nuevo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, MineSweeperPlatformManager.getMainKeyboardActionEvent()));
         jMenuBar.add(themeManagerJMenu);
         jMenuBar.add(archivo);
         archivo.add(nuevo);
 
         setJMenuBar(jMenuBar);
 
-        gameButtonslist=new ArrayList<>(16);
+        gameButtonslist=new ArrayList<>(xSize*ySize);
         gameButtons.setLayout(new GridLayout(xSize,ySize));
 
         int resolution = getToolkit().getScreenResolution();
@@ -68,11 +74,9 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
         setTitle(MineSweeperResourceManager.getAPPNAME());
         setName(MineSweeperResourceManager.getAPPNAME());
 
-        if (!System.getProperty("os.name").toLowerCase().contains("mac")) {
+        if (!MineSweeperPlatformManager.isHostOSMac())
             setIconImage(MineSweeperResourceManager.getAppIcon().getImage());
-        }
 
-        clockIsStopped = false;
         clockThread = new Thread(this);
         clockThread.start();
 
@@ -126,12 +130,8 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
     public void updateJFrameTheme() {
         SwingUtilities.updateComponentTreeUI(this);
         for (BoxJButton button: gameButtonslist) {
-            Color temp;
-            if (button.isDigged()) {
-                temp=ThemeManager.getDiggedBackground();
-            } else {
-                temp=ThemeManager.getUndiggedBackground();
-            }
+            Color temp = button.isDigged()?
+                    ThemeManager.getDiggedBackground():ThemeManager.getUndiggedBackground();
             button.setBackground(temp);
         }
     }
@@ -150,6 +150,7 @@ public class GameWindow extends JFrame implements IGameWindow,Runnable{
     @Override
     public void run() {
         clockTime = 0;
+        clockIsStopped = false;
         while (!clockIsStopped){
             time.setText("<html><b><font size=5>"+ clockTime +
             "</b></font></html>");

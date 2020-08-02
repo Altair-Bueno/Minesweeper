@@ -1,20 +1,13 @@
-import MineSweeperJavaResources.MineSweeperResourceManager;
-import MineSweeperJavaResources.ThemeManager;
+import MineSweeperJavaResources.*;
 
-import javax.swing.*;
-
-import MineSweeperJavaResources.StartMineSweeper;
 import com.apple.eawt.*;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class MineSweeperMain {
     public static void main(String[] args){
         //Codigo para apps ejecutandose en macOS
         ThemeManager.setTheme(ThemeManager.getDefinedTheme());
 
-        if(System.getProperty("os.name").toLowerCase().contains("mac")){
+        if(MineSweeperPlatformManager.isHostOSMac()){
             System.setProperty("com.apple.mrj.application.apple.menu.about.name", MineSweeperResourceManager.getAPPNAME());
             System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
             System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -39,7 +32,6 @@ public class MineSweeperMain {
 
          */
 
-        // todo ResourceBundle resourceBundle= ResourceBundle.getBundle("MineSweeperJavaResources.Properties.MineSweeper");
         Thread game =new Thread(new StartMineSweeper());
         game.start();
     }

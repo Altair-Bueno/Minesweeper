@@ -1,13 +1,11 @@
 package MineSweeperGUI;
 
 import MineSweeperJavaResources.MineSweeperLanguageManager;
-import MineSweeperJavaResources.MineSweeperResourceManager;
+import MineSweeperJavaResources.MineSweeperPlatformManager;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.ResourceBundle;
 
 import static MineSweeperJavaResources.ThemeManager.*;
 
@@ -27,16 +25,11 @@ public class ThemeManagerJMenu extends JMenu {
         morado=new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Morado"));
         morado.setActionCommand(MORADO);
 
-        if(System.getProperty("os.name").toLowerCase().contains("mac")) {
-            light.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.CTRL_MASK));
-            dracula.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.CTRL_MASK));
-            morado.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.CTRL_MASK));
-        } else {
-            light.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.META_MASK));
-            dracula.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.META_MASK));
-            morado.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.META_MASK));
 
-        }
+        light.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, MineSweeperPlatformManager.getMainKeyboardActionEvent()));
+        dracula.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, MineSweeperPlatformManager.getMainKeyboardActionEvent()));
+        morado.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, MineSweeperPlatformManager.getMainKeyboardActionEvent()));
+
         add(light);
         add(dracula);
         add(morado);

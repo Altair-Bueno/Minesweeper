@@ -1,6 +1,7 @@
 package MineSweeperGUI.SetSize;
 
 import MineSweeperGUI.ThemeManagerJMenu;
+import MineSweeperJavaResources.MineSweeperPlatformManager;
 import MineSweeperJavaResources.MineSweeperResourceManager;
 
 import javax.swing.*;
@@ -48,7 +49,7 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
         setTitle(MineSweeperResourceManager.getAPPNAME());
         setName(MineSweeperResourceManager.getAPPNAME());
 
-        if (!System.getProperty("os.name").toLowerCase().contains("mac")) {
+        if (!MineSweeperPlatformManager.isHostOSMac()) {
             setIconImage(MineSweeperResourceManager.getAppIcon().getImage());
         }
 
