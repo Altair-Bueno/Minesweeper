@@ -7,27 +7,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.Semaphore;
 
-public class SetSizeControlador implements ActionListener{
+public class SetSizeControlador implements ActionListener {
 
-    public static final String CUSTOM="CUSTOM";
-    public static final String EIGHT="EIGHT";
-    public static final String SIXTEEN="SIXTEEN";
+    public static final String CUSTOM = "CUSTOM";
+    public static final String EIGHT = "EIGHT";
+    public static final String SIXTEEN = "SIXTEEN";
 
-    private ISetSizeWindow window;
+    private final ISetSizeWindow window;
     private int xSize;
     private int ySize;
     private int mines;
-    private Semaphore semaphore;
+    private final Semaphore semaphore;
 
     public SetSizeControlador(ISetSizeWindow window, Semaphore semaphore) {
         this.window = window;
         this.semaphore = semaphore;
-        mines=0;
+        mines = 0;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String command=e.getActionCommand();
+        String command = e.getActionCommand();
         try {
             switch (command) {
                 case SIXTEEN:
@@ -57,8 +57,8 @@ public class SetSizeControlador implements ActionListener{
                         window.updateComponentTree();
                     }
             }
-        }catch (Exception o) {
-            JOptionPane.showMessageDialog(null,o.getMessage());
+        } catch (Exception o) {
+            JOptionPane.showMessageDialog(null, o.getMessage());
         }
     }
 

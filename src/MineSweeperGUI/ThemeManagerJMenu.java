@@ -12,17 +12,17 @@ import static MineSweeperJavaResources.ThemeManager.*;
 
 public class ThemeManagerJMenu extends JMenu {
     //Elementos del menu
-    private JMenuItem light;
-    private JMenuItem dracula;
-    private JMenuItem morado;
+    private final JMenuItem light;
+    private final JMenuItem dracula;
+    private final JMenuItem morado;
 
-    public ThemeManagerJMenu(){
+    public ThemeManagerJMenu() {
         super("Tema");
-        light=new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Claro"));
+        light = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Claro"));
         light.setActionCommand(CLARO);
-        dracula=new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Oscuro"));
+        dracula = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Oscuro"));
         dracula.setActionCommand(DRACULA);
-        morado=new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Morado"));
+        morado = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Morado"));
         morado.setActionCommand(MORADO);
 
 
@@ -35,7 +35,7 @@ public class ThemeManagerJMenu extends JMenu {
         add(morado);
     }
 
-    public void setActionListener(ActionListener controlador){
+    public void setActionListener(ActionListener controlador) {
         light.addActionListener(controlador);
         dracula.addActionListener(controlador);
         morado.addActionListener(controlador);

@@ -7,15 +7,16 @@ public class BoxJButton extends JButton {
     private boolean flagged;
     private boolean digged;
 
-    public BoxJButton(){
-        flagged=false;
-        digged=false;
+    public BoxJButton() {
+        flagged = false;
+        digged = false;
     }
 
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
     }
-    public boolean isFlagged(){
+
+    public boolean isFlagged() {
         return flagged;
     }
 

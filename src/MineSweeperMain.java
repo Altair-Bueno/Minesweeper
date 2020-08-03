@@ -1,17 +1,38 @@
 import MineSweeperJavaResources.*;
+import com.apple.eawt.Application;
 
-import com.apple.eawt.*;
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
 
 public class MineSweeperMain {
-    public static void main(String[] args){
-        //Codigo para apps ejecutandose en macOS
+    public static void main(String[] args) {
         ThemeManager.setTheme(ThemeManager.getDefinedTheme());
 
-        if(MineSweeperPlatformManager.isHostOSMac()){
+        //Codigo para apps ejecutandose en macOS
+        if (MineSweeperPlatformManager.isHostOSMac()) {
             System.setProperty("com.apple.mrj.application.apple.menu.about.name", MineSweeperResourceManager.getAPPNAME());
             System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
             System.setProperty("apple.laf.useScreenMenuBar", "true");
             Application.getApplication().setDockIconImage(MineSweeperResourceManager.getAppIcon().getImage());
+            Application.getApplication().setAboutHandler(e -> {
+                JEditorPane jEditorPane;
+                try {
+                    jEditorPane = new JEditorPane(ClassLoader.getSystemResource("MineSweeperJavaResources/About.html"));
+                } catch (IOException ioException) {
+                    jEditorPane = new JEditorPane();
+                    jEditorPane.setContentType("text/html");
+                    jEditorPane.setText("<html>Page not found.</html>");
+                }
+                jEditorPane.setEditable(false);
+                JScrollPane jScrollPane = new JScrollPane(jEditorPane);
+                jScrollPane.setPreferredSize(new Dimension(500,300));
+                JFrame about = new JFrame(MineSweeperLanguageManager.getResourceBundle().getString("About"));
+                about.add(jScrollPane);
+                about.pack();
+                about.setLocationRelativeTo(null);
+                about.setVisible(true);
+            });
         }
         /* Test code for colors
         ThemeManager.setTheme(ThemeManager.MORADO);
@@ -32,7 +53,7 @@ public class MineSweeperMain {
 
          */
 
-        Thread game =new Thread(new StartMineSweeper());
-        game.start();
+        Thread game = new Thread(new StartMineSweeper());
+        game.start(); //TODO cambiar la licencia y el about
     }
 }

@@ -2,11 +2,11 @@ package MineSweeperGUI.GameGUI;
 
 import MineSweeperJavaResources.MineSweeperLanguageManager;
 import MineSweeperJavaResources.MineSweeperResourceManager;
+import MineSweeperJavaResources.StartMineSweeper;
 import MineSweeperJavaResources.ThemeManager;
 import MineSweeperLogic.Coordenada;
 import MineSweeperLogic.GameOver;
 import MineSweeperLogic.MineSweeperBoard;
-import MineSweeperJavaResources.StartMineSweeper;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,28 +16,28 @@ import java.awt.event.MouseListener;
 
 public class GameControlador implements ActionListener, MouseListener {
 
-    public static final String NEW="NEW";
+    public static final String NEW = "NEW";
 
-    private IGameWindow window;
-    private MineSweeperBoard board;
+    private final IGameWindow window;
+    private final MineSweeperBoard board;
 
     public GameControlador(IGameWindow window, MineSweeperBoard board) {
         this.window = window;
         this.board = board;
-        window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber()+"</b></font></html>");
+        window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber() + "</b></font></html>");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String comand=e.getActionCommand();
-        if (comand.toLowerCase().contains(ThemeManager.THEME_MANAGER_PACKAGE_NAME)){
+        String comand = e.getActionCommand();
+        if (comand.toLowerCase().contains(ThemeManager.THEME_MANAGER_PACKAGE_NAME)) {
             ThemeManager.setTheme(comand);
             window.updateJFrameTheme();
-        }else if(comand.equals(NEW)){
-            Thread game =new Thread(new StartMineSweeper());
+        } else if (comand.equals(NEW)) {
+            Thread game = new Thread(new StartMineSweeper());
             game.start();
             window.dispose();
-        }else {
+        } else {
             try {
                 int column = Integer.parseInt(comand);
                 int row = 0;
@@ -51,7 +51,7 @@ public class GameControlador implements ActionListener, MouseListener {
                 board.dig(coordenada);
                 window.setVisibility(board.getVisibility(), board.getTablero());
                 board.checkWin();
-            }catch (GameOver over) {
+            } catch (GameOver over) {
                 gameOver(over);
             }
         }
@@ -59,8 +59,8 @@ public class GameControlador implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getButton()==MouseEvent.BUTTON3) {
-            BoxJButton button= (BoxJButton) e.getComponent();
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            BoxJButton button = (BoxJButton) e.getComponent();
             if (!button.isDigged()) {
                 if (button.getIcon() != null) {
                     button.setIcon(null);
@@ -71,21 +71,21 @@ public class GameControlador implements ActionListener, MouseListener {
                     button.setFlagged(true);
                     board.removeFlag();
                 }
-                window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber()+"</b></font></html>");
+                window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber() + "</b></font></html>");
             }
             try {
                 board.checkWin();
-            }catch (GameOver over){
+            } catch (GameOver over) {
                 gameOver(over);
             }
         }
     }
 
-    private void gameOver(GameOver over){
+    private void gameOver(GameOver over) {
         window.stopClock();
         if (over.getGameOverCode() == GameOver.GAMEWON) {
-            //TODO ganado y play again
-            int i=JOptionPane.showConfirmDialog((JFrame) window,MineSweeperLanguageManager.getResourceBundle().getString("Win_message"), MineSweeperLanguageManager.getResourceBundle().getString("Play_again"),JOptionPane.YES_NO_OPTION);
+            //TODO mensaje yes en JOptionPane
+            int i = JOptionPane.showConfirmDialog((JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Win_message"), MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), JOptionPane.YES_NO_OPTION);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();
@@ -94,7 +94,7 @@ public class GameControlador implements ActionListener, MouseListener {
                 System.exit(0);
             }
         } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
-            int i=JOptionPane.showConfirmDialog((JFrame) window,MineSweeperLanguageManager.getResourceBundle().getString("Mine_message"),MineSweeperLanguageManager.getResourceBundle().getString("Play_again"),JOptionPane.YES_NO_OPTION);
+            int i = JOptionPane.showConfirmDialog((JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Mine_message"), MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), JOptionPane.YES_NO_OPTION);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();

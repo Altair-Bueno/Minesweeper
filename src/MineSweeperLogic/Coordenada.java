@@ -8,8 +8,9 @@ public class Coordenada {
         this.x = x;
         this.y = y;
     }
-    public Coordenada(){
-        this(0,0);
+
+    public Coordenada() {
+        this(0, 0);
     }
 
     public int getFila() {
@@ -20,12 +21,12 @@ public class Coordenada {
         return y;
     }
 
-    public static Coordenada getOriginInstance(){
+    public static Coordenada getOriginInstance() {
         return new Coordenada();
     }
 
     @Override
     public String toString() {
-        return x+":"+y;
+        return x + ":" + y;
     }
 }

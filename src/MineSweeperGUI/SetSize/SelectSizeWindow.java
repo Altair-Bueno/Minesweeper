@@ -29,19 +29,19 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     private JLabel gameIcon;
     private JPanel iconJpanel;
 
-    private JMenuBar jMenuBar;
-    private ThemeManagerJMenu themeManagerJMenu;
+    private final JMenuBar jMenuBar;
+    private final ThemeManagerJMenu themeManagerJMenu;
 
     public SelectSizeWindow() {
         add(rootPanel);
 
-        xSize.setModel(new SpinnerNumberModel(1,1,128,1));
-        ySize.setModel(new SpinnerNumberModel(1,1,128,1));
+        xSize.setModel(new SpinnerNumberModel(1, 1, 128, 1));
+        ySize.setModel(new SpinnerNumberModel(1, 1, 128, 1));
 
         gameIcon.setIcon(MineSweeperResourceManager.getSmallAppIcon());
 
-        jMenuBar=new JMenuBar();
-        themeManagerJMenu=new ThemeManagerJMenu();
+        jMenuBar = new JMenuBar();
+        themeManagerJMenu = new ThemeManagerJMenu();
         jMenuBar.add(themeManagerJMenu);
         setJMenuBar(jMenuBar);
 
@@ -61,12 +61,12 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
     @Override
     public int getxSize() {
-        return (Integer)xSize.getValue();
+        return (Integer) xSize.getValue();
     }
 
     @Override
     public int getySize() {
-        return (Integer)ySize.getValue();
+        return (Integer) ySize.getValue();
     }
 
     @Override
