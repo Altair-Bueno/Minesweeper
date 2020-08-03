@@ -54,6 +54,6 @@ public class MineSweeperMain {
          */
 
         Thread game = new Thread(new StartMineSweeper());
-        game.start(); //TODO cambiar la licencia y el about
+        game.start();
     }
 }
