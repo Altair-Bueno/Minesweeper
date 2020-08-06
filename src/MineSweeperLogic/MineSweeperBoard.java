@@ -7,7 +7,7 @@ import java.util.Random;
 public class MineSweeperBoard {
     /*
     Contenido del cablero vacío, minas o número de minas cercanas
-    -1,0,1,2,3...9
+    -1,0,1,2,3...8
      */
 
     public static final int MINA = -1;
@@ -77,14 +77,17 @@ public class MineSweeperBoard {
                 int temp=Math.abs(x-i)+Math.abs(y-u);
                 //double tempWeight = (temp)*Math.exp(temp);
                 //double tempWeight = temp*(Math.exp(temp)+random.nextInt(numMinas));
-                double tempWeight = temp*(Math.exp(temp)*random.nextDouble());
+                //double tempWeight = temp*(Math.exp(temp)*random.nextDouble());
+                double tempWeight = (temp<=2) ? 0:1;
                 weightMap.put(new Coordenada(i,u),tempWeight);
             }
         }
 
         int minasPlantadas=0;
+
         while (minasPlantadas<numMinas){
             Coordenada minPos=getRandomWeighted(weightMap);
+
             int fil= minPos.getFila();
             int col= minPos.getColumna();
 

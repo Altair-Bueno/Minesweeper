@@ -35,4 +35,22 @@ public class Coordenada {
     public String toString() {
         return fila + ":" + columna;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Coordenada that = (Coordenada) o;
+
+        if (fila != that.fila) return false;
+        return columna == that.columna;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = fila;
+        result = 31 * result + columna;
+        return result;
+    }
 }
