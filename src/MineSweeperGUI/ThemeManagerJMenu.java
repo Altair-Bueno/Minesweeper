@@ -17,7 +17,7 @@ public class ThemeManagerJMenu extends JMenu {
     private final JMenuItem morado;
 
     public ThemeManagerJMenu() {
-        super("Tema");
+        super(MineSweeperLanguageManager.getResourceBundle().getString("Theme"));
         light = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Claro"));
         light.setActionCommand(CLARO);
         dracula = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("Oscuro"));

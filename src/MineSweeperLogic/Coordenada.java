@@ -22,10 +22,6 @@ public class Coordenada {
         return columna;
     }
 
-    public static Coordenada getOriginInstance() {
-        return new Coordenada();
-    }
-
     public static Coordenada parseString(String s){
         String[] temp = s.split("[:]");
         return new Coordenada(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));

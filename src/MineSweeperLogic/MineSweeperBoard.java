@@ -2,7 +2,6 @@ package MineSweeperLogic;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class MineSweeperBoard {
     /*
@@ -69,8 +68,6 @@ public class MineSweeperBoard {
      */
     private void plantWeightedMines(int x, int y){
         Map<Coordenada,Double> weightMap = new HashMap<>();
-
-        Random random = new Random();
 
         for (int i = 0; i<getNumRow();i++){
             for (int u=0;u<getNumColum();u++){

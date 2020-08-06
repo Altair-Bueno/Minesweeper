@@ -28,9 +28,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     private final List<BoxJButton> gameButtonslist;
     private GameControlador controlador;
 
-    private final JMenuBar jMenuBar;
     private final ThemeManagerJMenu themeManagerJMenu;
-    private final JMenu archivo;
     private final JMenuItem nuevo;
 
     public GameWindow(int filas, int columnas) {
@@ -38,9 +36,9 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         flagNumberJLabel.setIcon(MineSweeperResourceManager.getFlagIcon());
         time.setIcon(MineSweeperResourceManager.getClockIcon());
 
-        jMenuBar = new JMenuBar();
+        JMenuBar jMenuBar = new JMenuBar();
         themeManagerJMenu = new ThemeManagerJMenu();
-        archivo = new JMenu(MineSweeperLanguageManager.getResourceBundle().getString("Game"));
+        JMenu archivo = new JMenu(MineSweeperLanguageManager.getResourceBundle().getString("Game"));
         nuevo = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("New_Game"));
         nuevo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, MineSweeperPlatformManager.getMainKeyboardActionEvent()));
         jMenuBar.add(themeManagerJMenu);
@@ -54,7 +52,9 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
         int resolution = getToolkit().getScreenResolution();
 
-        Dimension dimension = new Dimension((int) Math.round(resolution * 0.25), (int) Math.round(resolution * 0.25));
+        //int tam=(int) Math.round(resolution * 0.25);
+        int tam =(int) Math.round(resolution * 0.30);
+        Dimension dimension = new Dimension(tam, tam);
 
         for (int i = 0; i < filas; i++) {
             for (int u = 0; u < columnas; u++) {
@@ -63,6 +63,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                 tempButton.setActionCommand(i + ":" + u);
                 tempButton.setMinimumSize(dimension);
                 tempButton.setPreferredSize(dimension);
+                tempButton.setMaximumSize(dimension);
                 tempButton.setBackground(ThemeManager.getUndiggedBackground());
                 gameButtonslist.add(tempButton);
                 gameButtons.add(tempButton);
