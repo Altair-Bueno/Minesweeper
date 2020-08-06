@@ -9,3 +9,5 @@ It also supports themes, thanks to FlatLaf!
 
 # Build instructions 
 You'll need [FlatLaf Github](https://github.com/JFormDesigner/FlatLaf "FlatLaf") and [FlatLaf themes](https://github.com/JFormDesigner/FlatLaf/tree/master/flatlaf-intellij-themes "IntelliJ themes pack")
+# Build instructions 
+You'll need [FlatLaf Github](https://github.com/JFormDesigner/FlatLaf "FlatLaf") and [FlatLaf themes](https://github.com/JFormDesigner/FlatLaf/tree/master/flatlaf-intellij-themes "IntelliJ themes pack")
