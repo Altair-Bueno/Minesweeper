@@ -59,9 +59,9 @@ public class MineSweeperBoard {
                         }
 
                     }
-                }
-            }
-        }
+                } //For
+            }//If
+        } //While
     }
 
 
@@ -71,7 +71,7 @@ public class MineSweeperBoard {
 
         for (int[] a : tablero) {
             for (int i : a) {
-                stringBuilder.append(i + "\t");
+                stringBuilder.append(i).append("\t");
             }
             stringBuilder.append("\n");
         }
@@ -105,8 +105,7 @@ public class MineSweeperBoard {
 
                     try {
                         if (!visibility[i][u]) showZone(i, u);
-                    } catch (ArrayIndexOutOfBoundsException ignored) {
-                    }
+                    } catch (ArrayIndexOutOfBoundsException ignored) {}
 
                 }
             }
