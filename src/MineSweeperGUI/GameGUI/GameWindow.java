@@ -23,7 +23,6 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     private JLabel time;
 
     private int clockTime;
-    private final Thread clockThread;
     private boolean clockIsStopped;
 
     private final List<BoxJButton> gameButtonslist;
@@ -34,7 +33,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     private final JMenu archivo;
     private final JMenuItem nuevo;
 
-    public GameWindow(int xSize, int ySize) {
+    public GameWindow(int filas, int columnas) {
         add(rootPane);
         flagNumberJLabel.setIcon(MineSweeperResourceManager.getFlagIcon());
         time.setIcon(MineSweeperResourceManager.getClockIcon());
@@ -50,22 +49,24 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
         setJMenuBar(jMenuBar);
 
-        gameButtonslist = new ArrayList<>(xSize * ySize);
-        gameButtons.setLayout(new GridLayout(xSize, ySize));
+        gameButtonslist = new ArrayList<>(filas * columnas);
+        gameButtons.setLayout(new GridLayout(filas, columnas));
 
         int resolution = getToolkit().getScreenResolution();
 
         Dimension dimension = new Dimension((int) Math.round(resolution * 0.25), (int) Math.round(resolution * 0.25));
 
-        for (int i = 0; i < xSize * ySize; i++) {
-            BoxJButton tempButton = new BoxJButton();
-            tempButton.setFocusPainted(false);
-            tempButton.setActionCommand(i + "");
-            tempButton.setMinimumSize(dimension);
-            tempButton.setPreferredSize(dimension);
-            tempButton.setBackground(ThemeManager.getUndiggedBackground());
-            gameButtonslist.add(tempButton);
-            gameButtons.add(tempButton);
+        for (int i = 0; i < filas; i++) {
+            for (int u = 0; u < columnas; u++) {
+                BoxJButton tempButton = new BoxJButton();
+                tempButton.setFocusPainted(false);
+                tempButton.setActionCommand(i + ":" + u);
+                tempButton.setMinimumSize(dimension);
+                tempButton.setPreferredSize(dimension);
+                tempButton.setBackground(ThemeManager.getUndiggedBackground());
+                gameButtonslist.add(tempButton);
+                gameButtons.add(tempButton);
+            }
         }
 
 
@@ -76,7 +77,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         if (!MineSweeperPlatformManager.isHostOSMac())
             setIconImage(MineSweeperResourceManager.getAppIcon().getImage());
 
-        clockThread = new Thread(this);
+        Thread clockThread = new Thread(this);
         clockThread.start();
 
         pack();
@@ -88,10 +89,12 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     @Override
     public void setControlador(GameControlador controlador) {
         this.controlador = controlador;
+
         for (JButton button : gameButtonslist) {
             button.addActionListener(controlador);
             button.addMouseListener(controlador);
         }
+
         themeManagerJMenu.setActionListener(controlador);
 
         nuevo.addActionListener(controlador);

@@ -1,12 +1,13 @@
 package MineSweeperLogic;
 
 public class Coordenada {
-    private final int x;
-    private final int y;
 
-    public Coordenada(int x, int y) {
-        this.x = x;
-        this.y = y;
+    private final int fila;
+    private final int columna;
+
+    public Coordenada(int fila, int columna) {
+        this.fila = fila;
+        this.columna = columna;
     }
 
     public Coordenada() {
@@ -14,19 +15,24 @@ public class Coordenada {
     }
 
     public int getFila() {
-        return x;
+        return fila;
     }
 
     public int getColumna() {
-        return y;
+        return columna;
     }
 
     public static Coordenada getOriginInstance() {
         return new Coordenada();
     }
 
+    public static Coordenada parseString(String s){
+        String[] temp = s.split("[:]");
+        return new Coordenada(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+    }
+
     @Override
     public String toString() {
-        return x + ":" + y;
+        return fila + ":" + columna;
     }
 }

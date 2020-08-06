@@ -39,15 +39,7 @@ public class GameControlador implements ActionListener, MouseListener {
             window.dispose();
         } else {
             try {
-                int column = Integer.parseInt(comand);
-                int row = 0;
-
-                while (column >= board.getNumColum()) {
-                    column = column - board.getNumColum();
-                    row++;
-                }
-
-                Coordenada coordenada = new Coordenada(row, column);
+                Coordenada coordenada = Coordenada.parseString(comand);
                 board.dig(coordenada);
                 window.setVisibility(board.getVisibility(), board.getTablero());
                 board.checkWin();
