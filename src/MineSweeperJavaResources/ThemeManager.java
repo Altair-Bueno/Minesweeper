@@ -70,7 +70,8 @@ public class ThemeManager {
                     break;
             }
             UIManager.setLookAndFeel(temaActual);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Not found: "+s);
         }
     }
 }

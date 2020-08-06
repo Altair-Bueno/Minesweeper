@@ -18,7 +18,7 @@ public class MineSweeperMain {
             Application.getApplication().setAboutHandler(e -> {
                 JEditorPane jEditorPane;
                 try {
-                    jEditorPane = new JEditorPane(ClassLoader.getSystemResource("MineSweeperJavaResources/About.html"));
+                    jEditorPane = new JEditorPane(MineSweeperResourceManager.getAboutPage());
                 } catch (IOException ioException) {
                     jEditorPane = new JEditorPane();
                     jEditorPane.setContentType("text/html");

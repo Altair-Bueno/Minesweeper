@@ -38,7 +38,6 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         add(rootPane);
         flagNumberJLabel.setIcon(MineSweeperResourceManager.getFlagIcon());
         time.setIcon(MineSweeperResourceManager.getClockIcon());
-        //TODO jmenubar. Añadir guardar
 
         jMenuBar = new JMenuBar();
         themeManagerJMenu = new ThemeManagerJMenu();

@@ -2,6 +2,7 @@ package MineSweeperJavaResources;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.net.URL;
 
 public class MineSweeperResourceManager {
 
@@ -12,6 +13,7 @@ public class MineSweeperResourceManager {
     private static final String FLAGICON = "MineSweeperJavaResources/ImageResources/flag.png";
     private static final String CLOCKICON = "MineSweeperJavaResources/ImageResources/time.png";
     private static final String MINAICON = "MineSweeperJavaResources/ImageResources/mineButton.png";
+    private static final String ABOUT_PAGE = "MineSweeperJavaResources/About.html";
 
 
     public static String getAPPNAME() {
@@ -56,5 +58,8 @@ public class MineSweeperResourceManager {
         } catch (Exception e) {
             throw new ResourceNotFoundException(MINAICON + " Not found: " + e.getMessage());
         }
+    }
+    public static URL getAboutPage(){
+        return ClassLoader.getSystemResource(ABOUT_PAGE);
     }
 }

@@ -83,9 +83,10 @@ public class GameControlador implements ActionListener, MouseListener {
 
     private void gameOver(GameOver over) {
         window.stopClock();
+        String [] options= {MineSweeperLanguageManager.getResourceBundle().getString("Yes"),MineSweeperLanguageManager.getResourceBundle().getString("No")};
+
         if (over.getGameOverCode() == GameOver.GAMEWON) {
-            //TODO mensaje yes en JOptionPane
-            int i = JOptionPane.showConfirmDialog((JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Win_message"), MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), JOptionPane.YES_NO_OPTION);
+            int i = JOptionPane.showOptionDialog((JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"),  MineSweeperLanguageManager.getResourceBundle().getString("Win_message"),JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,null);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();
@@ -94,7 +95,7 @@ public class GameControlador implements ActionListener, MouseListener {
                 System.exit(0);
             }
         } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
-            int i = JOptionPane.showConfirmDialog((JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Mine_message"), MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), JOptionPane.YES_NO_OPTION);
+            int i = JOptionPane.showOptionDialog((JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), MineSweeperLanguageManager.getResourceBundle().getString("Mine_message"), JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,null);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();
