@@ -1,5 +1,7 @@
 package MineSweeperLogic;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class MineSweeperBoard {
@@ -19,6 +21,7 @@ public class MineSweeperBoard {
     private final int numMinas;
     private int flagNumber;
     private int leftOver;
+    private boolean gameHasStarted;
 
     //Constructors
     public MineSweeperBoard(int x, int y, int numMinas) {
@@ -29,7 +32,8 @@ public class MineSweeperBoard {
         flagNumber = numMinas;
         leftOver = x * y;
 
-        plantMines();
+        gameHasStarted=false;
+        //plantMines();
     }
 
     public MineSweeperBoard(int size, int numMinas) {
@@ -37,7 +41,7 @@ public class MineSweeperBoard {
     }
 
     //Private method for constructors
-    private void plantMines() {
+    /*private void plantMines() {
         Random random = new Random();
         int minasPlantadas = 0;
 
@@ -64,6 +68,59 @@ public class MineSweeperBoard {
         } //While
     }
 
+     */
+    private void plantWeightedMines(int x, int y){
+        Map<Coordenada,Double> weightMap = new HashMap<>();
+
+        Random random = new Random();
+
+        for (int i = 0; i<getNumRow();i++){
+            for (int u=0;u<getNumColum();u++){
+                int temp=Math.abs(x-i)+Math.abs(y-u);
+                //double tempWeight = (temp)*Math.exp(temp);
+                //double tempWeight = temp*(Math.exp(temp)+random.nextInt(numMinas));
+                double tempWeight = temp*(Math.exp(temp)*random.nextDouble());
+                weightMap.put(new Coordenada(i,u),tempWeight);
+            }
+        }
+
+        int minasPlantadas=0;
+        while (minasPlantadas<numMinas){
+            Coordenada minPos=getRandomWeighted(weightMap);
+            int fil= minPos.getFila();
+            int col= minPos.getColumna();
+
+            if (tablero[fil][col]!=MINA){
+                weightMap.remove(minPos);
+                tablero[fil][col]=MINA;
+                minasPlantadas++;
+
+                for (int i = fil - 1; i <= fil + 1; i++) {
+                    for (int u = col - 1; u <= col + 1; u++) {
+
+                        try {
+                            if (tablero[i][u] != MINA) tablero[i][u]++;
+                        } catch (ArrayIndexOutOfBoundsException ignored) {
+                        }
+
+                    }
+                } //For
+            }
+        }
+        gameHasStarted=true;
+    }
+    private static <E> E getRandomWeighted(Map<E, ? extends Number> balancedObjects) {
+        double totalWeight = balancedObjects.values().stream().mapToInt(Number::intValue).sum(); // Java 8
+
+        double value = Math.random()*totalWeight, weight = 0;
+
+        for (Map.Entry<E, ? extends Number> e : balancedObjects.entrySet()) {
+            weight += e.getValue().doubleValue();
+            if (value < weight)return e.getKey();
+        }
+        throw new RuntimeException("Error on getRandomWeighted");
+    }
+
 
     @Override
     public String toString() {
@@ -85,6 +142,7 @@ public class MineSweeperBoard {
     }
 
     public void dig(int x, int y) {
+        if (!gameHasStarted) plantWeightedMines(x,y);
         showZone(x, y);
         if (tablero[x][y] == MINA)
             throw new GameOver(GameOver.MINEFOUND);
