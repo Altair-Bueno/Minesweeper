@@ -8,12 +8,12 @@ public class ThemeManager {
 
     //Temas disponibles
     public static final String CLARO = "com.formdev.flatlaf.FlatLightLaf";
-    private static final String[] CLARO_COLORS = {"#000000", "#0000FF", "##C21F40", "#FF0000", "#f000ec", "#004A2F", "#916C80", "#eb9e10", "#ed0cc4", "#30BCED"};
+    private static final String[] CLARO_COLORS = {"#000000", "#0000FF", "#3f9957", "#FF0000", "#f000ec", "#004A2F", "#916C80", "#eb9e10", "#ed0cc4", "#30BCED"};
     private static final Color CLARO_BACKGROUND_UNDIGGED = Color.GRAY;
     private static final Color CLARO_BACKGROUND_DIGGED = Color.WHITE;
 
     public static final String DRACULA = "com.formdev.flatlaf.FlatDarculaLaf";
-    private static final String[] DRACULA_COLORS = {"#FFFFFF", "#0000FF", "##C21F40", "#FF0000", "#f000ec", "#004A2F", "#916C80", "#eb9e10", "#ed0cc4", "#B47EB3"};
+    private static final String[] DRACULA_COLORS = {"#FFFFFF", "#7876e3", "#c90c0c", "#e622cb", "#8c417d", "#004A2F", "#d49c61", "#bd6302", "#00f700", "#8f9c8f"};
     private static final Color DRACULA_BACKGROUND_UNDIGGED = new Color(0x7D7D7D);
     private static final Color DRACULA_BACKGROUND_DIGGED = new Color(0xC5C5C5);
 
@@ -71,7 +71,7 @@ public class ThemeManager {
             }
             UIManager.setLookAndFeel(temaActual);
         } catch (Exception e) {
-            throw new ResourceNotFoundException("Not found: "+s);
+            System.err.println("Theme"+ temaActual+"not found");
         }
     }
 }

@@ -119,11 +119,13 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                     button.removeActionListener(controlador);
                     button.setDigged(true);
                     button.setBackground(ThemeManager.getDiggedBackground());
+                    int value = values[i][u];
+                    button.setValue(value);
 
                     if (values[i][u] == MineSweeperBoard.MINA) {
                         button.setIcon(MineSweeperResourceManager.getMinaIcon());
                     } else if (values[i][u] > 0) {
-                        button.setText("<html><b><font size=5 color=" + ThemeManager.getFontColors()[values[i][u]] + ">" + values[i][u] + "</font></b></html>");
+                        button.setText("<html><b><font size=5 color=" + ThemeManager.getFontColors()[value] + ">" + value + "</font></b></html>");
                     }
                 }
             }
@@ -137,6 +139,11 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
             Color temp = button.isDigged() ?
                     ThemeManager.getDiggedBackground() : ThemeManager.getUndiggedBackground();
             button.setBackground(temp);
+
+            Integer value=button.getValue();
+            if (button.isDigged() &&value!=null&& value>0){
+                button.setText("<html><b><font size=5 color=" + ThemeManager.getFontColors()[value] + ">" + value + "</font></b></html>");
+            }
         }
     }
 

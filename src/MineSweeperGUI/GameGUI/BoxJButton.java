@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 public class BoxJButton extends JButton {
     private boolean flagged;
     private boolean digged;
+    private Integer value; //Null es desconocido
 
     public BoxJButton() {
         flagged = false;
         digged = false;
+        value=null;
     }
 
     public void setFlagged(boolean flagged) {
@@ -33,5 +35,13 @@ public class BoxJButton extends JButton {
         if (!flagged) {
             super.fireActionPerformed(event);
         }
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public Integer getValue() {
+        return value;
     }
 }
