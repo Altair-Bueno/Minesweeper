@@ -29,6 +29,10 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     private JLabel gameIcon;
     private JPanel iconJpanel;
 
+    private static int lastGamePanel=0;
+    private static int xSizeLastValue=1;
+    private static int ySizeLastValue=1;
+
     private final ThemeManagerJMenu themeManagerJMenu;
 
     public SelectSizeWindow() {
@@ -36,6 +40,10 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
         xSize.setModel(new SpinnerNumberModel(1, 1, 21, 1));
         ySize.setModel(new SpinnerNumberModel(1, 1, 21, 1));
+
+        tabbedPane.setSelectedIndex(lastGamePanel);
+        xSize.setValue(xSizeLastValue);
+        ySize.setValue(ySizeLastValue);
 
         gameIcon.setIcon(MineSweeperResourceManager.getSmallAppIcon());
 
@@ -85,5 +93,13 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     public void updateComponentTree() {
         SwingUtilities.updateComponentTreeUI(this);
         pack();
+    }
+
+    @Override
+    public void dispose() {
+        lastGamePanel=tabbedPane.getSelectedIndex();
+        xSizeLastValue=getxSize();
+        ySizeLastValue=getySize();
+        super.dispose();
     }
 }
