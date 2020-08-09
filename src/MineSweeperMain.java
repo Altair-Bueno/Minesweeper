@@ -35,8 +35,8 @@ public class MineSweeperMain {
             });
         }
         // Test code for colors
-        /*
-        ThemeManager.setTheme(ThemeManager.DRACULA);
+/*
+        ThemeManager.setTheme(ThemeManager.MORADO);
         JFrame jFrame=new JFrame();
         JPanel jPanel=new JPanel();
         jFrame.add(jPanel);

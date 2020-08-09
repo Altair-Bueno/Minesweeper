@@ -18,7 +18,7 @@ public class ThemeManager {
     private static final Color DRACULA_BACKGROUND_DIGGED = new Color(0xC5C5C5);
 
     public static final String MORADO = "com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme";
-    private static final String[] MORADO_COLORS = CLARO_COLORS;
+    private static final String[] MORADO_COLORS = {"#000000", "#0000FF", "#3f9957", "#FF0000", "#801969", "#093827", "#916C80", "#eb9e10", "#664601", "#30BCED"};
     private static final Color MORADO_BACKGROUND_UNDIGGED = new Color(0xB47EB3);
     private static final Color MORADO_BACKGROUND_DIGGED = new Color(0xFFD5FF);
 
