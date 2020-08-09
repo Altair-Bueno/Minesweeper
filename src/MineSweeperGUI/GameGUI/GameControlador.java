@@ -78,7 +78,11 @@ public class GameControlador implements ActionListener, MouseListener {
         String [] options= {MineSweeperLanguageManager.getResourceBundle().getString("Yes"),MineSweeperLanguageManager.getResourceBundle().getString("No")};
 
         if (over.getGameOverCode() == GameOver.GAMEWON) {
-            int i = JOptionPane.showOptionDialog((JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"),  MineSweeperLanguageManager.getResourceBundle().getString("Win_message"),JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,null);
+            int i = JOptionPane.showOptionDialog(
+                    (JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"),  MineSweeperLanguageManager.getResourceBundle().getString("Win_message"),
+                    JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,
+                    MineSweeperResourceManager.getConffetiIcon(),
+                    options,null);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();
@@ -87,7 +91,11 @@ public class GameControlador implements ActionListener, MouseListener {
                 System.exit(0);
             }
         } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
-            int i = JOptionPane.showOptionDialog((JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), MineSweeperLanguageManager.getResourceBundle().getString("Mine_message"), JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,null);
+            int i = JOptionPane.showOptionDialog(
+                    (JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), MineSweeperLanguageManager.getResourceBundle().getString("Mine_message"),
+                    JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,
+                    MineSweeperResourceManager.getExplosionIcon(),
+                    options,null);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();

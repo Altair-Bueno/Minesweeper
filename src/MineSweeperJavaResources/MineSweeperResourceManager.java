@@ -14,6 +14,8 @@ public class MineSweeperResourceManager {
     private static final String CLOCKICON = "MineSweeperJavaResources/ImageResources/time.png";
     private static final String MINAICON = "MineSweeperJavaResources/ImageResources/mineButton.png";
     private static final String ABOUT_PAGE = "MineSweeperJavaResources/About.html";
+    private static final String EXPLOSION= "MineSweeperJavaResources/ImageResources/explosion.png";
+    private static final String CONFFETI="MineSweeperJavaResources/ImageResources/confetti.png";
 
 
     public static String getAPPNAME() {
@@ -57,6 +59,20 @@ public class MineSweeperResourceManager {
             return new ImageIcon(ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream(MineSweeperResourceManager.MINAICON)));
         } catch (Exception e) {
             throw new ResourceNotFoundException(MINAICON + " Not found: " + e.getMessage());
+        }
+    }
+    public static ImageIcon getExplosionIcon(){
+        try {
+            return new ImageIcon(ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream(MineSweeperResourceManager.EXPLOSION)));
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(EXPLOSION + " Not found: " + e.getMessage());
+        }
+    }
+    public static ImageIcon getConffetiIcon(){
+        try {
+            return new ImageIcon(ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream(MineSweeperResourceManager.CONFFETI)));
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(CONFFETI + " Not found: " + e.getMessage());
         }
     }
     public static URL getAboutPage(){
