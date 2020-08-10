@@ -1,17 +1,25 @@
 package MineSweeperGUI.GameGUI;
 
+import MineSweeperLogic.Coordenada;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class BoxJButton extends JButton {
     private boolean flagged;
     private boolean digged;
+    private Coordenada coordenada;
     private Integer value; //Null es desconocido
 
     public BoxJButton() {
         flagged = false;
         digged = false;
         value=null;
+        coordenada=null;
+    }
+    public BoxJButton(Coordenada coordenada){
+        this();
+        this.coordenada=coordenada;
     }
 
     public void setFlagged(boolean flagged) {
@@ -43,5 +51,8 @@ public class BoxJButton extends JButton {
 
     public Integer getValue() {
         return value;
+    }
+    public Coordenada getPosition(){
+        return coordenada;
     }
 }

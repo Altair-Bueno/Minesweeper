@@ -37,10 +37,15 @@ public class GameControlador implements ActionListener, MouseListener {
         } else {
             try {
                 Coordenada coordenada = Coordenada.parseString(comand);
-                board.dig(coordenada);
+                if (board.isDigged(coordenada)){
+                    board.digNearby(coordenada);
+                }else {
+                    board.dig(coordenada);
+                }
                 window.setVisibility(board.getVisibility(), board.getTablero());
                 board.checkWin();
             } catch (GameOver over) {
+                window.setVisibility(board.getVisibility(), board.getTablero());
                 gameOver(over);
             }
         }
@@ -54,11 +59,11 @@ public class GameControlador implements ActionListener, MouseListener {
                 if (button.getIcon() != null) {
                     button.setIcon(null);
                     button.setFlagged(false);
-                    board.addFlag();
+                    board.removeFlag(button.getPosition());
                 } else {
                     button.setIcon(MineSweeperResourceManager.getFlagIcon());
                     button.setFlagged(true);
-                    board.removeFlag();
+                    board.addFlag(button.getPosition());
                 }
                 window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber() + "</b></font></html>");
             }

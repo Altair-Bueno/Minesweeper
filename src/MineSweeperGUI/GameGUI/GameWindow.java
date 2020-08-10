@@ -5,6 +5,7 @@ import MineSweeperJavaResources.MineSweeperLanguageManager;
 import MineSweeperJavaResources.MineSweeperPlatformManager;
 import MineSweeperJavaResources.MineSweeperResourceManager;
 import MineSweeperJavaResources.ThemeManager;
+import MineSweeperLogic.Coordenada;
 import MineSweeperLogic.MineSweeperBoard;
 
 import javax.swing.*;
@@ -26,7 +27,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     private boolean clockIsStopped;
 
     private final List<BoxJButton> gameButtonslist;
-    private GameControlador controlador;
+    //private GameControlador controlador;
 
     private final ThemeManagerJMenu themeManagerJMenu;
     private final JMenuItem nuevo;
@@ -58,7 +59,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
         for (int i = 0; i < filas; i++) {
             for (int u = 0; u < columnas; u++) {
-                BoxJButton tempButton = new BoxJButton();
+                BoxJButton tempButton = new BoxJButton(new Coordenada(i,u));
                 tempButton.setFocusPainted(false);
                 tempButton.setActionCommand(i + ":" + u);
                 tempButton.setMinimumSize(dimension);
@@ -90,7 +91,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
     @Override
     public void setControlador(GameControlador controlador) {
-        this.controlador = controlador;
+        //this.controlador = controlador;
 
         for (JButton button : gameButtonslist) {
             button.addActionListener(controlador);
@@ -117,7 +118,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                 BoxJButton button = iterator.next();
 
                 if (visibility[i][u] && !button.isDigged() && !button.isFlagged()) {
-                    button.removeActionListener(controlador);
+                    //button.removeActionListener(controlador);
                     button.setDigged(true);
                     button.setBackground(ThemeManager.getDiggedBackground());
                     int value = values[i][u];
