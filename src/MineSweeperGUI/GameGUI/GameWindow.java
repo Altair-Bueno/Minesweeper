@@ -82,6 +82,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         clockThread.start();
 
         pack();
+        setMinimumSize(getSize());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -148,12 +149,8 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     }
 
     @Override
-    public void stopClock() {
+    public int stopClock() {
         clockIsStopped = true;
-    }
-
-    @Override
-    public int getPuntuation() {
         return clockTime;
     }
 

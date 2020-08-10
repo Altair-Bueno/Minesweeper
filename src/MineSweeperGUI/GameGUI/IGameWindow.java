@@ -9,9 +9,7 @@ public interface IGameWindow {
 
     void updateJFrameTheme();
 
-    void stopClock();
-
-    int getPuntuation();
+    int stopClock();
 
     void dispose();
 }

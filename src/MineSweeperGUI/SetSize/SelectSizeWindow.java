@@ -3,6 +3,7 @@ package MineSweeperGUI.SetSize;
 import MineSweeperGUI.ThemeManagerJMenu;
 import MineSweeperJavaResources.MineSweeperPlatformManager;
 import MineSweeperJavaResources.MineSweeperResourceManager;
+import MineSweeperJavaResources.MineSweeperScoreboard;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -28,22 +29,25 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
     private JLabel gameIcon;
     private JPanel iconJpanel;
+    private JList scoreboardList;
+    private JPanel scoreboardJpanel;
 
     private static int lastGamePanel=0;
-    private static int xSizeLastValue=1;
-    private static int ySizeLastValue=1;
+    private static int xSizeLastValue=8;
+    private static int ySizeLastValue=8;
 
     private final ThemeManagerJMenu themeManagerJMenu;
 
     public SelectSizeWindow() {
         add(rootPanel);
 
-        xSize.setModel(new SpinnerNumberModel(1, 1, 21, 1));
-        ySize.setModel(new SpinnerNumberModel(1, 1, 21, 1));
+        xSize.setModel(new SpinnerNumberModel(xSizeLastValue, 8, 21, 1));
+        ySize.setModel(new SpinnerNumberModel(ySizeLastValue, 8, 21, 1));
 
         tabbedPane.setSelectedIndex(lastGamePanel);
-        xSize.setValue(xSizeLastValue);
-        ySize.setValue(ySizeLastValue);
+
+
+        scoreboardList.setListData(MineSweeperScoreboard.getScoreboard());
 
         gameIcon.setIcon(MineSweeperResourceManager.getSmallAppIcon());
 

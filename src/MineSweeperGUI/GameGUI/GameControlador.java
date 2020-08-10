@@ -1,9 +1,6 @@
 package MineSweeperGUI.GameGUI;
 
-import MineSweeperJavaResources.MineSweeperLanguageManager;
-import MineSweeperJavaResources.MineSweeperResourceManager;
-import MineSweeperJavaResources.StartMineSweeper;
-import MineSweeperJavaResources.ThemeManager;
+import MineSweeperJavaResources.*;
 import MineSweeperLogic.Coordenada;
 import MineSweeperLogic.GameOver;
 import MineSweeperLogic.MineSweeperBoard;
@@ -74,10 +71,11 @@ public class GameControlador implements ActionListener, MouseListener {
     }
 
     private void gameOver(GameOver over) {
-        window.stopClock();
+        int time = window.stopClock();
         String [] options= {MineSweeperLanguageManager.getResourceBundle().getString("Yes"),MineSweeperLanguageManager.getResourceBundle().getString("No")};
 
         if (over.getGameOverCode() == GameOver.GAMEWON) {
+            MineSweeperScoreboard.addScore(board.getNumColum()+"x"+board.getNumRow(),time);
             int i = JOptionPane.showOptionDialog(
                     (JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"),  MineSweeperLanguageManager.getResourceBundle().getString("Win_message"),
                     JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,
