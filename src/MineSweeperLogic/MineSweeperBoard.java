@@ -146,7 +146,7 @@ public class MineSweeperBoard {
     }
 
     public void checkWin() {
-        if (leftOver == numMinas && flagNumber == 0)
+        if (leftOver == numMinas)
             throw new GameOver(GameOver.GAMEWON);
     }
 

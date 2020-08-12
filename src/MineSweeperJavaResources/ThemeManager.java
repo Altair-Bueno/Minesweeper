@@ -71,7 +71,7 @@ public class ThemeManager {
             }
             UIManager.setLookAndFeel(temaActual);
         } catch (Exception e) {
-            System.err.println("Theme"+ temaActual+"not found");
+            System.err.println("Theme "+ temaActual +" not found");
         }
     }
 }

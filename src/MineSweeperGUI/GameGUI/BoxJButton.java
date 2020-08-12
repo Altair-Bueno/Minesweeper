@@ -53,6 +53,7 @@ public class BoxJButton extends JButton {
         return value;
     }
     public Coordenada getPosition(){
+        if(coordenada==null) throw new RuntimeException("No value saved");
         return coordenada;
     }
 }

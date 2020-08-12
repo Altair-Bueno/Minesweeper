@@ -23,8 +23,12 @@ public class Coordenada {
     }
 
     public static Coordenada parseString(String s){
-        String[] temp = s.split("[:]");
-        return new Coordenada(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+        try {
+            String[] temp = s.split("[:]");
+            return new Coordenada(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+        } catch (Exception e){
+            throw new RuntimeException("Impossible to parse String "+ s);
+        }
     }
 
     @Override
