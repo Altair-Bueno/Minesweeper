@@ -8,14 +8,19 @@ public class MineSweeperResourceManager {
 
     private static final String APPNAME = "Mine Sweeper";
 
+    //Icons
     private static final String APPICON = "MineSweeperJavaResources/ImageResources/icon.png";
     private static final String SMALLAPPICON = "MineSweeperJavaResources/ImageResources/smallIcon.png";
     private static final String FLAGICON = "MineSweeperJavaResources/ImageResources/flag.png";
     private static final String CLOCKICON = "MineSweeperJavaResources/ImageResources/time.png";
     private static final String MINAICON = "MineSweeperJavaResources/ImageResources/mineButton.png";
-    private static final String ABOUT_PAGE = "MineSweeperJavaResources/About.html";
     private static final String EXPLOSION= "MineSweeperJavaResources/ImageResources/explosion.png";
     private static final String CONFFETI="MineSweeperJavaResources/ImageResources/confetti.png";
+
+    //HTML files
+    private static final String ABOUT_PAGE = "MineSweeperJavaResources/Docs/About.html";
+    private static final String HELP_PAGE = "MineSweeperJavaResources/Docs/Help.html";
+
 
 
     public static String getAPPNAME() {
@@ -77,5 +82,8 @@ public class MineSweeperResourceManager {
     }
     public static URL getAboutPage(){
         return ClassLoader.getSystemResource(ABOUT_PAGE);
+    }
+    public static URL getHelpPage(){
+        return ClassLoader.getSystemResource(HELP_PAGE);
     }
 }

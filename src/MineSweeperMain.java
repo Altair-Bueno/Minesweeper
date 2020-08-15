@@ -1,10 +1,7 @@
+import MineSweeperGUI.Others.HtmlViewer;
 import MineSweeperJavaResources.*;
 import com.apple.eawt.Application;
 
-import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
-import java.awt.*;
-import java.io.IOException;
 
 public class MineSweeperMain {
     public static void main(String[] args) {
@@ -16,35 +13,7 @@ public class MineSweeperMain {
             System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
             System.setProperty("apple.laf.useScreenMenuBar", "true");
             Application.getApplication().setDockIconImage(MineSweeperResourceManager.getAppIcon().getImage());
-            Application.getApplication().setAboutHandler(e -> {
-                JEditorPane jEditorPane;
-                try {
-                    jEditorPane = new JEditorPane(MineSweeperResourceManager.getAboutPage());
-                } catch (IOException ioException) {
-                    jEditorPane = new JEditorPane();
-                    jEditorPane.setContentType("text/html");
-                    jEditorPane.setText("<html>Page not found.</html>");
-                }
-                jEditorPane.setEditable(false);
-                jEditorPane.addHyperlinkListener((a)->{
-                    if (HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())) {
-                        System.out.println(a.getURL());
-                        Desktop desktop = Desktop.getDesktop();
-                        try {
-                            desktop.browse(a.getURL().toURI());
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                });
-                JScrollPane jScrollPane = new JScrollPane(jEditorPane);
-                jScrollPane.setPreferredSize(new Dimension(500,300));
-                JFrame about = new JFrame(MineSweeperLanguageManager.getResourceBundle().getString("About"));
-                about.add(jScrollPane);
-                about.pack();
-                about.setLocationRelativeTo(null);
-                about.setVisible(true);
-            });
+            Application.getApplication().setAboutHandler(e -> new HtmlViewer(MineSweeperResourceManager.getAboutPage(),MineSweeperLanguageManager.getResourceBundle().getString("About")));
         }
         // Test code for colors
 /*

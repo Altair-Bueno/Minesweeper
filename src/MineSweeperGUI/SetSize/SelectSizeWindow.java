@@ -1,6 +1,7 @@
 package MineSweeperGUI.SetSize;
 
-import MineSweeperGUI.ThemeManagerJMenu;
+import MineSweeperGUI.Others.HelpJMenu;
+import MineSweeperGUI.Others.ThemeManagerJMenu;
 import MineSweeperJavaResources.MineSweeperPlatformManager;
 import MineSweeperJavaResources.MineSweeperResourceManager;
 import MineSweeperJavaResources.MineSweeperScoreboard;
@@ -54,6 +55,8 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
         JMenuBar jMenuBar = new JMenuBar();
         themeManagerJMenu = new ThemeManagerJMenu();
         jMenuBar.add(themeManagerJMenu);
+        jMenuBar.add(new HelpJMenu());
+
         setJMenuBar(jMenuBar);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);

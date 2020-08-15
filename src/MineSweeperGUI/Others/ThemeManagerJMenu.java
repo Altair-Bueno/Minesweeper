@@ -1,4 +1,4 @@
-package MineSweeperGUI;
+package MineSweeperGUI.Others;
 
 import MineSweeperJavaResources.MineSweeperLanguageManager;
 import MineSweeperJavaResources.MineSweeperPlatformManager;

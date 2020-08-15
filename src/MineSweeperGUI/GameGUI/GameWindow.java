@@ -1,6 +1,7 @@
 package MineSweeperGUI.GameGUI;
 
-import MineSweeperGUI.ThemeManagerJMenu;
+import MineSweeperGUI.Others.HelpJMenu;
+import MineSweeperGUI.Others.ThemeManagerJMenu;
 import MineSweeperJavaResources.MineSweeperLanguageManager;
 import MineSweeperJavaResources.MineSweeperPlatformManager;
 import MineSweeperJavaResources.MineSweeperResourceManager;
@@ -45,6 +46,8 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         jMenuBar.add(themeManagerJMenu);
         jMenuBar.add(archivo);
         archivo.add(nuevo);
+
+        jMenuBar.add(new HelpJMenu());
 
         setJMenuBar(jMenuBar);
 
