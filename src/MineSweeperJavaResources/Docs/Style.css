@@ -1,0 +1,14 @@
+div {
+    font-family: Verdana;
+    font-size: 120%;
+}
+
+img {
+    resize: horizontal;
+    grid: auto;
+}
+
+h1 {
+    font-size: 140%
+}
+
