@@ -1,16 +1,9 @@
-import MineSweeperJavaResources.ThemeManager;
+import MineSweeperResources.MineSweeperJukeBox;
+import MineSweeperResources.MineSweeperResourceManager;
 
-import javax.sound.sampled.*;
-import javax.sound.sampled.spi.MixerProvider;
-import javax.swing.*;
-import javax.xml.crypto.Data;
-import java.io.File;
-import java.io.FileInputStream;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.text.Format;
-import java.util.List;
 
 public class TestMain {
     /*
@@ -65,17 +58,7 @@ public class TestMain {
 
 
      */
-    public static void main(String[] args) throws LineUnavailableException, IOException, UnsupportedAudioFileException, InterruptedException {
-        for (AudioFileFormat.Type i : AudioSystem.getAudioFileTypes()){
-            System.out.println(i);
-        }
-
-        AudioInputStream audioStream = AudioSystem.getAudioInputStream(ClassLoader.getSystemResourceAsStream("MineSweeperJavaResources/Sounds/Win_Sound_1.wav"));
-        AudioFormat format = audioStream.getFormat();
-        DataLine.Info info = new DataLine.Info(Clip.class, format);
-        Clip clip = (Clip) AudioSystem.getLine(info);
-        clip.open(audioStream);
-        clip.start();
-        Thread.sleep(577777);
+    public static void main(String[] args) {
+        MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL("MineSweeperResources/Sounds/Flag_Deploy_Sound_1.wav"));
     }
 }

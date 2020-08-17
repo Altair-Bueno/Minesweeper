@@ -2,9 +2,9 @@ package MineSweeperGUI.SetSize;
 
 import MineSweeperGUI.Others.HelpJMenu;
 import MineSweeperGUI.Others.ThemeManagerJMenu;
-import MineSweeperJavaResources.MineSweeperPlatformManager;
-import MineSweeperJavaResources.MineSweeperResourceManager;
-import MineSweeperJavaResources.MineSweeperScoreboard;
+import MineSweeperResources.MineSweeperPlatformManager;
+import MineSweeperResources.MineSweeperResourceManager;
+import MineSweeperResources.MineSweeperScoreboard;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -33,9 +33,9 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     private JList scoreboardList;
     private JPanel scoreboardJpanel;
 
-    private static int lastGamePanel=0;
-    private static int xSizeLastValue=8;
-    private static int ySizeLastValue=8;
+    private static int lastGamePanel = 0;
+    private static int xSizeLastValue = 8;
+    private static int ySizeLastValue = 8;
 
     private final ThemeManagerJMenu themeManagerJMenu;
 
@@ -50,7 +50,7 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
         scoreboardList.setListData(MineSweeperScoreboard.getScoreboard());
 
-        gameIcon.setIcon(MineSweeperResourceManager.getSmallAppIcon());
+        gameIcon.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.SMALLAPPICON)));
 
         JMenuBar jMenuBar = new JMenuBar();
         themeManagerJMenu = new ThemeManagerJMenu();
@@ -64,7 +64,7 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
         setName(MineSweeperResourceManager.getAPPNAME());
 
         if (!MineSweeperPlatformManager.isHostOSMac()) {
-            setIconImage(MineSweeperResourceManager.getAppIcon().getImage());
+            setIconImage(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
         }
 
         pack();
@@ -104,9 +104,9 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
     @Override
     public void dispose() {
-        lastGamePanel=tabbedPane.getSelectedIndex();
-        xSizeLastValue=getxSize();
-        ySizeLastValue=getySize();
+        lastGamePanel = tabbedPane.getSelectedIndex();
+        xSizeLastValue = getxSize();
+        ySizeLastValue = getySize();
         super.dispose();
     }
 }

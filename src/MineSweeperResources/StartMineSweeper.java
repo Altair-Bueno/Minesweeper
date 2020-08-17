@@ -1,4 +1,4 @@
-package MineSweeperJavaResources;
+package MineSweeperResources;
 
 import MineSweeperGUI.GameGUI.GameControlador;
 import MineSweeperGUI.GameGUI.GameWindow;

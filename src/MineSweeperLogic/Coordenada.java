@@ -22,12 +22,12 @@ public class Coordenada {
         return columna;
     }
 
-    public static Coordenada parseString(String s){
+    public static Coordenada parseString(String s) {
         try {
             String[] temp = s.split("[:]");
             return new Coordenada(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
-        } catch (Exception e){
-            throw new RuntimeException("Impossible to parse String "+ s);
+        } catch (Exception e) {
+            throw new RuntimeException("Impossible to parse String " + s);
         }
     }
 

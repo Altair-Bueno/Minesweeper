@@ -1,6 +1,6 @@
 package MineSweeperGUI.SetSize;
 
-import MineSweeperJavaResources.ThemeManager;
+import MineSweeperResources.ThemeManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

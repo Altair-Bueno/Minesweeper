@@ -1,13 +1,13 @@
 package MineSweeperGUI.Others;
 
-import MineSweeperJavaResources.MineSweeperLanguageManager;
-import MineSweeperJavaResources.MineSweeperPlatformManager;
+import MineSweeperResources.MineSweeperLanguageManager;
+import MineSweeperResources.MineSweeperPlatformManager;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import static MineSweeperJavaResources.ThemeManager.*;
+import static MineSweeperResources.ThemeManager.*;
 
 
 public class ThemeManagerJMenu extends JMenu {

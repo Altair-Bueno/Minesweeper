@@ -1,6 +1,8 @@
 import MineSweeperGUI.Others.HtmlViewer;
-import MineSweeperJavaResources.*;
+import MineSweeperResources.*;
 import com.apple.eawt.Application;
+
+import javax.swing.*;
 
 
 public class MineSweeperMain {
@@ -12,8 +14,10 @@ public class MineSweeperMain {
             System.setProperty("com.apple.mrj.application.apple.menu.about.name", MineSweeperResourceManager.getAPPNAME());
             System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
             System.setProperty("apple.laf.useScreenMenuBar", "true");
-            Application.getApplication().setDockIconImage(MineSweeperResourceManager.getAppIcon().getImage());
-            Application.getApplication().setAboutHandler(e -> new HtmlViewer(MineSweeperResourceManager.getAboutPage(),MineSweeperLanguageManager.getResourceBundle().getString("About")));
+            Application.getApplication().setDockIconImage(
+                    new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
+            Application.getApplication().setAboutHandler(e ->
+                    new HtmlViewer(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.ABOUT_PAGE), MineSweeperLanguageManager.getResourceBundle().getString("About")));
         }
 
         Thread game = new Thread(new StartMineSweeper());

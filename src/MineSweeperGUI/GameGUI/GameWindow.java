@@ -2,12 +2,12 @@ package MineSweeperGUI.GameGUI;
 
 import MineSweeperGUI.Others.HelpJMenu;
 import MineSweeperGUI.Others.ThemeManagerJMenu;
-import MineSweeperJavaResources.MineSweeperLanguageManager;
-import MineSweeperJavaResources.MineSweeperPlatformManager;
-import MineSweeperJavaResources.MineSweeperResourceManager;
-import MineSweeperJavaResources.ThemeManager;
 import MineSweeperLogic.Coordenada;
 import MineSweeperLogic.MineSweeperBoard;
+import MineSweeperResources.MineSweeperLanguageManager;
+import MineSweeperResources.MineSweeperPlatformManager;
+import MineSweeperResources.MineSweeperResourceManager;
+import MineSweeperResources.ThemeManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,8 +35,8 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
     public GameWindow(int filas, int columnas) {
         add(rootPane);
-        flagNumberJLabel.setIcon(MineSweeperResourceManager.getFlagIcon());
-        time.setIcon(MineSweeperResourceManager.getClockIcon());
+        flagNumberJLabel.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.FLAGICON)));
+        time.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.CLOCKICON)));
 
         JMenuBar jMenuBar = new JMenuBar();
         themeManagerJMenu = new ThemeManagerJMenu();
@@ -57,12 +57,12 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         int resolution = getToolkit().getScreenResolution();
 
         //int tam=(int) Math.round(resolution * 0.25);
-        int tam =(int) Math.round(resolution * 0.30);
+        int tam = (int) Math.round(resolution * 0.30);
         Dimension dimension = new Dimension(tam, tam);
 
         for (int i = 0; i < filas; i++) {
             for (int u = 0; u < columnas; u++) {
-                BoxJButton tempButton = new BoxJButton(new Coordenada(i,u));
+                BoxJButton tempButton = new BoxJButton(new Coordenada(i, u));
                 tempButton.setFocusPainted(false);
                 tempButton.setActionCommand(i + ":" + u);
                 tempButton.setMinimumSize(dimension);
@@ -80,7 +80,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         setName(MineSweeperResourceManager.getAPPNAME());
 
         if (!MineSweeperPlatformManager.isHostOSMac())
-            setIconImage(MineSweeperResourceManager.getAppIcon().getImage());
+            setIconImage(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
 
         Thread clockThread = new Thread(this);
         clockThread.start();
@@ -128,7 +128,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                     button.setValue(value);
 
                     if (values[i][u] == MineSweeperBoard.MINA) {
-                        button.setIcon(MineSweeperResourceManager.getMinaIcon());
+                        button.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MINAICON)));
                     } else if (values[i][u] > 0) {
                         button.setText("<html><b><font size=5 color=" + ThemeManager.getFontColors()[value] + ">" + value + "</font></b></html>");
                     }
@@ -145,8 +145,8 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                     ThemeManager.getDiggedBackground() : ThemeManager.getUndiggedBackground();
             button.setBackground(temp);
 
-            Integer value=button.getValue();
-            if (button.isDigged() &&value!=null&& value>0){
+            Integer value = button.getValue();
+            if (button.isDigged() && value != null && value > 0) {
                 button.setText("<html><b><font size=5 color=" + ThemeManager.getFontColors()[value] + ">" + value + "</font></b></html>");
             }
         }

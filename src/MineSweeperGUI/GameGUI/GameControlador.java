@@ -1,9 +1,9 @@
 package MineSweeperGUI.GameGUI;
 
-import MineSweeperJavaResources.*;
 import MineSweeperLogic.Coordenada;
 import MineSweeperLogic.GameOver;
 import MineSweeperLogic.MineSweeperBoard;
+import MineSweeperResources.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -37,9 +37,9 @@ public class GameControlador implements ActionListener, MouseListener {
         } else {
             try {
                 Coordenada coordenada = Coordenada.parseString(comand);
-                if (board.isDigged(coordenada)){
+                if (board.isDigged(coordenada)) {
                     board.digNearby(coordenada);
-                }else {
+                } else {
                     board.dig(coordenada);
                 }
                 window.setVisibility(board.getVisibility(), board.getTablero());
@@ -61,7 +61,7 @@ public class GameControlador implements ActionListener, MouseListener {
                     button.setFlagged(false);
                     board.removeFlag(button.getPosition());
                 } else {
-                    button.setIcon(MineSweeperResourceManager.getFlagIcon());
+                    button.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.FLAGICON)));
                     button.setFlagged(true);
                     board.addFlag(button.getPosition());
                 }
@@ -77,15 +77,15 @@ public class GameControlador implements ActionListener, MouseListener {
 
     private void gameOver(GameOver over) {
         int time = window.stopClock();
-        String [] options= {MineSweeperLanguageManager.getResourceBundle().getString("Yes"),MineSweeperLanguageManager.getResourceBundle().getString("No")};
+        String[] options = {MineSweeperLanguageManager.getResourceBundle().getString("Yes"), MineSweeperLanguageManager.getResourceBundle().getString("No")};
 
         if (over.getGameOverCode() == GameOver.GAMEWON) {
-            MineSweeperScoreboard.addScore(board.getNumColum()+"x"+board.getNumRow(),time);
+            MineSweeperScoreboard.addScore(board.getNumColum() + "x" + board.getNumRow(), time);
             int i = JOptionPane.showOptionDialog(
-                    (JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"),  MineSweeperLanguageManager.getResourceBundle().getString("Win_message"),
-                    JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,
-                    MineSweeperResourceManager.getConffetiIcon(),
-                    options,null);
+                    (JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), MineSweeperLanguageManager.getResourceBundle().getString("Win_message"),
+                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.CONFFETI)),
+                    options, null);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();
@@ -96,9 +96,9 @@ public class GameControlador implements ActionListener, MouseListener {
         } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
             int i = JOptionPane.showOptionDialog(
                     (JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), MineSweeperLanguageManager.getResourceBundle().getString("Mine_message"),
-                    JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,
-                    MineSweeperResourceManager.getExplosionIcon(),
-                    options,null);
+                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.EXPLOSION)),
+                    options, null);
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();

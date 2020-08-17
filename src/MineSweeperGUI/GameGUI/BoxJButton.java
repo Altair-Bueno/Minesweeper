@@ -14,12 +14,13 @@ public class BoxJButton extends JButton {
     public BoxJButton() {
         flagged = false;
         digged = false;
-        value=null;
-        coordenada=null;
+        value = null;
+        coordenada = null;
     }
-    public BoxJButton(Coordenada coordenada){
+
+    public BoxJButton(Coordenada coordenada) {
         this();
-        this.coordenada=coordenada;
+        this.coordenada = coordenada;
     }
 
     public void setFlagged(boolean flagged) {
@@ -52,8 +53,9 @@ public class BoxJButton extends JButton {
     public Integer getValue() {
         return value;
     }
-    public Coordenada getPosition(){
-        if(coordenada==null) throw new RuntimeException("No value saved");
+
+    public Coordenada getPosition() {
+        if (coordenada == null) throw new RuntimeException("No value saved");
         return coordenada;
     }
 }

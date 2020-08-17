@@ -1,4 +1,4 @@
-package MineSweeperJavaResources;
+package MineSweeperResources;
 
 import java.awt.event.ActionEvent;
 
