@@ -30,7 +30,6 @@ public class SetSizeControlador implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        //TODO Button sound
         try {
             switch (command) {
                 case SIXTEEN:

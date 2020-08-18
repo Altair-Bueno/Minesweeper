@@ -112,7 +112,6 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     @Override
     public void setVisibility(boolean[][] visibility, int[][] values) {
         Iterator<BoxJButton> iterator = gameButtonslist.iterator();
-        //TODO dig sound
         MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.DIG_SOUND));
         for (int i = 0; i < visibility.length; i++) {
             for (int u = 0; u < visibility[0].length; u++) {
