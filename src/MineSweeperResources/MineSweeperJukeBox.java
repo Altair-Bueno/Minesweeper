@@ -16,8 +16,9 @@ public class MineSweeperJukeBox {
             clip.start(); //starts the daemon thread
             return clip; //Returns the daemon thread
         } catch (Exception e) {
-            throw new ResourceException("Couldn't play sound " + fileURL + "\n"
-                    + e.getMessage());
+            System.err.println("Couldn't play sound: "+"\n");
+            e.printStackTrace();
         }
+        return null;
     }
 }

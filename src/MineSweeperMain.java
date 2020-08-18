@@ -3,6 +3,8 @@ import MineSweeperResources.*;
 import com.apple.eawt.Application;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.desktop.QuitStrategy;
 
 
 public class MineSweeperMain {
@@ -15,10 +17,11 @@ public class MineSweeperMain {
             System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
             System.setProperty("apple.laf.useScreenMenuBar", "true");
             System.setProperty("apple.awt.textantialiasing", "true");
+            Desktop.getDesktop().setQuitStrategy(QuitStrategy.NORMAL_EXIT);
+            Desktop.getDesktop().setAboutHandler(e ->
+                    new HtmlViewer(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.ABOUT_PAGE), MineSweeperLanguageManager.getResourceBundle().getString("About")));
             Application.getApplication().setDockIconImage(
                     new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
-            Application.getApplication().setAboutHandler(e ->
-                    new HtmlViewer(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.ABOUT_PAGE), MineSweeperLanguageManager.getResourceBundle().getString("About")));
         }
 
         Thread game = new Thread(new StartMineSweeper());
