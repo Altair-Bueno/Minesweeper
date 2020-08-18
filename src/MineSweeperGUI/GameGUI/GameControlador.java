@@ -56,6 +56,8 @@ public class GameControlador implements ActionListener, MouseListener {
         if (e.getButton() == MouseEvent.BUTTON3) {
             BoxJButton button = (BoxJButton) e.getComponent();
             if (!button.isDigged()) {
+                //TODO flag sound
+                MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.FLAG_SOUND));
                 if (button.getIcon() != null) {
                     button.setIcon(null);
                     button.setFlagged(false);
@@ -80,12 +82,16 @@ public class GameControlador implements ActionListener, MouseListener {
         String[] options = {MineSweeperLanguageManager.getResourceBundle().getString("Yes"), MineSweeperLanguageManager.getResourceBundle().getString("No")};
 
         if (over.getGameOverCode() == GameOver.GAMEWON) {
+            //TODO win sound
+            MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.WIN_SOUND));
             MineSweeperScoreboard.addScore(board.getNumColum() + "x" + board.getNumRow(), time);
             int i = JOptionPane.showOptionDialog(
                     (JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), MineSweeperLanguageManager.getResourceBundle().getString("Win_message"),
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.CONFFETI)),
                     options, null);
+            //TODO menu sound
+            MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MENU_START_SOUND));
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();
@@ -94,11 +100,15 @@ public class GameControlador implements ActionListener, MouseListener {
                 System.exit(0);
             }
         } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
+            //TODO loose sound/mine explosion
+            MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.LOOSE_SOUND));
             int i = JOptionPane.showOptionDialog(
                     (JFrame) window, MineSweeperLanguageManager.getResourceBundle().getString("Play_again"), MineSweeperLanguageManager.getResourceBundle().getString("Mine_message"),
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.EXPLOSION)),
                     options, null);
+            //TODO menusound
+            MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MENU_START_SOUND));
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();

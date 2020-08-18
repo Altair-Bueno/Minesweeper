@@ -1,5 +1,7 @@
 package MineSweeperGUI.SetSize;
 
+import MineSweeperResources.MineSweeperJukeBox;
+import MineSweeperResources.MineSweeperResourceManager;
 import MineSweeperResources.ThemeManager;
 
 import javax.swing.*;
@@ -28,9 +30,11 @@ public class SetSizeControlador implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        //TODO Button sound
         try {
             switch (command) {
                 case SIXTEEN:
+                    MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MENU_START_SOUND));
                     xSize = 16;
                     ySize = 16;
                     mines = 40;
@@ -38,6 +42,7 @@ public class SetSizeControlador implements ActionListener {
                     semaphore.release();
                     break;
                 case EIGHT:
+                    MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MENU_START_SOUND));
                     xSize = 8;
                     ySize = 8;
                     mines = 10;
@@ -45,6 +50,7 @@ public class SetSizeControlador implements ActionListener {
                     semaphore.release();
                     break;
                 case CUSTOM:
+                    MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MENU_START_SOUND));
                     xSize = window.getxSize();
                     ySize = window.getySize();
                     mines = (int) Math.round(xSize * ySize / 6.4);

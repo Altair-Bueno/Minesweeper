@@ -20,6 +20,12 @@ public class MineSweeperResourceManager {
     public static final String HELP_PAGE = "MineSweeperResources/HTMLDocuments/Help.html";
 
     //Sound files
+    public static final String DIG_SOUND = "MineSweeperResources/Sounds/Dig_Sound_1.wav";
+    public static final String FLAG_SOUND = "MineSweeperResources/Sounds/Flag_Deploy_Sound_1.wav";
+    public static final String LOOSE_SOUND = "MineSweeperResources/Sounds/Lose_Sound_1.wav";
+    public static final String MENU_START_SOUND = "MineSweeperResources/Sounds/Menu_Init_Sound_1.wav";
+    public static final String MINE_SOUND = "MineSweeperResources/Sounds/Mine_Explosion_Sound_1.wav";
+    public static final String WIN_SOUND = "MineSweeperResources/Sounds/Win_Sound_1.wav";
 
 
     public static String getAPPNAME() {

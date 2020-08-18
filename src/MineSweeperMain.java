@@ -14,6 +14,7 @@ public class MineSweeperMain {
             System.setProperty("com.apple.mrj.application.apple.menu.about.name", MineSweeperResourceManager.getAPPNAME());
             System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
             System.setProperty("apple.laf.useScreenMenuBar", "true");
+            System.setProperty("apple.awt.textantialiasing", "true");
             Application.getApplication().setDockIconImage(
                     new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
             Application.getApplication().setAboutHandler(e ->
