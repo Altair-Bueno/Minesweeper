@@ -52,25 +52,32 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         gameButtons.setLayout(new GridLayout(filas, columnas));
 
         int resolution = getToolkit().getScreenResolution();
+        Dimension screenSize = getToolkit().getScreenSize();
 
         //int tam=(int) Math.round(resolution * 0.25);
+        //int tam = (columnas*filas)/resolution;
+        /*
         int tam = (int) Math.round(resolution * 0.30);
         Dimension dimension = new Dimension(tam, tam);
+        */
+        int size = 0;
+        size = screenSize.width < screenSize.height ? screenSize.width / columnas : screenSize.height / filas;
+        size = (int) Math.round(size * 0.6);
+        Dimension dimension = new Dimension(size, size);
 
         for (int i = 0; i < filas; i++) {
             for (int u = 0; u < columnas; u++) {
                 BoxJButton tempButton = new BoxJButton(new Coordenada(i, u));
                 tempButton.setFocusPainted(false);
                 tempButton.setActionCommand(i + ":" + u);
-                tempButton.setMinimumSize(dimension);
+                //tempButton.setMinimumSize(dimension);
                 tempButton.setPreferredSize(dimension);
-                tempButton.setMaximumSize(dimension);
+                //tempButton.setMaximumSize(dimension);
                 tempButton.setBackground(ThemeManager.getUndiggedBackground());
                 gameButtonslist.add(tempButton);
                 gameButtons.add(tempButton);
             }
         }
-
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle(MineSweeperResourceManager.getAPPNAME());

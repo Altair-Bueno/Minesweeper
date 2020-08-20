@@ -1,15 +1,14 @@
 div {
     font-family: Verdana;
-    font-size: 120%;
-}
-
-img {
-    resize: horizontal;
-    grid: auto;
+    font-size: 1.1em;
 }
 
 h1 {
-    font-size: 140%
+    font-size: 1.7em;
+}
+
+h2{
+	font-size: 1.2em;
 }
 
 
@@ -23,12 +22,3 @@ img {
     align-content: center;
 }
 
-.bigScreenshot {
-    height: auto;
-    width: 90%;
-}
-
-.icon {
-    width: 20%;
-    height: auto;
-}

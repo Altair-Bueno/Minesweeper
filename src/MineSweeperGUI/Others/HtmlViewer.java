@@ -16,7 +16,7 @@ public class HtmlViewer {
             jEditorPane.setContentType("text/html");
             jEditorPane.setText("<html>Page not found.</html>");
         }
-        jEditorPane.setPreferredSize(new Dimension(500, 300));
+        jEditorPane.setPreferredSize(new Dimension(500, 600));
         jEditorPane.setEditable(false);
         jEditorPane.addHyperlinkListener((a) -> {
             if (HyperlinkEvent.EventType.ACTIVATED.equals(a.getEventType())) {
@@ -30,7 +30,6 @@ public class HtmlViewer {
             }
         });
         JScrollPane jScrollPane = new JScrollPane(jEditorPane);
-        //jScrollPane.setPreferredSize());
         jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         JFrame about = new JFrame(title);
         about.add(jScrollPane);

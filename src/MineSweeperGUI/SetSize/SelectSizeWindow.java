@@ -42,8 +42,8 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     public SelectSizeWindow() {
         add(rootPanel);
 
-        xSize.setModel(new SpinnerNumberModel(xSizeLastValue, 8, 21, 1));
-        ySize.setModel(new SpinnerNumberModel(ySizeLastValue, 8, 21, 1));
+        xSize.setModel(new SpinnerNumberModel(xSizeLastValue, 8, 32, 1));
+        ySize.setModel(new SpinnerNumberModel(ySizeLastValue, 8, 32, 1));
 
         tabbedPane.setSelectedIndex(lastGamePanel);
 
