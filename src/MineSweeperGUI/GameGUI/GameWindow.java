@@ -70,9 +70,9 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                 BoxJButton tempButton = new BoxJButton(new Coordenada(i, u));
                 tempButton.setFocusPainted(false);
                 tempButton.setActionCommand(i + ":" + u);
-                //tempButton.setMinimumSize(dimension);
+                tempButton.setMinimumSize(dimension);
                 tempButton.setPreferredSize(dimension);
-                //tempButton.setMaximumSize(dimension);
+                tempButton.setMaximumSize(dimension);
                 tempButton.setBackground(ThemeManager.getUndiggedBackground());
                 gameButtonslist.add(tempButton);
                 gameButtons.add(tempButton);
