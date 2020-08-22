@@ -4,10 +4,13 @@ import MineSweeperGUI.Others.HelpJMenu;
 import MineSweeperGUI.Others.ThemeManagerJMenu;
 import MineSweeperLogic.Coordenada;
 import MineSweeperLogic.MineSweeperBoard;
+import MineSweeperLogic.Score;
 import MineSweeperResources.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -74,6 +77,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                 tempButton.setPreferredSize(dimension);
                 tempButton.setMaximumSize(dimension);
                 tempButton.setBackground(ThemeManager.getUndiggedBackground());
+
                 gameButtonslist.add(tempButton);
                 gameButtons.add(tempButton);
             }
@@ -89,6 +93,30 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         Thread clockThread = new Thread(this);
         clockThread.start();
 
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int W = 1;
+                int H = 1;
+                Rectangle b = e.getComponent().getBounds();
+                e.getComponent().setBounds(b.x, b.y, b.width, b.width*H/W);
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+
+            }
+        });
         pack();
         setMinimumSize(getSize());
         setLocationRelativeTo(null);
@@ -118,8 +146,8 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
     @Override
     public void setVisibility(boolean[][] visibility, int[][] values) {
+        boolean hasPlayedSoud=false;
         Iterator<BoxJButton> iterator = gameButtonslist.iterator();
-        MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.DIG_SOUND));
         for (int i = 0; i < visibility.length; i++) {
             for (int u = 0; u < visibility[0].length; u++) {
 
@@ -131,6 +159,11 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                     button.setBackground(ThemeManager.getDiggedBackground());
                     int value = values[i][u];
                     button.setValue(value);
+
+                    if (!hasPlayedSoud){
+                        hasPlayedSoud=true;
+                        MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.DIG_SOUND));
+                    }
 
                     if (values[i][u] == MineSweeperBoard.MINA) {
                         button.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MINAICON)));
@@ -169,7 +202,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         clockTime = 0;
         clockIsStopped = false;
         while (!clockIsStopped) {
-            time.setText("<html><b><font size=5>" + clockTime +
+            time.setText("<html><b><font size=5>" + new Score(clockTime) +
                     "</b></font></html>");
             clockTime++;
             try {
