@@ -1,15 +1,15 @@
 package MineSweeperGUI.GameGUI;
 
-import MineSweeperLogic.Coordenada;
+import MineSweeperLogic.Coordinate;
 
 import java.util.Map;
 
 public interface IGameWindow {
-    void setControlador(GameControlador controlador);
+    void setListener(GameControlador listener);
 
     void setStatusPanel(String status);
 
-    void setVisibility(Map<Coordenada, Integer> changedVisibility);
+    void setVisibility(Map<Coordinate, Integer> changedVisibility);
 
     void updateJFrameTheme();
 

@@ -13,7 +13,7 @@ public class TestMain {
     /*
     public static void main(String[] args) {
         // Test code for colors
-        ThemeManager.setTheme(ThemeManager.MORADO);
+        ThemeManager.setTheme(ThemeManager.PURPLE);
         JFrame jFrame=new JFrame();
         JPanel jPanel=new JPanel();
         jFrame.add(jPanel);

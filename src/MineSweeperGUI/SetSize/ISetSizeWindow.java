@@ -9,7 +9,7 @@ public interface ISetSizeWindow {
 
     void dispose();
 
-    void setControlador(ActionListener actionListener);
+    void setListener(ActionListener listener);
 
     void updateComponentTree();
 }

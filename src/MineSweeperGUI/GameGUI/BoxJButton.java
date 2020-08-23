@@ -1,6 +1,6 @@
 package MineSweeperGUI.GameGUI;
 
-import MineSweeperLogic.Coordenada;
+import MineSweeperLogic.Coordinate;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -8,19 +8,19 @@ import java.awt.event.ActionEvent;
 public class BoxJButton extends JButton {
     private boolean flagged;
     private boolean digged;
-    private Coordenada coordenada;
+    private Coordinate coordinate;
     private Integer value; //Null es desconocido
 
     public BoxJButton() {
         flagged = false;
         digged = false;
         value = null;
-        coordenada = null;
+        coordinate = null;
     }
 
-    public BoxJButton(Coordenada coordenada) {
+    public BoxJButton(Coordinate coordinate) {
         this();
-        this.coordenada = coordenada;
+        this.coordinate = coordinate;
     }
 
     public void setFlagged(boolean flagged) {
@@ -54,8 +54,8 @@ public class BoxJButton extends JButton {
         return value;
     }
 
-    public Coordenada getPosition() {
-        if (coordenada == null) throw new RuntimeException("No value saved");
-        return coordenada;
+    public Coordinate getPosition() {
+        if (coordinate == null) throw new RuntimeException("No value saved");
+        return coordinate;
     }
 }

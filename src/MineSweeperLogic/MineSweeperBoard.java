@@ -9,96 +9,68 @@ public class MineSweeperBoard {
     -1,0,1,2,3...8
      */
 
-    public static final int MINA = -1;
+    public static final int MINE = -1;
     public static final int EMPTY = 0;
 
 
-    private final int[][] tablero;
+    private final int[][] board;
     private final boolean[][] isVisible;
     private final boolean[][] isFlagged;
-    private final int numMinas;
+    private final int numMines;
     private int flagNumber;
     private int leftOver;
     private boolean gameHasStarted;
 
-    private Map<Coordenada, Integer> changes;
+    //Track visibility changes
+    private Map<Coordinate, Integer> changes;
 
     //Constructors
-    public MineSweeperBoard(int x, int y, int numMinas) {
-        tablero = new int[x][y];
+    public MineSweeperBoard(int x, int y, int numMines) {
+        board = new int[x][y];
         isVisible = new boolean[x][y];
         isFlagged = new boolean[x][y];
 
-        this.numMinas = numMinas;
-        flagNumber = numMinas;
+        this.numMines = numMines;
+        flagNumber = numMines;
         leftOver = x * y;
 
         gameHasStarted = false;
         changes = null;
     }
 
-    public MineSweeperBoard(int size, int numMinas) {
-        this(size, size, numMinas);
+    public MineSweeperBoard(int size, int numMines) {
+        this(size, size, numMines);
     }
 
-    //Private method for constructors
-    /*private void plantMines() {
-        Random random = new Random();
-        int minasPlantadas = 0;
-
-        while (minasPlantadas < numMinas) {
-            int x = random.nextInt(tablero.length);
-            int y = random.nextInt(tablero[0].length);
-
-            if (tablero[x][y] == EMPTY) {
-
-                tablero[x][y] = MINA;
-                minasPlantadas++;
-
-                for (int i = x - 1; i <= x + 1; i++) {
-                    for (int u = y - 1; u <= y + 1; u++) {
-
-                        try {
-                            if (tablero[i][u] != MINA) tablero[i][u]++;
-                        } catch (ArrayIndexOutOfBoundsException ignored) {
-                        }
-
-                    }
-                } //For
-            }//If
-        } //While
-    }
-
-     */
     private void plantWeightedMines(int x, int y) {
-        Map<Coordenada, Double> weightMap = new HashMap<>();
+        Map<Coordinate, Double> weightMap = new HashMap<>();
 
         for (int i = 0; i < getNumRow(); i++) {
             for (int u = 0; u < getNumColum(); u++) {
                 int temp = Math.abs(x - i) + Math.abs(y - u);
                 double tempWeight = (temp <= 2) ? 0 : 1;
-                weightMap.put(new Coordenada(i, u), tempWeight);
+                weightMap.put(new Coordinate(i, u), tempWeight);
             }
         }
 
-        int minasPlantadas = 0;
+        int plantedMines = 0;
 
-        while (minasPlantadas < numMinas) {
-            Coordenada minPos = getRandomWeighted(weightMap);
+        while (plantedMines < numMines) {
+            Coordinate minPos = getRandomWeighted(weightMap);
 
-            int fil = minPos.getFila();
-            int col = minPos.getColumna();
+            int fil = minPos.getRow();
+            int col = minPos.getColumn();
 
-            if (tablero[fil][col] != MINA) {
+            if (board[fil][col] != MINE) {
                 weightMap.remove(minPos);
-                tablero[fil][col] = MINA;
-                minasPlantadas++;
+                board[fil][col] = MINE;
+                plantedMines++;
 
                 for (int i = fil - 1; i <= fil + 1; i++) {
                     for (int u = col - 1; u <= col + 1; u++) {
 
                         try {
-                            if (tablero[i][u] != MINA) tablero[i][u]++;
+                            if (board[i][u] != MINE) board[i][u]++;
                         } catch (ArrayIndexOutOfBoundsException ignored) {
                         }
 
@@ -126,7 +98,7 @@ public class MineSweeperBoard {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int[] a : tablero) {
+        for (int[] a : board) {
             for (int i : a) {
                 stringBuilder.append(i).append("\t");
             }
@@ -137,53 +109,30 @@ public class MineSweeperBoard {
     }
 
     //Game Dig
-    public void dig(Coordenada coordenada) {
-        dig(coordenada.getFila(), coordenada.getColumna());
+    public void dig(Coordinate coordinate) {
+        dig(coordinate.getRow(), coordinate.getColumn());
     }
 
     public void dig(int x, int y) {
-
         if (!gameHasStarted) plantWeightedMines(x, y);
         changes = new HashMap<>();
         showZone(x, y);
-        if (tablero[x][y] == MINA)
+        if (board[x][y] == MINE)
             throw new GameOver(GameOver.MINEFOUND);
     }
 
     public void checkWin() {
-        if (leftOver == numMinas)
+        if (leftOver == numMines)
             throw new GameOver(GameOver.GAMEWON);
     }
-
-    //Method for cleaning 0 zones
-    /*
-    private void showZone(int x, int y) {
-        if (tablero[x][y] == EMPTY) {
-            isVisible[x][y] = true;
-            leftOver--;
-            for (int i = x - 1; i <= x + 1; i++) {
-                for (int u = y - 1; u <= y + 1; u++) {
-
-                    try {
-                        if (!isVisible[i][u]) showZone(i, u);
-                    } catch (ArrayIndexOutOfBoundsException ignored) {}
-
-                }
-            }
-
-        } else {
-            isVisible[x][y] = true;
-            leftOver--;
-        }
-    } */
 
     private void showZone(int x, int y) {
         if (!isFlagged[x][y] && !isVisible[x][y]) {
             leftOver--;
             isVisible[x][y] = true;
-            changes.put(new Coordenada(x, y), tablero[x][y]);
+            changes.put(new Coordinate(x, y), board[x][y]);
 
-            if (tablero[x][y] == EMPTY) {
+            if (board[x][y] == EMPTY) {
                 for (int i = x - 1; i <= x + 1; i++) {
                     for (int u = y - 1; u <= y + 1; u++) {
                         try {
@@ -196,8 +145,8 @@ public class MineSweeperBoard {
         }
     }
 
-    public void digNearby(Coordenada coordenada) {
-        digNearby(coordenada.getFila(), coordenada.getColumna());
+    public void digNearby(Coordinate coordinate) {
+        digNearby(coordinate.getRow(), coordinate.getColumn());
     }
 
     public void digNearby(int x, int y) {
@@ -211,12 +160,12 @@ public class MineSweeperBoard {
                 }
             }
         }
-        if (numNearbyFlags == tablero[x][y]) {
+        if (numNearbyFlags == board[x][y]) {
             for (int i = x - 1; i <= x + 1; i++) {
                 for (int u = y - 1; u <= y + 1; u++) {
                     try {
                         showZone(i, u);
-                        if (tablero[i][u] == MINA && !isFlagged[i][u])
+                        if (board[i][u] == MINE && !isFlagged[i][u])
                             throw new GameOver(GameOver.MINEFOUND);
                     } catch (ArrayIndexOutOfBoundsException ignored) {
                     }
@@ -226,16 +175,16 @@ public class MineSweeperBoard {
     }
 
     //getter
-    public Map<Coordenada, Integer> getChanges() {
+    public Map<Coordinate, Integer> getChanges() {
         return changes;
     }
 
-    public int[][] getTablero() {
-        return tablero;
+    public int[][] getBoard() {
+        return board;
     }
 
-    public void addFlag(Coordenada coordenada) {
-        addFlag(coordenada.getFila(), coordenada.getColumna());
+    public void addFlag(Coordinate coordinate) {
+        addFlag(coordinate.getRow(), coordinate.getColumn());
     }
 
     public void addFlag(int x, int y) {
@@ -243,8 +192,8 @@ public class MineSweeperBoard {
         flagNumber--;
     }
 
-    public void removeFlag(Coordenada coordenada) {
-        removeFlag(coordenada.getFila(), coordenada.getColumna());
+    public void removeFlag(Coordinate coordinate) {
+        removeFlag(coordinate.getRow(), coordinate.getColumn());
     }
 
     public void removeFlag(int x, int y) {
@@ -268,8 +217,8 @@ public class MineSweeperBoard {
         return isVisible[x][y];
     }
 
-    public boolean isDigged(Coordenada coordenada) {
-        return isDigged(coordenada.getFila(), coordenada.getColumna());
+    public boolean isDigged(Coordinate coordinate) {
+        return isDigged(coordinate.getRow(), coordinate.getColumn());
     }
 
 }

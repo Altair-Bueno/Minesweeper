@@ -1,6 +1,6 @@
 package MineSweeperGUI.GameGUI;
 
-import MineSweeperLogic.Coordenada;
+import MineSweeperLogic.Coordinate;
 import MineSweeperLogic.GameOver;
 import MineSweeperLogic.MineSweeperBoard;
 import MineSweeperResources.*;
@@ -36,11 +36,11 @@ public class GameControlador implements ActionListener, MouseListener {
             window.dispose();
         } else {
             try {
-                Coordenada coordenada = Coordenada.parseString(comand);
-                if (board.isDigged(coordenada)) {
-                    board.digNearby(coordenada);
+                Coordinate coordinate = Coordinate.parseString(comand);
+                if (board.isDigged(coordinate)) {
+                    board.digNearby(coordinate);
                 } else {
-                    board.dig(coordenada);
+                    board.dig(coordinate);
                 }
                 window.setVisibility(board.getChanges());
                 board.checkWin();

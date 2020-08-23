@@ -11,7 +11,7 @@ public class MineSweeperMain {
     public static void main(String[] args) {
         ThemeManager.setTheme(ThemeManager.getDefinedTheme());
 
-        //Codigo para apps ejecutandose en macOS
+        //macOS platform code
         if (MineSweeperPlatformManager.isHostOSMac()) {
             System.setProperty("com.apple.mrj.application.apple.menu.about.name", MineSweeperResourceManager.getAPPNAME());
             System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
@@ -24,6 +24,7 @@ public class MineSweeperMain {
                     new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
         }
 
+        //Starts the game on a new thread
         Thread game = new Thread(new StartMineSweeper());
         game.start();
     }

@@ -16,7 +16,7 @@ public class StartMineSweeper implements Runnable {
         Semaphore semaphore = new Semaphore(0);
         ISetSizeWindow setSizeWindow = new SelectSizeWindow();
         SetSizeControlador setSizeControlador = new SetSizeControlador(setSizeWindow, semaphore);
-        setSizeWindow.setControlador(setSizeControlador);
+        setSizeWindow.setListener(setSizeControlador);
 
         try {
             semaphore.acquire();
@@ -32,6 +32,6 @@ public class StartMineSweeper implements Runnable {
         IGameWindow gameWindow = new GameWindow(xSize, ySize);
         MineSweeperBoard mineSweeperBoard = new MineSweeperBoard(xSize, ySize, numMines);
         GameControlador buttonControlador = new GameControlador(gameWindow, mineSweeperBoard);
-        gameWindow.setControlador(buttonControlador);
+        gameWindow.setListener(buttonControlador);
     }
 }

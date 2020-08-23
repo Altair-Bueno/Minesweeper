@@ -2,7 +2,7 @@ package MineSweeperGUI.GameGUI;
 
 import MineSweeperGUI.Others.HelpJMenu;
 import MineSweeperGUI.Others.ThemeManagerJMenu;
-import MineSweeperLogic.Coordenada;
+import MineSweeperLogic.Coordinate;
 import MineSweeperLogic.MineSweeperBoard;
 import MineSweeperLogic.Score;
 import MineSweeperResources.*;
@@ -26,51 +26,51 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     private int clockTime;
     private boolean clockIsStopped;
 
-    private final Map<Coordenada, BoxJButton> gameButtonsMap;
+    private final Map<Coordinate, BoxJButton> gameButtonsMap;
     //private GameControlador controlador;
 
     private final ThemeManagerJMenu themeManagerJMenu;
-    private final JMenuItem nuevo;
+    private final JMenuItem newJMenu;
 
-    public GameWindow(int filas, int columnas) {
+    public GameWindow(int rows, int columns) {
         add(rootPane);
         flagNumberJLabel.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.FLAGICON)));
         time.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.CLOCKICON)));
 
         JMenuBar jMenuBar = new JMenuBar();
         themeManagerJMenu = new ThemeManagerJMenu();
-        JMenu archivo = new JMenu(MineSweeperLanguageManager.getResourceBundle().getString("Game"));
-        nuevo = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("New_Game"));
-        nuevo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, MineSweeperPlatformManager.getMainKeyboardActionEvent()));
+        JMenu game = new JMenu(MineSweeperLanguageManager.getResourceBundle().getString("Game"));
+        newJMenu = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("New_Game"));
+        newJMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, MineSweeperPlatformManager.getMainKeyboardActionEvent()));
         jMenuBar.add(themeManagerJMenu);
-        jMenuBar.add(archivo);
-        archivo.add(nuevo);
+        jMenuBar.add(game);
+        game.add(newJMenu);
 
         jMenuBar.add(new HelpJMenu());
 
         setJMenuBar(jMenuBar);
 
-        gameButtonsMap = new HashMap<>(filas * columnas);
-        gameButtons.setLayout(new GridLayout(filas, columnas));
+        gameButtonsMap = new HashMap<>(rows * columns);
+        gameButtons.setLayout(new GridLayout(rows, columns));
 
         int resolution = getToolkit().getScreenResolution();
         Dimension screenSize = getToolkit().getScreenSize();
 
         //int tam=(int) Math.round(resolution * 0.25);
-        //int tam = (columnas*filas)/resolution;
+        //int tam = (columns*rows)/resolution;
         /*
         int tam = (int) Math.round(resolution * 0.30);
         Dimension dimension = new Dimension(tam, tam);
         */
         int size = 0;
-        size = screenSize.width < screenSize.height ? screenSize.width / columnas : screenSize.height / filas;
+        size = screenSize.width < screenSize.height ? screenSize.width / columns : screenSize.height / rows;
         size = (int) Math.round(size * 0.6);
         Dimension dimension = new Dimension(size, size);
 
-        for (int i = 0; i < filas; i++) {
-            for (int u = 0; u < columnas; u++) {
-                Coordenada coordenada = new Coordenada(i, u);
-                BoxJButton tempButton = new BoxJButton(coordenada);
+        for (int i = 0; i < rows; i++) {
+            for (int u = 0; u < columns; u++) {
+                Coordinate coordinate = new Coordinate(i, u);
+                BoxJButton tempButton = new BoxJButton(coordinate);
                 tempButton.setFocusPainted(false);
                 tempButton.setActionCommand(i + ":" + u);
                 tempButton.setMinimumSize(dimension);
@@ -78,7 +78,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                 tempButton.setMaximumSize(dimension);
                 tempButton.setBackground(ThemeManager.getUndiggedBackground());
 
-                gameButtonsMap.put(coordenada, tempButton);
+                gameButtonsMap.put(coordinate, tempButton);
                 gameButtons.add(tempButton);
             }
         }
@@ -125,18 +125,18 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     }
 
     @Override
-    public void setControlador(GameControlador controlador) {
-        //this.controlador = controlador;
+    public void setListener(GameControlador listener) {
+        //this.listener = listener;
 
         for (JButton button : gameButtonsMap.values()) {
-            button.addActionListener(controlador);
-            button.addMouseListener(controlador);
+            button.addActionListener(listener);
+            button.addMouseListener(listener);
         }
 
-        themeManagerJMenu.setActionListener(controlador);
+        themeManagerJMenu.setActionListener(listener);
 
-        nuevo.addActionListener(controlador);
-        nuevo.setActionCommand(GameControlador.NEW);
+        newJMenu.addActionListener(listener);
+        newJMenu.setActionCommand(GameControlador.NEW);
     }
 
     @Override
@@ -166,8 +166,8 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                             MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.DIG_SOUND));
                         }
 
-                        if (values[i][u] == MineSweeperBoard.MINA) {
-                            button.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MINAICON)));
+                        if (values[i][u] == MineSweeperBoard.MINE) {
+                            button.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MINEICON)));
                         } else if (values[i][u] > 0) {
                             button.setText("<html><b><font size=5 color=" + ThemeManager.getFontColors()[value] + ">" + value + "</font></b></html>");
                         }
@@ -178,22 +178,22 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
      */
     @Override
-    public void setVisibility(Map<Coordenada, Integer> changedVisibility) {
+    public void setVisibility(Map<Coordinate, Integer> changedVisibility) {
         boolean hasPlayedSound = false;
 
-        for (Coordenada coordenada : changedVisibility.keySet()) {
+        for (Coordinate coordinate : changedVisibility.keySet()) {
 
-            BoxJButton button = gameButtonsMap.get(coordenada);
+            BoxJButton button = gameButtonsMap.get(coordinate);
             if (!hasPlayedSound) {
                 hasPlayedSound = true;
                 MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.DIG_SOUND));
             }
             button.setDigged(true);
             button.setBackground(ThemeManager.getDiggedBackground());
-            int value = changedVisibility.get(coordenada);
+            int value = changedVisibility.get(coordinate);
             button.setValue(value);
-            if (value == MineSweeperBoard.MINA) {
-                button.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MINAICON)));
+            if (value == MineSweeperBoard.MINE) {
+                button.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MINEICON)));
             } else if (value > MineSweeperBoard.EMPTY) {
                 button.setText("<html><b><font size=5 color=" + ThemeManager.getFontColors()[value] + ">" + value + "</font></b></html>");
             }

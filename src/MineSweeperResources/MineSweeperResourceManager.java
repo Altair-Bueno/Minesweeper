@@ -11,7 +11,7 @@ public class MineSweeperResourceManager {
     public static final String SMALLAPPICON = "MineSweeperResources/Icons/smallIcon.png";
     public static final String FLAGICON = "MineSweeperResources/Icons/flag.png";
     public static final String CLOCKICON = "MineSweeperResources/Icons/time.png";
-    public static final String MINAICON = "MineSweeperResources/Icons/mineButton.png";
+    public static final String MINEICON = "MineSweeperResources/Icons/mineButton.png";
     public static final String EXPLOSION = "MineSweeperResources/Icons/explosion.png";
     public static final String CONFFETI = "MineSweeperResources/Icons/confetti.png";
 
@@ -67,9 +67,9 @@ public class MineSweeperResourceManager {
 
         public static ImageIcon getMinaIcon() {
             try {
-                return new ImageIcon(ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream(MineSweeperResourceManager.MINAICON)));
+                return new ImageIcon(ImageIO.read(ClassLoader.getSystemClassLoader().getResourceAsStream(MineSweeperResourceManager.MINEICON)));
             } catch (Exception e) {
-                throw new ResourceException(MINAICON + " Not found: " + e.getMessage());
+                throw new ResourceException(MINEICON + " Not found: " + e.getMessage());
             }
         }
         public static ImageIcon getExplosionIcon(){
