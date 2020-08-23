@@ -42,10 +42,10 @@ public class GameControlador implements ActionListener, MouseListener {
                 } else {
                     board.dig(coordenada);
                 }
-                window.setVisibility(board.getVisibility(), board.getTablero());
+                window.setVisibility(board.getChanges());
                 board.checkWin();
             } catch (GameOver over) {
-                window.setVisibility(board.getVisibility(), board.getTablero());
+                window.setVisibility(board.getChanges());
                 gameOver(over);
             }
         }

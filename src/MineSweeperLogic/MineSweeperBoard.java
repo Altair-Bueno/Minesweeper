@@ -21,6 +21,8 @@ public class MineSweeperBoard {
     private int leftOver;
     private boolean gameHasStarted;
 
+    private Map<Coordenada, Integer> changes;
+
     //Constructors
     public MineSweeperBoard(int x, int y, int numMinas) {
         tablero = new int[x][y];
@@ -32,7 +34,7 @@ public class MineSweeperBoard {
         leftOver = x * y;
 
         gameHasStarted = false;
-        //plantMines();
+        changes = null;
     }
 
     public MineSweeperBoard(int size, int numMinas) {
@@ -140,7 +142,9 @@ public class MineSweeperBoard {
     }
 
     public void dig(int x, int y) {
+
         if (!gameHasStarted) plantWeightedMines(x, y);
+        changes = new HashMap<>();
         showZone(x, y);
         if (tablero[x][y] == MINA)
             throw new GameOver(GameOver.MINEFOUND);
@@ -174,17 +178,18 @@ public class MineSweeperBoard {
     } */
 
     private void showZone(int x, int y) {
-        if (!isVisible[x][y]) {
-            if (tablero[x][y] != MINA) leftOver--;
+        if (!isFlagged[x][y] && !isVisible[x][y]) {
+            leftOver--;
             isVisible[x][y] = true;
-        }
+            changes.put(new Coordenada(x, y), tablero[x][y]);
 
-        if (tablero[x][y] == EMPTY) {
-            for (int i = x - 1; i <= x + 1; i++) {
-                for (int u = y - 1; u <= y + 1; u++) {
-                    try {
-                        if (!isVisible[i][u]) showZone(i, u);
-                    } catch (ArrayIndexOutOfBoundsException ignored) {
+            if (tablero[x][y] == EMPTY) {
+                for (int i = x - 1; i <= x + 1; i++) {
+                    for (int u = y - 1; u <= y + 1; u++) {
+                        try {
+                            showZone(i, u);
+                        } catch (ArrayIndexOutOfBoundsException ignored) {
+                        }
                     }
                 }
             }
@@ -221,8 +226,8 @@ public class MineSweeperBoard {
     }
 
     //getter
-    public boolean[][] getVisibility() {
-        return isVisible;
+    public Map<Coordenada, Integer> getChanges() {
+        return changes;
     }
 
     public int[][] getTablero() {

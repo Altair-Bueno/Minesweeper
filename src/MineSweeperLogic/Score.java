@@ -3,7 +3,6 @@ package MineSweeperLogic;
 import java.util.StringJoiner;
 
 public class Score implements Comparable<Score> {
-
     private final String size;
     private final int hours;
     private final int min;
