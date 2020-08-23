@@ -4,6 +4,7 @@ I do not own any of these resources used to create this app. This MineSweeper ap
 ![Screenshot2](GithubResources/GameWindow_white.png)
 
 It also supports themes, thanks to FlatLaf!
+
 ![Screenshot3](GithubResources/StartScreen_dark.png)
 ![Screenshot4](GithubResources/GameWindow_dark.png)
 
