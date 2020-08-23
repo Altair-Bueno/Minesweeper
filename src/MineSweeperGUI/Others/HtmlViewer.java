@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.net.URL;
 
 public class HtmlViewer {
+
+    /*
+    Renders the About and Help menu
+     */
+
     public HtmlViewer(URL url, String title) {
         JEditorPane jEditorPane;
         try {

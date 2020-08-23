@@ -5,7 +5,8 @@ import java.util.Map;
 
 public class MineSweeperBoard {
     /*
-    Contenido del cablero vacío, minas o número de minas cercanas
+    Keeps track of the game board and interrupts the code execution with a GameOver exception
+    if the game is over
     -1,0,1,2,3...8
      */
 

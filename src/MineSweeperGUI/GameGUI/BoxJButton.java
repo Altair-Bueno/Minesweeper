@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class BoxJButton extends JButton {
+    /*
+    A special JButton for MineSweeper
+     */
     private boolean flagged;
     private boolean digged;
     private Coordinate coordinate;

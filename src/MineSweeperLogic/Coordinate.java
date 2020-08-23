@@ -1,6 +1,9 @@
 package MineSweeperLogic;
 
 public class Coordinate {
+    /*
+    An instance of Coordinate keeps track of positions on a grid
+     */
 
     private final int row;
     private final int column;

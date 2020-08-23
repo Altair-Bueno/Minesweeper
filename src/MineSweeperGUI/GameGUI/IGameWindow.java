@@ -5,7 +5,7 @@ import MineSweeperLogic.Coordinate;
 import java.util.Map;
 
 public interface IGameWindow {
-    void setListener(GameControlador listener);
+    void setListener(GameListener listener);
 
     void setStatusPanel(String status);
 

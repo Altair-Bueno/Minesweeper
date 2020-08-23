@@ -89,9 +89,9 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
         play16x16.addActionListener(listener);
         playCustom.addActionListener(listener);
 
-        play8x8.setActionCommand(SetSizeControlador.EIGHT);
-        play16x16.setActionCommand(SetSizeControlador.SIXTEEN);
-        playCustom.setActionCommand(SetSizeControlador.CUSTOM);
+        play8x8.setActionCommand(SetSizeListener.EIGHT);
+        play16x16.setActionCommand(SetSizeListener.SIXTEEN);
+        playCustom.setActionCommand(SetSizeListener.CUSTOM);
 
         themeManagerJMenu.setActionListener(listener);
     }

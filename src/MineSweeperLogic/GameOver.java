@@ -1,7 +1,9 @@
 package MineSweeperLogic;
 
 public class GameOver extends RuntimeException {
-
+    /*
+    Stops the code execution when the game is over
+     */
     private final static int NOCODE = 0;
     public final static int MINEFOUND = 1;
     public final static int GAMEWON = 2;

@@ -9,8 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.Semaphore;
 
-public class SetSizeControlador implements ActionListener {
-
+public class SetSizeListener implements ActionListener {
+    /*
+    A SetSizeListener instance is in charge of ActionEvents on the SelectSizeWindow
+    */
     public static final String CUSTOM = "CUSTOM";
     public static final String EIGHT = "EIGHT";
     public static final String SIXTEEN = "SIXTEEN";
@@ -21,7 +23,7 @@ public class SetSizeControlador implements ActionListener {
     private int mines;
     private final Semaphore semaphore;
 
-    public SetSizeControlador(ISetSizeWindow window, Semaphore semaphore) {
+    public SetSizeListener(ISetSizeWindow window, Semaphore semaphore) {
         this.window = window;
         this.semaphore = semaphore;
         mines = 0;

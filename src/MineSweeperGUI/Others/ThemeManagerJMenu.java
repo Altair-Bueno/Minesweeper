@@ -11,7 +11,9 @@ import static MineSweeperResources.ThemeManager.*;
 
 
 public class ThemeManagerJMenu extends JMenu {
-    //Elementos del menu
+    /*
+    Conects the ThemeManager with the JFrame
+     */
     private final JMenuItem light;
     private final JMenuItem dracula;
     private final JMenuItem purple;

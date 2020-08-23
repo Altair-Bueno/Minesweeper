@@ -27,7 +27,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     private boolean clockIsStopped;
 
     private final Map<Coordinate, BoxJButton> gameButtonsMap;
-    //private GameControlador controlador;
+    //private GameListener controlador;
 
     private final ThemeManagerJMenu themeManagerJMenu;
     private final JMenuItem newJMenu;
@@ -37,6 +37,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         flagNumberJLabel.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.FLAGICON)));
         time.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.CLOCKICON)));
 
+        //JMenubar code
         JMenuBar jMenuBar = new JMenuBar();
         themeManagerJMenu = new ThemeManagerJMenu();
         JMenu game = new JMenu(MineSweeperLanguageManager.getResourceBundle().getString("Game"));
@@ -45,28 +46,18 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         jMenuBar.add(themeManagerJMenu);
         jMenuBar.add(game);
         game.add(newJMenu);
-
         jMenuBar.add(new HelpJMenu());
-
         setJMenuBar(jMenuBar);
 
         gameButtonsMap = new HashMap<>(rows * columns);
         gameButtons.setLayout(new GridLayout(rows, columns));
 
-        int resolution = getToolkit().getScreenResolution();
         Dimension screenSize = getToolkit().getScreenSize();
-
-        //int tam=(int) Math.round(resolution * 0.25);
-        //int tam = (columns*rows)/resolution;
-        /*
-        int tam = (int) Math.round(resolution * 0.30);
-        Dimension dimension = new Dimension(tam, tam);
-        */
-        int size = 0;
-        size = screenSize.width < screenSize.height ? screenSize.width / columns : screenSize.height / rows;
+        int size = screenSize.width < screenSize.height ? screenSize.width / columns : screenSize.height / rows;
         size = (int) Math.round(size * 0.6);
         Dimension dimension = new Dimension(size, size);
 
+        //Start the game buttons
         for (int i = 0; i < rows; i++) {
             for (int u = 0; u < columns; u++) {
                 Coordinate coordinate = new Coordinate(i, u);
@@ -87,12 +78,15 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         setTitle(MineSweeperResourceManager.getAPPNAME());
         setName(MineSweeperResourceManager.getAPPNAME());
 
+        //JFrame icon
         if (!MineSweeperPlatformManager.isHostOSMac())
             setIconImage(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.APPICON)).getImage());
 
+        //Start the clock
         Thread clockThread = new Thread(this);
         clockThread.start();
 
+        //Keep the minesweeper ui aspect ratio to 1:1
         addComponentListener(new ComponentListener() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -125,7 +119,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     }
 
     @Override
-    public void setListener(GameControlador listener) {
+    public void setListener(GameListener listener) {
         //this.listener = listener;
 
         for (JButton button : gameButtonsMap.values()) {
@@ -136,7 +130,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         themeManagerJMenu.setActionListener(listener);
 
         newJMenu.addActionListener(listener);
-        newJMenu.setActionCommand(GameControlador.NEW);
+        newJMenu.setActionCommand(GameListener.NEW);
     }
 
     @Override
@@ -144,39 +138,6 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         flagNumberJLabel.setText(status);
     }
 
-    /*
-        @Override
-        public void setVisibility(boolean[][] visibility, int[][] values) {
-            boolean hasPlayedSoud=false;
-            Iterator<BoxJButton> iterator = gameButtonslist.iterator();
-            for (int i = 0; i < visibility.length; i++) {
-                for (int u = 0; u < visibility[0].length; u++) {
-
-                    BoxJButton button = iterator.next();
-
-                    if (visibility[i][u] && !button.isDigged() && !button.isFlagged()) {
-                        //button.removeActionListener(controlador);
-                        button.setDigged(true);
-                        button.setBackground(ThemeManager.getDiggedBackground());
-                        int value = values[i][u];
-                        button.setValue(value);
-
-                        if (!hasPlayedSoud){
-                            hasPlayedSoud=true;
-                            MineSweeperJukeBox.play(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.DIG_SOUND));
-                        }
-
-                        if (values[i][u] == MineSweeperBoard.MINE) {
-                            button.setIcon(new ImageIcon(MineSweeperResourceManager.getResourceURL(MineSweeperResourceManager.MINEICON)));
-                        } else if (values[i][u] > 0) {
-                            button.setText("<html><b><font size=5 color=" + ThemeManager.getFontColors()[value] + ">" + value + "</font></b></html>");
-                        }
-                    }
-                }
-            }
-        }
-
-     */
     @Override
     public void setVisibility(Map<Coordinate, Integer> changedVisibility) {
         boolean hasPlayedSound = false;
@@ -222,7 +183,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         return clockTime;
     }
 
-
+    //Game's clock code
     @Override
     public void run() {
         clockTime = 0;
