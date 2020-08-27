@@ -16,13 +16,13 @@ public class SetSizeListener implements ActionListener {
     public static final String CUSTOM = "CUSTOM";
     public static final String EIGHT = "EIGHT";
     public static final String SIXTEEN = "SIXTEEN";
-    public static final String TOGGLESOUND= "SOUND";
+    public static final String TOGGLESOUND = "SOUND";
 
     private final ISetSizeWindow window;
+    private final Semaphore semaphore;
     private int xSize;
     private int ySize;
     private int mines;
-    private final Semaphore semaphore;
 
     public SetSizeListener(ISetSizeWindow window, Semaphore semaphore) {
         this.window = window;

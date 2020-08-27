@@ -9,6 +9,10 @@ import java.awt.event.ActionListener;
 
 public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
+    private static int lastGamePanel = 0;
+    private static int xSizeLastValue = 8;
+    private static int ySizeLastValue = 8;
+    private final ThemeManagerJMenu themeManagerJMenu;
     private JPanel rootPanel;
     private JTabbedPane tabbedPane;
     private JPanel MineSweeper8x8;
@@ -25,18 +29,11 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     private JLabel X;
     private JPanel playJPanel8;
     private JPanel playJPanel16;
-
     private JLabel gameIcon;
     private JPanel iconJpanel;
     private JList scoreboardList;
     private JPanel scoreboardJpanel;
     private JCheckBoxMenuItem toggleSound;
-
-    private static int lastGamePanel = 0;
-    private static int xSizeLastValue = 8;
-    private static int ySizeLastValue = 8;
-
-    private final ThemeManagerJMenu themeManagerJMenu;
 
     public SelectSizeWindow() {
         add(rootPanel);

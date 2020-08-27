@@ -17,14 +17,6 @@ public class Coordinate {
         this(0, 0);
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
     public static Coordinate parseString(String s) {
         try {
             String[] temp = s.split("[:]");
@@ -32,6 +24,14 @@ public class Coordinate {
         } catch (Exception e) {
             throw new RuntimeException("Impossible to parse String " + s);
         }
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
     }
 
     @Override

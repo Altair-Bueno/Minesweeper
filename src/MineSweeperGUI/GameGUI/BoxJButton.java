@@ -26,20 +26,20 @@ public class BoxJButton extends JButton {
         this.coordinate = coordinate;
     }
 
-    public void setFlagged(boolean flagged) {
-        this.flagged = flagged;
-    }
-
     public boolean isFlagged() {
         return flagged;
     }
 
-    public void setDigged(boolean digged) {
-        this.digged = digged;
+    public void setFlagged(boolean flagged) {
+        this.flagged = flagged;
     }
 
     public boolean isDigged() {
         return digged;
+    }
+
+    public void setDigged(boolean digged) {
+        this.digged = digged;
     }
 
     @Override
@@ -49,12 +49,12 @@ public class BoxJButton extends JButton {
         }
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public Integer getValue() {
         return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public Coordinate getPosition() {

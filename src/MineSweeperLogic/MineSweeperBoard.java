@@ -43,6 +43,18 @@ public class MineSweeperBoard {
         this(size, size, numMines);
     }
 
+    private static <E> E getRandomWeighted(Map<E, ? extends Number> balancedObjects) {
+        double totalWeight = balancedObjects.values().stream().mapToInt(Number::intValue).sum(); // Java 8
+
+        double value = Math.random() * totalWeight, weight = 0;
+
+        for (Map.Entry<E, ? extends Number> e : balancedObjects.entrySet()) {
+            weight += e.getValue().doubleValue();
+            if (value < weight) return e.getKey();
+        }
+        throw new RuntimeException("Error on getRandomWeighted");
+    }
+
     private void plantWeightedMines(int x, int y) {
         Map<Coordinate, Double> weightMap = new HashMap<>();
 
@@ -81,19 +93,6 @@ public class MineSweeperBoard {
         }
         gameHasStarted = true;
     }
-
-    private static <E> E getRandomWeighted(Map<E, ? extends Number> balancedObjects) {
-        double totalWeight = balancedObjects.values().stream().mapToInt(Number::intValue).sum(); // Java 8
-
-        double value = Math.random() * totalWeight, weight = 0;
-
-        for (Map.Entry<E, ? extends Number> e : balancedObjects.entrySet()) {
-            weight += e.getValue().doubleValue();
-            if (value < weight) return e.getKey();
-        }
-        throw new RuntimeException("Error on getRandomWeighted");
-    }
-
 
     @Override
     public String toString() {

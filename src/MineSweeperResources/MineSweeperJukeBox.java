@@ -4,7 +4,8 @@ import javax.sound.sampled.*;
 import java.net.URL;
 
 public class MineSweeperJukeBox {
-    private static boolean playMusic=true;
+    private static boolean playMusic = true;
+
     public static Clip play(URL fileURL) {
         if (!playMusic) return null;
         try {
@@ -18,15 +19,17 @@ public class MineSweeperJukeBox {
             clip.start(); //starts the daemon thread
             return clip; //Returns the daemon thread
         } catch (Exception e) {
-            System.err.println("Couldn't play sound: "+"\n");
+            System.err.println("Couldn't play sound: " + "\n");
             e.printStackTrace();
         }
         return null;
     }
-    public static void toggleSoud(){
-        playMusic=!playMusic;
+
+    public static void toggleSoud() {
+        playMusic = !playMusic;
     }
-    public static boolean canPlayMusic(){
+
+    public static boolean canPlayMusic() {
         return playMusic;
     }
 }

@@ -1,13 +1,7 @@
-import MineSweeperResources.MineSweeperJukeBox;
-import MineSweeperResources.MineSweeperResourceManager;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.io.IOException;
 
 public class TestMain {
     /*
@@ -84,7 +78,7 @@ public class TestMain {
     private static void resizePreview(JPanel innerPanel, JPanel container) {
         int w = container.getWidth();
         int h = container.getHeight();
-        int size =  Math.min(w, h);
+        int size = Math.min(w, h);
         innerPanel.setPreferredSize(new Dimension(size, size));
         container.revalidate();
     }

@@ -10,18 +10,16 @@ public class ThemeManager {
 
     //Light theme
     public static final String LIGHT = "com.formdev.flatlaf.FlatLightLaf";
+    //Dracula theme
+    public static final String DRACULA = "com.formdev.flatlaf.FlatDarculaLaf";
+    //Purple theme
+    public static final String PURPLE = "com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme";
     private static final String[] LIGHT_COLORS = {"#000000", "#0000FF", "#3f9957", "#FF0000", "#f000ec", "#004A2F", "#916C80", "#eb9e10", "#ed0cc4", "#30BCED"};
     private static final Color LIGHT_BACKGROUND_UNDIGGED = Color.GRAY;
     private static final Color LIGHT_BACKGROUND_DIGGED = Color.WHITE;
-
-    //Dracula theme
-    public static final String DRACULA = "com.formdev.flatlaf.FlatDarculaLaf";
     private static final String[] DRACULA_COLORS = {"#FFFFFF", "#7876e3", "#c90c0c", "#e622cb", "#8c417d", "#004A2F", "#d49c61", "#bd6302", "#00f700", "#8f9c8f"};
     private static final Color DRACULA_BACKGROUND_UNDIGGED = new Color(0x7D7D7D);
     private static final Color DRACULA_BACKGROUND_DIGGED = new Color(0xC5C5C5);
-
-    //Purple theme
-    public static final String PURPLE = "com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme";
     private static final String[] PURPLE_COLORS = {"#000000", "#0000FF", "#3f9957", "#FF0000", "#801969", "#093827", "#916C80", "#eb9e10", "#664601", "#30BCED"};
     private static final Color PURPLE_BACKGROUND_UNDIGGED = new Color(0xB47EB3);
     private static final Color PURPLE_BACKGROUND_DIGGED = new Color(0xFFD5FF);

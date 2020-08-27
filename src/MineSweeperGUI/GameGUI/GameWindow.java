@@ -17,21 +17,18 @@ import java.util.Map;
 
 public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
+    private final Map<Coordinate, BoxJButton> gameButtonsMap;
+    private final ThemeManagerJMenu themeManagerJMenu;
+    private final JMenuItem newJMenu;
+    private final JCheckBoxMenuItem toggleSound;
     private JPanel rootPane;
     private JPanel statusPanel;
     private JLabel flagNumberJLabel;
     private JPanel gameButtons;
+    //private GameListener controlador;
     private JLabel time;
-
     private int clockTime;
     private boolean clockIsStopped;
-
-    private final Map<Coordinate, BoxJButton> gameButtonsMap;
-    //private GameListener controlador;
-
-    private final ThemeManagerJMenu themeManagerJMenu;
-    private final JMenuItem newJMenu;
-    private final JCheckBoxMenuItem toggleSound;
 
     public GameWindow(int rows, int columns) {
         add(rootPane);
@@ -44,7 +41,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         JMenu game = new JMenu(MineSweeperLanguageManager.getResourceBundle().getString("Game"));
         newJMenu = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("New_Game"));
         newJMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, MineSweeperPlatformManager.getMainKeyboardActionEvent()));
-        toggleSound=new JCheckBoxMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("ToggleSound"));
+        toggleSound = new JCheckBoxMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("ToggleSound"));
         toggleSound.setState(MineSweeperJukeBox.canPlayMusic());
 
         jMenuBar.add(game);
@@ -98,7 +95,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
                 int W = 1;
                 int H = 1;
                 Rectangle b = e.getComponent().getBounds();
-                e.getComponent().setBounds(b.x, b.y, b.width, b.width*H/W);
+                e.getComponent().setBounds(b.x, b.y, b.width, b.width * H / W);
             }
 
             @Override

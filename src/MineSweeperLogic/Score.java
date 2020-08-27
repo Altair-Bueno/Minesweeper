@@ -8,8 +8,8 @@ public class Score implements Comparable<Score> {
     private final int min;
     private final int sec;
 
-    public Score(int secElapsed){
-        this(null,secElapsed);
+    public Score(int secElapsed) {
+        this(null, secElapsed);
     }
 
     public Score(String size, int secElapsed) {
@@ -42,7 +42,7 @@ public class Score implements Comparable<Score> {
         if (hours != 0) stringJoiner.add(hours + "");
         if (min != 0) stringJoiner.add(min + "");
         stringJoiner.add(sec + "");
-        return (size==null? "":(size+ " in ")) + stringJoiner.toString();
+        return (size == null ? "" : (size + " in ")) + stringJoiner.toString();
     }
 
     @Override

@@ -7,11 +7,11 @@ import MineSweeperResources.MineSweeperResourceManager;
 import javax.swing.*;
 
 public class HelpJMenu extends JMenu {
+    private final JMenuItem help;
     /*
     Help menu on the minesweeper
      */
     private JMenuItem about;
-    private final JMenuItem help;
 
     public HelpJMenu() {
         super(MineSweeperLanguageManager.getResourceBundle().getString("Help"));
