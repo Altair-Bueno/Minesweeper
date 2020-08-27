@@ -16,4 +16,6 @@ public interface IGameWindow {
     int stopClock();
 
     void dispose();
+
+    void setMenuSoundToggle(boolean state);
 }

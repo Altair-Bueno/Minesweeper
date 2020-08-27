@@ -2,9 +2,7 @@ package MineSweeperGUI.SetSize;
 
 import MineSweeperGUI.Others.HelpJMenu;
 import MineSweeperGUI.Others.ThemeManagerJMenu;
-import MineSweeperResources.MineSweeperPlatformManager;
-import MineSweeperResources.MineSweeperResourceManager;
-import MineSweeperResources.MineSweeperScoreboard;
+import MineSweeperResources.*;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -32,6 +30,7 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     private JPanel iconJpanel;
     private JList scoreboardList;
     private JPanel scoreboardJpanel;
+    private JCheckBoxMenuItem toggleSound;
 
     private static int lastGamePanel = 0;
     private static int xSizeLastValue = 8;
@@ -54,6 +53,11 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
 
         JMenuBar jMenuBar = new JMenuBar();
         themeManagerJMenu = new ThemeManagerJMenu();
+        toggleSound = new JCheckBoxMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("ToggleSound"));
+        toggleSound.setState(MineSweeperJukeBox.canPlayMusic());
+        JMenu game = new JMenu(MineSweeperLanguageManager.getResourceBundle().getString("Game"));
+        game.add(toggleSound);
+        jMenuBar.add(game);
         jMenuBar.add(themeManagerJMenu);
         jMenuBar.add(new HelpJMenu());
 
@@ -88,10 +92,12 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
         play8x8.addActionListener(listener);
         play16x16.addActionListener(listener);
         playCustom.addActionListener(listener);
+        toggleSound.addActionListener(listener);
 
         play8x8.setActionCommand(SetSizeListener.EIGHT);
         play16x16.setActionCommand(SetSizeListener.SIXTEEN);
         playCustom.setActionCommand(SetSizeListener.CUSTOM);
+        toggleSound.setActionCommand(SetSizeListener.TOGGLESOUND);
 
         themeManagerJMenu.setActionListener(listener);
     }
@@ -100,6 +106,11 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     public void updateComponentTree() {
         SwingUtilities.updateComponentTreeUI(this);
         pack();
+    }
+
+    @Override
+    public void setMenuSoundToggle(boolean state) {
+        toggleSound.setState(state);
     }
 
     @Override

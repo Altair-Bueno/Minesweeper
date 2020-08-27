@@ -4,7 +4,9 @@ import javax.sound.sampled.*;
 import java.net.URL;
 
 public class MineSweeperJukeBox {
+    private static boolean playMusic=true;
     public static Clip play(URL fileURL) {
+        if (!playMusic) return null;
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(fileURL);
             AudioFormat format = audioStream.getFormat();
@@ -20,5 +22,11 @@ public class MineSweeperJukeBox {
             e.printStackTrace();
         }
         return null;
+    }
+    public static void toggleSoud(){
+        playMusic=!playMusic;
+    }
+    public static boolean canPlayMusic(){
+        return playMusic;
     }
 }

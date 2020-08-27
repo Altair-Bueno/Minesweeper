@@ -31,6 +31,7 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
     private final ThemeManagerJMenu themeManagerJMenu;
     private final JMenuItem newJMenu;
+    private final JCheckBoxMenuItem toggleSound;
 
     public GameWindow(int rows, int columns) {
         add(rootPane);
@@ -43,9 +44,13 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         JMenu game = new JMenu(MineSweeperLanguageManager.getResourceBundle().getString("Game"));
         newJMenu = new JMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("New_Game"));
         newJMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, MineSweeperPlatformManager.getMainKeyboardActionEvent()));
-        jMenuBar.add(themeManagerJMenu);
+        toggleSound=new JCheckBoxMenuItem(MineSweeperLanguageManager.getResourceBundle().getString("ToggleSound"));
+        toggleSound.setState(MineSweeperJukeBox.canPlayMusic());
+
         jMenuBar.add(game);
+        jMenuBar.add(themeManagerJMenu);
         game.add(newJMenu);
+        game.add(toggleSound);
         jMenuBar.add(new HelpJMenu());
         setJMenuBar(jMenuBar);
 
@@ -126,11 +131,12 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
             button.addActionListener(listener);
             button.addMouseListener(listener);
         }
-
+        toggleSound.addActionListener(listener);
         themeManagerJMenu.setActionListener(listener);
 
         newJMenu.addActionListener(listener);
         newJMenu.setActionCommand(GameListener.NEW);
+        toggleSound.setActionCommand(GameListener.TOGGLESOUND);
     }
 
     @Override
@@ -181,6 +187,11 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
     public int stopClock() {
         clockIsStopped = true;
         return clockTime;
+    }
+
+    @Override
+    public void setMenuSoundToggle(boolean state) {
+        toggleSound.setState(state);
     }
 
     //Game's clock code

@@ -16,6 +16,7 @@ public class SetSizeListener implements ActionListener {
     public static final String CUSTOM = "CUSTOM";
     public static final String EIGHT = "EIGHT";
     public static final String SIXTEEN = "SIXTEEN";
+    public static final String TOGGLESOUND= "SOUND";
 
     private final ISetSizeWindow window;
     private int xSize;
@@ -58,6 +59,9 @@ public class SetSizeListener implements ActionListener {
                     window.dispose();
                     semaphore.release();
                     break;
+                case TOGGLESOUND:
+                    MineSweeperJukeBox.toggleSoud();
+                    window.setMenuSoundToggle(MineSweeperJukeBox.canPlayMusic());
                 default:
                     if (command.contains(ThemeManager.THEME_MANAGER_PACKAGE_NAME)) {
                         ThemeManager.setTheme(command);

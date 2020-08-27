@@ -12,4 +12,6 @@ public interface ISetSizeWindow {
     void setListener(ActionListener listener);
 
     void updateComponentTree();
+
+    void setMenuSoundToggle(boolean state);
 }

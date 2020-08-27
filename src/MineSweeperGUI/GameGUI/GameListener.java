@@ -16,6 +16,7 @@ public class GameListener implements ActionListener, MouseListener {
     A GameListener instance is in charge of ActionEvents and MouseEvents on the main game window
      */
     public static final String NEW = "NEW";
+    public static final String TOGGLESOUND= "SOUND";
 
     private final IGameWindow window;
     private final MineSweeperBoard board;
@@ -38,6 +39,9 @@ public class GameListener implements ActionListener, MouseListener {
             Thread game = new Thread(new StartMineSweeper());
             game.start();
             window.dispose();
+        } else if(comand.equals(TOGGLESOUND)){
+            MineSweeperJukeBox.toggleSoud();
+            window.setMenuSoundToggle(MineSweeperJukeBox.canPlayMusic());
         } else {
             //ActionEvent on BoxJButton
             try {
