@@ -50,9 +50,9 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
         tabbedPane.setSelectedIndex(lastGamePanel);
 
 
-        scoreboardList.setListData(MineSweeperScoreboard.getScoreboard());
+        scoreboardList.setListData(Scoreboard.getScoreboard());
 
-        gameIcon.setIcon(new ImageIcon(ResourceManager.getResourceURL(ResourceManager.Icon.SMALLAPPICON)));
+        gameIcon.setIcon(new ImageIcon(Loader.getResourceURL(Loader.Icon.SMALLAPPICON)));
 
         JMenuBar jMenuBar = new JMenuBar();
         themeManagerJMenu = new ThemeManagerJMenu();
@@ -67,11 +67,11 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
         setJMenuBar(jMenuBar);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle(ResourceManager.getAPPNAME());
-        setName(ResourceManager.getAPPNAME());
+        setTitle(Loader.getAPPNAME());
+        setName(Loader.getAPPNAME());
 
         if (!Platform.isHostOSMac()) {
-            setIconImage(new ImageIcon(ResourceManager.getResourceURL(ResourceManager.Icon.APPICON)).getImage());
+            setIconImage(new ImageIcon(Loader.getResourceURL(Loader.Icon.APPICON)).getImage());
         }
 
         pack();

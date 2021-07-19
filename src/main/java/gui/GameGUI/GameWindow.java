@@ -5,7 +5,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import gui.Others.HelpJMenu;
 import gui.Others.ThemeManagerJMenu;
 import board.Coordinate;
-import board.MineSweeperBoard;
+import board.Board;
 import board.Score;
 import manager.*;
 
@@ -34,8 +34,8 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
 
     public GameWindow(int rows, int columns) {
         add(rootPane);
-        flagNumberJLabel.setIcon(new ImageIcon(ResourceManager.getResourceURL(ResourceManager.Icon.FLAGICON)));
-        time.setIcon(new ImageIcon(ResourceManager.getResourceURL(ResourceManager.Icon.CLOCKICON)));
+        flagNumberJLabel.setIcon(new ImageIcon(Loader.getResourceURL(Loader.Icon.FLAGICON)));
+        time.setIcon(new ImageIcon(Loader.getResourceURL(Loader.Icon.CLOCKICON)));
 
         //JMenubar code
         JMenuBar jMenuBar = new JMenuBar();
@@ -79,12 +79,12 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
         }
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle(ResourceManager.getAPPNAME());
-        setName(ResourceManager.getAPPNAME());
+        setTitle(Loader.getAPPNAME());
+        setName(Loader.getAPPNAME());
 
         //JFrame icon
         if (!Platform.isHostOSMac())
-            setIconImage(new ImageIcon(ResourceManager.getResourceURL(ResourceManager.Icon.APPICON)).getImage());
+            setIconImage(new ImageIcon(Loader.getResourceURL(Loader.Icon.APPICON)).getImage());
 
         //Start the clock
         Thread clockThread = new Thread(this);
@@ -152,15 +152,15 @@ public class GameWindow extends JFrame implements IGameWindow, Runnable {
             BoxJButton button = gameButtonsMap.get(coordinate);
             if (!hasPlayedSound) {
                 hasPlayedSound = true;
-                Jukebox.play(ResourceManager.getResourceURL(ResourceManager.SoundFiles.DIG_SOUND));
+                Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.DIG_SOUND));
             }
             button.setDigged(true);
             button.setBackground(Theme.getDiggedBackground());
             int value = changedVisibility.get(coordinate);
             button.setValue(value);
-            if (value == MineSweeperBoard.MINE) {
-                button.setIcon(new ImageIcon(ResourceManager.getResourceURL(ResourceManager.Icon.MINEICON)));
-            } else if (value > MineSweeperBoard.EMPTY) {
+            if (value == Board.MINE) {
+                button.setIcon(new ImageIcon(Loader.getResourceURL(Loader.Icon.MINEICON)));
+            } else if (value > Board.EMPTY) {
                 button.setText("<html><b><font size=5 color=" + Theme.getFontColors()[value] + ">" + value + "</font></b></html>");
             }
         }

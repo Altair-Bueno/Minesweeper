@@ -6,7 +6,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
 
-public class MineSweeperScoreboard {
+public class Scoreboard {
     private static final SortedSet<Score> scoreList = new TreeSet<>();
 
     public static void addScore(String size, Integer i) {

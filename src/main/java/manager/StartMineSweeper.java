@@ -6,7 +6,7 @@ import gui.GameGUI.IGameWindow;
 import gui.SetSize.ISetSizeWindow;
 import gui.SetSize.SelectSizeWindow;
 import gui.SetSize.SetSizeListener;
-import board.MineSweeperBoard;
+import board.Board;
 
 import java.util.concurrent.Semaphore;
 
@@ -30,8 +30,8 @@ public class StartMineSweeper implements Runnable {
 
         System.gc();
         IGameWindow gameWindow = new GameWindow(xSize, ySize);
-        MineSweeperBoard mineSweeperBoard = new MineSweeperBoard(xSize, ySize, numMines);
-        GameListener buttonControlador = new GameListener(gameWindow, mineSweeperBoard);
+        Board board = new Board(xSize, ySize, numMines);
+        GameListener buttonControlador = new GameListener(gameWindow, board);
         gameWindow.setListener(buttonControlador);
     }
 }

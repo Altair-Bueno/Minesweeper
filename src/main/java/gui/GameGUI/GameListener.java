@@ -2,7 +2,7 @@ package gui.GameGUI;
 
 import board.Coordinate;
 import board.GameOver;
-import board.MineSweeperBoard;
+import board.Board;
 import manager.*;
 
 import javax.swing.*;
@@ -19,9 +19,9 @@ public class GameListener implements ActionListener, MouseListener {
     public static final String TOGGLESOUND = "SOUND";
 
     private final IGameWindow window;
-    private final MineSweeperBoard board;
+    private final Board board;
 
-    public GameListener(IGameWindow window, MineSweeperBoard board) {
+    public GameListener(IGameWindow window, Board board) {
         this.window = window;
         this.board = board;
         window.setStatusPanel("<html><font size=6><b>" + board.getFlagNumber() + "</b></font></html>");
@@ -66,13 +66,13 @@ public class GameListener implements ActionListener, MouseListener {
             //Code used for flags
             BoxJButton button = (BoxJButton) e.getComponent();
             if (!button.isDigged()) {
-                Jukebox.play(ResourceManager.getResourceURL(ResourceManager.SoundFiles.FLAG_SOUND));
+                Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.FLAG_SOUND));
                 if (button.getIcon() != null) {
                     button.setIcon(null);
                     button.setFlagged(false);
                     board.removeFlag(button.getPosition());
                 } else {
-                    button.setIcon(new ImageIcon(ResourceManager.getResourceURL(ResourceManager.Icon.FLAGICON)));
+                    button.setIcon(new ImageIcon(Loader.getResourceURL(Loader.Icon.FLAGICON)));
                     button.setFlagged(true);
                     board.addFlag(button.getPosition());
                 }
@@ -94,14 +94,14 @@ public class GameListener implements ActionListener, MouseListener {
 
         if (over.getGameOverCode() == GameOver.GAMEWON) {
             //If the game is won
-            Jukebox.play(ResourceManager.getResourceURL(ResourceManager.SoundFiles.WIN_SOUND));
-            MineSweeperScoreboard.addScore(board.getNumColum() + "x" + board.getNumRow(), time);
+            Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.WIN_SOUND));
+            Scoreboard.addScore(board.getNumColum() + "x" + board.getNumRow(), time);
             int i = JOptionPane.showOptionDialog(
                     (JFrame) window, Language.getResourceBundle().getString("Play_again"), Language.getResourceBundle().getString("Win_message"),
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                    new ImageIcon(ResourceManager.getResourceURL(ResourceManager.Icon.CONFFETI)),
+                    new ImageIcon(Loader.getResourceURL(Loader.Icon.CONFFETI)),
                     options, null);
-            Jukebox.play(ResourceManager.getResourceURL(ResourceManager.SoundFiles.MENU_START_SOUND));
+            Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.MENU_START_SOUND));
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();
@@ -111,13 +111,13 @@ public class GameListener implements ActionListener, MouseListener {
             }
         } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
             //If the player hits a mine
-            Jukebox.play(ResourceManager.getResourceURL(ResourceManager.SoundFiles.LOOSE_SOUND));
+            Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.LOOSE_SOUND));
             int i = JOptionPane.showOptionDialog(
                     (JFrame) window, Language.getResourceBundle().getString("Play_again"), Language.getResourceBundle().getString("Mine_message"),
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                    new ImageIcon(ResourceManager.getResourceURL(ResourceManager.Icon.EXPLOSION)),
+                    new ImageIcon(Loader.getResourceURL(Loader.Icon.EXPLOSION)),
                     options, null);
-            Jukebox.play(ResourceManager.getResourceURL(ResourceManager.SoundFiles.MENU_START_SOUND));
+            Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.MENU_START_SOUND));
             if (i == JOptionPane.YES_OPTION) {
                 Thread game = new Thread(new StartMineSweeper());
                 game.start();

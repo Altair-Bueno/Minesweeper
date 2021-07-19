@@ -3,7 +3,7 @@ package board;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MineSweeperBoard {
+public class Board {
     /*
     Keeps track of the game board and interrupts the code execution with a GameOver exception
     if the game is over
@@ -26,7 +26,7 @@ public class MineSweeperBoard {
     private Map<Coordinate, Integer> changes;
 
     //Constructors
-    public MineSweeperBoard(int x, int y, int numMines) {
+    public Board(int x, int y, int numMines) {
         board = new int[x][y];
         isVisible = new boolean[x][y];
         isFlagged = new boolean[x][y];
@@ -39,7 +39,7 @@ public class MineSweeperBoard {
         changes = null;
     }
 
-    public MineSweeperBoard(int size, int numMines) {
+    public Board(int size, int numMines) {
         this(size, size, numMines);
     }
 

@@ -1,7 +1,7 @@
 package gui.SetSize;
 
 import manager.Jukebox;
-import manager.ResourceManager;
+import manager.Loader;
 import manager.Theme;
 
 import javax.swing.*;
@@ -36,7 +36,7 @@ public class SetSizeListener implements ActionListener {
         try {
             switch (command) {
                 case SIXTEEN:
-                    Jukebox.play(ResourceManager.getResourceURL(ResourceManager.SoundFiles.MENU_START_SOUND));
+                    Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.MENU_START_SOUND));
                     xSize = 16;
                     ySize = 16;
                     mines = 40;
@@ -44,7 +44,7 @@ public class SetSizeListener implements ActionListener {
                     semaphore.release();
                     break;
                 case EIGHT:
-                    Jukebox.play(ResourceManager.getResourceURL(ResourceManager.SoundFiles.MENU_START_SOUND));
+                    Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.MENU_START_SOUND));
                     xSize = 8;
                     ySize = 8;
                     mines = 10;
@@ -52,7 +52,7 @@ public class SetSizeListener implements ActionListener {
                     semaphore.release();
                     break;
                 case CUSTOM:
-                    Jukebox.play(ResourceManager.getResourceURL(ResourceManager.SoundFiles.MENU_START_SOUND));
+                    Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.MENU_START_SOUND));
                     xSize = window.getxSize();
                     ySize = window.getySize();
                     mines = (int) Math.round(xSize * ySize / 6.4);

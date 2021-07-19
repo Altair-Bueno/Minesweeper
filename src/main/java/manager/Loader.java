@@ -2,7 +2,7 @@ package manager;
 
 import java.net.URL;
 
-public class ResourceManager {
+public class Loader {
     private interface Resource {
         String getPath();
     }
