@@ -16,7 +16,7 @@ public class Loader {
         CONFFETI("icons/confetti.png");
         private final String path;
 
-        private Icon (String s) {
+        Icon(String s) {
             path = s;
         }
         @Override
@@ -29,7 +29,7 @@ public class Loader {
         HELP_PAGE ("htmldocs/Help.html");
         private final String path;
 
-        private HTMLDoc (String s) {
+        HTMLDoc(String s) {
             path = s;
         }
         @Override
@@ -46,7 +46,7 @@ public class Loader {
         FLAG_SOUND("sound/Flag_Deploy_Sound_1.wav");
         private final String path;
 
-        private SoundFiles (String s) {
+        SoundFiles(String s) {
             path = s;
         }
         @Override

@@ -17,9 +17,10 @@ public class MineSweeperMain {
             System.setProperty("apple.awt.graphics.EnableQ2DX", "true");
             System.setProperty("apple.laf.useScreenMenuBar", "true");
             System.setProperty("apple.awt.textantialiasing", "true");
-            Desktop.getDesktop().setQuitStrategy(QuitStrategy.NORMAL_EXIT);
+            System.setProperty("apple.eawt.quitStrategy", "CLOSE_ALL_WINDOWS");
             Desktop.getDesktop().setAboutHandler(e ->
-                    new HtmlViewer(Loader.getResourceURL(Loader.HTMLDoc.ABOUT_PAGE), Language.getResourceBundle().getString("About")));
+                    new HtmlViewer(Loader.getResourceURL(Loader.HTMLDoc.ABOUT_PAGE),
+                            Language.getResourceBundle().getString("About")));
             Application.getApplication().setDockIconImage(
                     new ImageIcon(Loader.getResourceURL(Loader.Icon.APPICON)).getImage());
         }

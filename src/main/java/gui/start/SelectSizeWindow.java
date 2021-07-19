@@ -39,7 +39,7 @@ public class SelectSizeWindow extends JFrame implements ISetSizeWindow {
     private JPanel iconJpanel;
     private JList scoreboardList;
     private JPanel scoreboardJpanel;
-    private JCheckBoxMenuItem toggleSound;
+    private final JCheckBoxMenuItem toggleSound;
 
     public SelectSizeWindow() {
         add(rootPanel);
