@@ -1,12 +1,12 @@
 package gui.board;
 
+import board.Board;
+import board.Coordinate;
+import board.Score;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import gui.extra.HelpJMenu;
 import gui.extra.ThemeManagerJMenu;
-import board.Coordinate;
-import board.Board;
-import board.Score;
 import manager.*;
 
 import javax.swing.*;

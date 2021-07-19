@@ -1,8 +1,8 @@
 package gui.board;
 
+import board.Board;
 import board.Coordinate;
 import board.GameOver;
-import board.Board;
 import manager.*;
 
 import javax.swing.*;

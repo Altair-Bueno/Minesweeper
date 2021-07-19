@@ -1,8 +1,8 @@
 package gui.extra;
 
 import manager.Language;
-import manager.Platform;
 import manager.Loader;
+import manager.Platform;
 
 import javax.swing.*;
 
