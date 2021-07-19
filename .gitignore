@@ -1,6 +1,7 @@
 .idea
 .settings
 target/
+Minesweeper.iml
 .classpath
 .project
 .DS_Store
