@@ -1,0 +1,29 @@
+package gui.Others;
+
+import manager.Language;
+import manager.Platform;
+import manager.ResourceManager;
+
+import javax.swing.*;
+
+public class HelpJMenu extends JMenu {
+    private final JMenuItem help;
+    /*
+    Help menu on the minesweeper
+     */
+    private JMenuItem about;
+
+    public HelpJMenu() {
+        super(Language.getResourceBundle().getString("Help"));
+        help = new JMenuItem(Language.getResourceBundle().getString("How_play"));
+        add(help);
+        help.addActionListener(e -> new HtmlViewer(ResourceManager.getResourceURL(ResourceManager.HTMLDoc.HELP_PAGE), Language.getResourceBundle().getString("Help")));
+
+        //Adds the about menu on the help
+        if (!Platform.isHostOSMac()) {
+            about = new JMenuItem(Language.getResourceBundle().getString("About"));
+            about.addActionListener(e -> new HtmlViewer(ResourceManager.getResourceURL(ResourceManager.HTMLDoc.ABOUT_PAGE), Language.getResourceBundle().getString("About")));
+            add(about);
+        }
+    }
+}
