@@ -1,4 +1,4 @@
-package gui.Others;
+package gui.extra;
 
 import manager.Language;
 import manager.Platform;

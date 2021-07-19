@@ -1,4 +1,4 @@
-package gui.SetSize;
+package gui.start;
 
 import java.awt.event.ActionListener;
 

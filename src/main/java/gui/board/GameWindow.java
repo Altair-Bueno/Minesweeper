@@ -1,9 +1,9 @@
-package gui.GameGUI;
+package gui.board;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import gui.Others.HelpJMenu;
-import gui.Others.ThemeManagerJMenu;
+import gui.extra.HelpJMenu;
+import gui.extra.ThemeManagerJMenu;
 import board.Coordinate;
 import board.Board;
 import board.Score;

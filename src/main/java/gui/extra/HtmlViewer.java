@@ -1,4 +1,4 @@
-package gui.Others;
+package gui.extra;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;

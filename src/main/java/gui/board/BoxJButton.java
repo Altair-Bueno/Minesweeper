@@ -1,4 +1,4 @@
-package gui.GameGUI;
+package gui.board;
 
 import board.Coordinate;
 

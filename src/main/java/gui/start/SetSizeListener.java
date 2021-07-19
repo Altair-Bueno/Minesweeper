@@ -1,4 +1,4 @@
-package gui.SetSize;
+package gui.start;
 
 import manager.Jukebox;
 import manager.Loader;

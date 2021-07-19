@@ -1,11 +1,11 @@
 package manager;
 
-import gui.GameGUI.GameListener;
-import gui.GameGUI.GameWindow;
-import gui.GameGUI.IGameWindow;
-import gui.SetSize.ISetSizeWindow;
-import gui.SetSize.SelectSizeWindow;
-import gui.SetSize.SetSizeListener;
+import gui.board.GameListener;
+import gui.board.GameWindow;
+import gui.board.IGameWindow;
+import gui.start.ISetSizeWindow;
+import gui.start.SelectSizeWindow;
+import gui.start.SetSizeListener;
 import board.Board;
 
 import java.util.concurrent.Semaphore;

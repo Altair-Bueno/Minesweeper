@@ -1,4 +1,4 @@
-import gui.Others.HtmlViewer;
+import gui.extra.HtmlViewer;
 import manager.*;
 import com.apple.eawt.Application;
 
