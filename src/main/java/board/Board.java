@@ -3,12 +3,11 @@ package board;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Keeps trak of the game board and interrupts the code execution with a GameOver exception
+ * if the game is over
+ */
 public class Board {
-    /*
-    Keeps track of the game board and interrupts the code execution with a GameOver exception
-    if the game is over
-    -1,0,1,2,3...8
-     */
 
     public static final int MINE = -1;
     public static final int EMPTY = 0;
@@ -108,11 +107,20 @@ public class Board {
         return stringBuilder.toString();
     }
 
-    //Game Dig
+    /**
+     * Digs the given cordinate
+     * @param coordinate Where to dig
+     * @throws GameOver if the game ends
+     */
     public void dig(Coordinate coordinate) {
         dig(coordinate.getRow(), coordinate.getColumn());
     }
-
+    /**
+     * Digs the given cordinate
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @throws GameOver if the game ends
+     */
     public void dig(int x, int y) {
         if (!gameHasStarted) plantWeightedMines(x, y);
         changes = new HashMap<>();

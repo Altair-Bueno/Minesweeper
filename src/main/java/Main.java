@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.desktop.QuitStrategy;
 
 
-public class MineSweeperMain {
+public class Main {
     public static void main(String[] args) {
         Theme.setTheme(Theme.getDefinedTheme());
 

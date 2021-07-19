@@ -1,9 +1,9 @@
 package board;
 
+/**
+ * Represents a coordinate on a game board
+ */
 public class Coordinate {
-    /*
-    An instance of Coordinate keeps track of positions on a grid
-     */
 
     private final int row;
     private final int column;
@@ -17,6 +17,12 @@ public class Coordinate {
         this(0, 0);
     }
 
+    /**
+     * Transforms the given string into a coordinate, if possible
+     * @param s string
+     * @return Coordinate
+     * @throws RuntimeException if the given string couldn't be parsed
+     */
     public static Coordinate parseString(String s) {
         try {
             String[] temp = s.split("[:]");
