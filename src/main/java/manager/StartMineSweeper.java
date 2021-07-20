@@ -15,7 +15,8 @@ public class StartMineSweeper implements Runnable {
     public void run() {
         Semaphore semaphore = new Semaphore(0);
         ISetSizeWindow setSizeWindow = new SelectSizeWindow();
-        SetSizeListener setSizeListener = new SetSizeListener(setSizeWindow, semaphore);
+        SetSizeListener setSizeListener =
+                new SetSizeListener(setSizeWindow, semaphore);
         setSizeWindow.setListener(setSizeListener);
 
         try {

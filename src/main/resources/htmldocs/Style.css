@@ -7,14 +7,15 @@ h1 {
     font-size: 1.7em;
 }
 
-h2{
-	font-size: 1.2em;
+h2 {
+    font-size: 1.2em;
 }
 
 
 #main {
     margin: 15px
 }
+
 img {
     display: block;
     margin-left: auto;

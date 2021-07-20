@@ -46,8 +46,13 @@ public class Board {
         this(size, size, numMines);
     }
 
-    private static <E> E getRandomWeighted(Map<E, ? extends Number> balancedObjects) {
-        double totalWeight = balancedObjects.values().stream().mapToInt(Number::intValue).sum(); // Java 8
+    private static <E> E getRandomWeighted
+            (Map<E, ? extends Number> balancedObjects) {
+        double totalWeight = balancedObjects
+                .values()
+                .stream()
+                .mapToInt(Number::intValue)
+                .sum();
 
         double value = Math.random() * totalWeight, weight = 0;
 
@@ -113,14 +118,17 @@ public class Board {
 
     /**
      * Digs the given cordinate
+     *
      * @param coordinate Where to dig
      * @throws GameOver if the game ends
      */
     public void dig(Coordinate coordinate) {
         dig(coordinate.getRow(), coordinate.getColumn());
     }
+
     /**
      * Digs the given cordinate
+     *
      * @param x X coordinate
      * @param y Y coordinate
      * @throws GameOver if the game ends

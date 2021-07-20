@@ -30,7 +30,10 @@ public class Score implements Comparable<Score> {
     public static Score parseScore(String size, String s) {
         try {
             String[] temp = s.split("[:]");
-            return new Score(size, Integer.parseInt(temp[0]), Integer.parseInt(temp[1]), Integer.parseInt(temp[3]));
+            int x = Integer.parseInt(temp[0]);
+            int y = Integer.parseInt(temp[1]);
+            int z = Integer.parseInt(temp[3]);
+            return new Score(size, x, y, z);
         } catch (Exception e) {
             throw new RuntimeException("Coulden't parse Score " + s);
         }
@@ -52,7 +55,7 @@ public class Score implements Comparable<Score> {
 
         Score score = (Score) o;
 
-        if (!size.equals(size)) return false;
+        if (!size.equals(score.size)) return false;
         if (hours != score.hours) return false;
         if (min != score.min) return false;
         return sec == score.sec;

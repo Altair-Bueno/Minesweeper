@@ -35,7 +35,9 @@ public class HtmlViewer {
             }
         });
         JScrollPane jScrollPane = new JScrollPane(jEditorPane);
-        jScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane.setHorizontalScrollBarPolicy(
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+        );
         JFrame about = new JFrame(title);
         about.add(jScrollPane);
         about.pack();

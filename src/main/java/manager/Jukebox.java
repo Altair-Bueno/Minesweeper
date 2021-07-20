@@ -9,7 +9,8 @@ public class Jukebox {
     public static Clip play(URL fileURL) {
         if (!playMusic) return null;
         try {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(fileURL);
+            AudioInputStream audioStream = AudioSystem
+                    .getAudioInputStream(fileURL);
             AudioFormat format = audioStream.getFormat();
             DataLine.Info info = new DataLine.Info(Clip.class, format);
 

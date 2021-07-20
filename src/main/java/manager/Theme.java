@@ -52,24 +52,24 @@ public class Theme {
     public static void setTheme(String s) {
         try {
             switch (s) {
-                case LIGHT:
+                case LIGHT -> {
                     actualTheme = LIGHT;
                     fontColors = LIGHT_COLORS;
                     undiggedBackground = LIGHT_BACKGROUND_UNDIGGED;
                     diggedBackground = LIGHT_BACKGROUND_DIGGED;
-                    break;
-                case DRACULA:
+                }
+                case DRACULA -> {
                     actualTheme = DRACULA;
                     fontColors = DRACULA_COLORS;
                     undiggedBackground = DRACULA_BACKGROUND_UNDIGGED;
                     diggedBackground = DRACULA_BACKGROUND_DIGGED;
-                    break;
-                case PURPLE:
+                }
+                case PURPLE -> {
                     actualTheme = PURPLE;
                     fontColors = PURPLE_COLORS;
                     undiggedBackground = PURPLE_BACKGROUND_UNDIGGED;
                     diggedBackground = PURPLE_BACKGROUND_DIGGED;
-                    break;
+                }
             }
             UIManager.setLookAndFeel(actualTheme);
         } catch (Exception e) {

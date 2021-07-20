@@ -19,6 +19,7 @@ public class Coordinate {
 
     /**
      * Transforms the given string into a coordinate, if possible
+     *
      * @param s string
      * @return Coordinate
      * @throws RuntimeException if the given string couldn't be parsed
@@ -26,7 +27,9 @@ public class Coordinate {
     public static Coordinate parseString(String s) {
         try {
             String[] temp = s.split("[:]");
-            return new Coordinate(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+            int x = Integer.parseInt(temp[0]);
+            int y = Integer.parseInt(temp[1]);
+            return new Coordinate(x, y);
         } catch (Exception e) {
             throw new RuntimeException("Impossible to parse String " + s);
         }

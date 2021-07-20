@@ -11,7 +11,8 @@ import java.util.concurrent.Semaphore;
 
 public class SetSizeListener implements ActionListener {
     /*
-    A SetSizeListener instance is in charge of ActionEvents on the SelectSizeWindow
+    A SetSizeListener instance is in charge of ActionEvents on the
+    SelectSizeWindow
     */
     public static final String CUSTOM = "CUSTOM";
     public static final String EIGHT = "EIGHT";
