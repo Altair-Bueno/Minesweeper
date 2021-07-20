@@ -2,7 +2,9 @@ package gui.board;
 
 import board.Board;
 import board.Coordinate;
-import board.GameOver;
+import board.gameover.GameOver;
+import board.gameover.GameWon;
+import board.gameover.MineFound;
 import manager.*;
 
 import javax.swing.*;
@@ -53,9 +55,12 @@ public class GameListener implements ActionListener, MouseListener {
                 }
                 window.setVisibility(board.getChanges());
                 board.checkWin();
-            } catch (GameOver over) {
+            } catch (GameWon w) {
                 window.setVisibility(board.getChanges());
-                gameOver(over);
+                gamewon();
+            }catch (MineFound m) {
+                window.setVisibility(board.getChanges());
+                gameover();
             }
         }
     }
@@ -81,50 +86,54 @@ public class GameListener implements ActionListener, MouseListener {
             //Check if the game has ended
             try {
                 board.checkWin();
-            } catch (GameOver over) {
-                gameOver(over);
+            }catch (MineFound m) {
+                gameover();
+            }catch (GameWon w) {
+                gamewon();
             }
         }
     }
+    private void gamewon(){
+        //If the game is won
+        int time = window.stopClock();
+        String[] options = {Language.getResourceBundle().getString("Yes"), Language.getResourceBundle().getString("No")};
 
-    private void gameOver(GameOver over) {
+        Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.WIN_SOUND));
+        Scoreboard.addScore(board.getNumColum() + "x" + board.getNumRow(), time);
+        int i = JOptionPane.showOptionDialog(
+                (JFrame) window, Language.getResourceBundle().getString("Play_again"), Language.getResourceBundle().getString("Win_message"),
+                JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(Loader.getResourceURL(Loader.Icon.CONFFETI)),
+                options, null);
+        Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.MENU_START_SOUND));
+        if (i == JOptionPane.YES_OPTION) {
+            Thread game = new Thread(new StartMineSweeper());
+            game.start();
+            window.dispose();
+        } else {
+            System.exit(0);
+        }
+    }
+
+    private void gameover() {
         //Execute this block of code when a GameOver exception launches
         int time = window.stopClock();
         String[] options = {Language.getResourceBundle().getString("Yes"), Language.getResourceBundle().getString("No")};
 
-        if (over.getGameOverCode() == GameOver.GAMEWON) {
-            //If the game is won
-            Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.WIN_SOUND));
-            Scoreboard.addScore(board.getNumColum() + "x" + board.getNumRow(), time);
-            int i = JOptionPane.showOptionDialog(
-                    (JFrame) window, Language.getResourceBundle().getString("Play_again"), Language.getResourceBundle().getString("Win_message"),
-                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                    new ImageIcon(Loader.getResourceURL(Loader.Icon.CONFFETI)),
-                    options, null);
-            Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.MENU_START_SOUND));
-            if (i == JOptionPane.YES_OPTION) {
-                Thread game = new Thread(new StartMineSweeper());
-                game.start();
-                window.dispose();
-            } else {
-                System.exit(0);
-            }
-        } else if (over.getGameOverCode() == GameOver.MINEFOUND) {
-            //If the player hits a mine
-            Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.LOOSE_SOUND));
-            int i = JOptionPane.showOptionDialog(
-                    (JFrame) window, Language.getResourceBundle().getString("Play_again"), Language.getResourceBundle().getString("Mine_message"),
-                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                    new ImageIcon(Loader.getResourceURL(Loader.Icon.EXPLOSION)),
-                    options, null);
-            Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.MENU_START_SOUND));
-            if (i == JOptionPane.YES_OPTION) {
-                Thread game = new Thread(new StartMineSweeper());
-                game.start();
-                window.dispose();
-            } else {
-                System.exit(0);
-            }
+        //If the player hits a mine
+        Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.LOOSE_SOUND));
+        int i = JOptionPane.showOptionDialog(
+                (JFrame) window, Language.getResourceBundle().getString("Play_again"), Language.getResourceBundle().getString("Mine_message"),
+                JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(Loader.getResourceURL(Loader.Icon.EXPLOSION)),
+                options, null);
+        Jukebox.play(Loader.getResourceURL(Loader.SoundFiles.MENU_START_SOUND));
+        if (i == JOptionPane.YES_OPTION) {
+            Thread game = new Thread(new StartMineSweeper());
+            game.start();
+            window.dispose();
+        } else {
+            System.exit(0);
         }
     }
 

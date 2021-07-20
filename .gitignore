@@ -1,8 +1,15 @@
+# IntelliJ
 .idea
-.settings
-target/
 Minesweeper.iml
+
+# Eclipse
+.settings
 .classpath
 .project
+
+# Build
+target/
+out/
+
+# macOS
 .DS_Store
-/out

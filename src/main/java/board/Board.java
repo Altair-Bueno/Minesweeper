@@ -1,5 +1,9 @@
 package board;
 
+import board.gameover.GameOver;
+import board.gameover.GameWon;
+import board.gameover.MineFound;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -126,12 +130,12 @@ public class Board {
         changes = new HashMap<>();
         showZone(x, y);
         if (board[x][y] == MINE)
-            throw new GameOver(GameOver.MINEFOUND);
+            throw new MineFound();
     }
 
     public void checkWin() {
         if (leftOver == numMines)
-            throw new GameOver(GameOver.GAMEWON);
+            throw new GameWon();
     }
 
     private void showZone(int x, int y) {
@@ -174,7 +178,7 @@ public class Board {
                     try {
                         showZone(i, u);
                         if (board[i][u] == MINE && !isFlagged[i][u])
-                            throw new GameOver(GameOver.MINEFOUND);
+                            throw new MineFound();
                     } catch (ArrayIndexOutOfBoundsException ignored) {
                     }
                 }
